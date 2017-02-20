@@ -8,7 +8,6 @@ include "../settings.inc.php";
 //
 $phplib = "$baseDir/../phplib";
 $htmlib = "$baseDir/../htmlib";
-
 // Loading php libraries
 require_once "$phplib/libraries.inc.php";
 

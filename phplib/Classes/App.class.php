@@ -47,7 +47,11 @@ class App {
         } else {
 	    $ext = '';
         }
-        $this->pathList = explode('/', str_replace($this->baseURL, '', parse_url($this->URI, PHP_URL_PATH)));
+	if ($this->baseURL == '/') {	
+	        $this->pathList = explode('/', parse_url($this->URI, PHP_URL_PATH));
+        } else {
+        	$this->pathList = explode('/', str_replace($this->baseURL, '', parse_url($this->URI, PHP_URL_PATH)));
+	}
         array_shift($this->pathList);
         if (!$this->pathList[0] or ( $this->pathList[0] == 'help')) {
             $this->help(); // Include Help web page (HTML)
