@@ -1,0 +1,19 @@
+<?php
+#
+# Fix base URL when running behind proxies, should point to public URL prefix
+# $baseURL = "/public_prefix"; 
+
+#
+# Mongo DB connection settings
+#   hostname: MongodB host:port
+#   userName & password required for mongoDB authentication. Read provileges required.             
+$MDB_hostname = "hostname[:port]";
+$MDB_userName = "mongoDBuser";
+$MDB_password = "mongoDBpasswd";
+
+# Data directories
+$DBMIRROR = '';
+$PDBData = $DBMIRROR .'';
+$ClusterData = $DBMIRROR .'';
+$UniprotData = $DBMIRROR .'';
+$EnzymeData = $DBMIRROR .'';
