@@ -42,7 +42,7 @@ class App {
         $this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);        
         $this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
         $ext = pathinfo($this->URI, PATHINFO_EXTENSION);
-        if (!preg_match('/\/files\//', $this->URI) and preg_match('/(gz|json|xml)/', $ext)) { // Hack to avoid get dotted ids (Enzyme) as extensions
+        if (!preg_match('/\/files\//', $this->URI) and preg_match('/(gz|json|xml|html|htm)/', $ext)) { // Hack to avoid get dotted ids (Enzyme) as extensions
             $this->URI = str_replace('.'.$ext,'',$this->URI);
         } else {
 	    $ext = '';
@@ -92,6 +92,10 @@ class App {
             $this->sendError([$dataStore, NOSTORE]);
         }
         $this->dataStore = new $this->dataStoreId();
+        if ($this->dataStore->classTemplate == "file") {
+            $this->dataStore->classTemplate = file_get_contents($GLOBALS['htmlib']."/templates/".$dataStore.".templ.html");
+        }
+        print_r($this->dataStore);
         $this->dataStore->currentPath = $this->currentPath;
         return $this;
     }
@@ -133,6 +137,10 @@ class App {
                     $outputDataType = TEXT;
                 }
                 
+                break;
+            case HTML: // Simple text (like PDB file)
+                $this->headerSet = ['Content-type: text/html'];
+                $outputDataType=HTML;
                 break;
             case CURSOR:
                 $outputDataType=CURSOR;

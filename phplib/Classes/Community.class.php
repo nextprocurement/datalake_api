@@ -24,6 +24,18 @@ class Community extends DataStore {
             'linkMain' => 'URL'
         ],
     ];
+    public $templateAllFields = [
+        'search' => [
+            '_id' => 'Acronym',
+            'name' => 'Name',
+            'status_id' => 'Status',
+            'description' => 'Description',
+            'linkMain' => 'URL'
+        ],
+    ];
+    
+    public $classTemplate = 'file';
+
     
     function getData($params) {
         return $this->checkData(getCommunityData($params->id,$params->extended), $params->id);
@@ -48,27 +60,40 @@ class Community extends DataStore {
         if (!isset($params->fields)) {
             $params->fields='';
         }
+        if (preg_match('/htm/',$params->fmt)) {
+            $this->template = new htmlTabTemplate();
+        } else {
+            $this->template = new TabTemplate();
+        }        
         switch ($params->fields) {
             case 'ids':
                 $params->fields = '_id';
-                $this->template = new TabTemplate(['_id' => 'Acronym']);
+                $this->template->setListFields(['_id' => 'Acronym']);
                 break;
             case 'all':
                  // TODO definir llista
                 break;
             case '':
                 $params->fields = "_id,name,status_id,description,linkMain";
-                $this->template = new TabTemplate($this->templateFieldDefaults['search']);
+                $this->template->setListFields($this->templateFieldDefaults['search']);
                 break;
             default:
-                $this->template = new TabTemplate();
-                $this->template->setListFields($params->fields);
+                $this->template->setListFields($this->templateAllFields);
         }        
         $dataOut = searchCommunity((array) $params);        
-        if (!isset($params->fmt) or ( $params->fmt == 'tab')) {
-            return [TEXT, $this->_formatTArray($params, $dataOut)];
-        } else {
-            return [STRUCT, ['Communities' => $dataOut]];
+        if (!isset($params->fmt)) {
+            $params->fmt='tab';
+        }
+        switch ($params->fmt) {
+            case 'tab':
+                return [TEXT, $this->_formatTArray($params, $dataOut)];
+                break;
+            case 'html':
+            case 'htm':
+                return [HTML, $this->_formatHTML($params, $dataOut,'tab')];
+                break;
+            default:
+                return [STRUCT, ['Communities' => $dataOut]];
         }
     }
 }
