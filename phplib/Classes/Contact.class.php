@@ -6,43 +6,39 @@
  * and open the template in the editor.
  */
 
-class Community extends DataStore {
+class Contact extends DataStore {
     
-    const StoreDescription = 'Benchmarking communities';
+    const StoreDescription = 'Benchmarking community contact';
 
-    public $baseXMLTag = 'Commmunity';
+    public $baseXMLTag = 'Contact';
     public $defaultOp = 'entry';
     public $addDefault = true;
     public $storeData = '';   
     
     public $templateFieldDefaults = [
         'search' => [
-            '_id' => 'Acronym',
-            'name' => 'Name',
-            'status_id' => 'Status',
-            'description' => 'Description',
-            'linkMain' => 'URL'
+            '_id' => 'Id',
+            'surname' => 'Surname',
+            'givenName' => 'Given Name',
+            'email' => 'Email',
+            'notes' => 'Notes'
         ],
     ];
     public $templateAllFields = [
-        'search' => [
-            '_id' => 'Acronym',
-            'name' => 'Name',
-            'status_id' => 'Status',
-            'description' => 'Description',
-            'linkMain' => 'URL'
-        ]
+            '_id' => 'Id',
+            'surname' => 'Surname',
+            'givenName' => 'Given Name',
+            'email' => 'Email',
+            'notes' => 'Notes',
     ];
     
     public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/Community/##_id##.html\">##_id##</a>",
+        '_id' => "<a href=\"##baseURL##/Contact/##_id##.html\">##_id##</a>",
+    ];
+    public $templateArrayLinks = [
+        'CommunityList' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>"
     ];
     
-    public $templateArrayLinks = [
-        'community_contacts' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
-        'BenchmarkingEventsList' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
-        'DatasetList' => "<a href=\"##baseURL##/Dataset/##item##.html\">##item##</a>",        
-    ];
     public $classTemplate = 'file';
 
     
@@ -50,7 +46,7 @@ class Community extends DataStore {
         if (!isset($params->extended)) {
             $params->extended=0;
         }
-        return $this->checkData(getCommunityData($params->id,$params->extended), $params->id);
+        return $this->checkData(getContactData($params->id,$params->extended), $params->id);
     }
     
     static function info($params) {
@@ -58,14 +54,14 @@ class Community extends DataStore {
             $params->fmt="json";
             $params->compact= false;
         }
-        $data['Description'] = Community::StoreDescription;        
-        $data['Data'] = getCommunityInfo();
+        $data['Description'] = Contact::StoreDescription;        
+        $data['Data'] = getContactInfo();
         return [STRUCT, $data];
     }
     
     function search($params) {
         if (!isset($params->queryOn)) {
-            $params->queryOn = ["name" => 1, "_id" => 1, "description" => 1, "community_contacts" => 1];
+            $params->queryOn = ["givenName" => 1, "_id" => 1, "surname" => 1, "notes" => 1];
         } else {
             $params->expand('queryOn', 'queryOn');
         }
@@ -80,19 +76,19 @@ class Community extends DataStore {
         switch ($params->fields) {
             case 'ids':
                 $params->fields = '_id';
-                $this->template->setListFields(['_id' => 'Acronym'],$this->templateLinks);
+                $this->template->setListFields(['_id' => 'Id'],$this->templateLinks);
                 break;
             case 'all':
                  // TODO definir llista
                 break;
             case '':
-                $params->fields = "_id,name,status_id,description,linkMain";
+                $params->fields = "_id,surname,givenName,email,notes";
                 $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
                 break;
             default:
                 $this->template->setListFields($this->templateAllFields,$this->templateLinks);
         }        
-        $dataOut = searchCommunity((array) $params);        
+        $dataOut = searchContact((array) $params);        
         if (!isset($params->fmt)) {
             $params->fmt='tab';
         }

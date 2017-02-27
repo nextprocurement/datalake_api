@@ -186,11 +186,11 @@ abstract class DataStore {
             case 'object':
                 $data['baseURL']=$GLOBALS['baseURL'];
                 // Replace selected fields by the appropriatelinks on arrays, single fields linksshoud be in the template
-                foreach (array_keys($this->templateLinks) as $k) {
+                foreach (array_keys($this->templateArrayLinks) as $k) {
                     if (is_array($data[$k])) {
                         $newArray=[];
                         for ($i=0;$i<count($data[$k]); $i++) {
-                            $newArray[] = str_replace('##item##',$data[$k][$i],$this->templateLinks[$k]);
+                            $newArray[] = str_replace('##item##',$data[$k][$i],$this->templateArrayLinks[$k]);
                         }
                         $data[$k] = $newArray;
                     }
