@@ -1,0 +1,94 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 26-feb-2017, 12:34:58
+    Author     : gelpi
+*/
+@font-face {
+      font-family: 'HelveticaNeueLT Pro';
+      src: url('http://elixir-europe.org/global/fonts/helveticaneueltprolt.eot');
+      src: url('http://elixir-europe.org/global/fonts/helveticaneueltprolt.eot?#iefix') format('embedded-opentype'),
+      url('http://elixir-europe.org/global/fonts/helveticaneueltprolt.otf') format('opentype'),
+      local('☺'),
+      url('http://elixir-europe.org/global/fonts/helveticaneueltprolt.woff') format('woff'),
+      url('http://elixir-europe.org/global/fonts/helveticaneueltprolt.ttf') format('truetype'),
+      url('http://elixir-europe.org/global/fonts/helveticaneueltprolt.svg#HelveticaNeueLTPro-Lt') format('svg');
+    font-weight: normal;
+    font-style: normal;
+  }
+body { background-color: rgb(255, 255, 255);
+        background-image: url(http://www.elixir-europe.org/global/images/pale_grey_slight_texture.jpg);
+        background-repeat: repeat;
+        background-attachment: scroll;
+        background-clip: border-box;
+        background-origin: padding-box;
+        background-position-x: left;
+        background-position-y: top;
+        background-size: auto auto;
+        font-family: Verdana, sans-serif;
+        margin: 0 auto;
+        width:96%;
+            color:#666
+}
+#ElixirHeader {
+    display: block;    
+    background-color: transparent;
+    background-image: url(http://elixir-europe.org/global/images/ELIXIR_Banner_splice.png);
+    background-repeat: repeat;
+    background-attachment: scroll;
+    background-clip: border-box;
+    background-origin: padding-box;
+    background-size: auto auto;
+    border-bottom: 3px solid #eee;
+    width: 100%;    
+}
+#ElixirHeader h1 {
+    color:#fff;
+    text-shadow: 1px 1px #666;
+    background: transparent;
+    text-decoration: none;
+    margin: 0px 0px 0px 10px;
+    padding: 10px;
+    letter-spacing: 3px;
+    font-size: 370%;
+    font-family: 'HelveticaNeueLT Pro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+    clear:both;
+    line-height: 1.2;
+
+
+}
+#ElixirHeader h2 {
+    color:#fff;
+    text-shadow: 1px 1px #666;
+    margin: 0 0 20px 24px;
+    padding: 0;
+    font-size: 182%;
+    font-family: 'HelveticaNeueLT Pro', 'Helvetica Neue', 'Helvetica', 'Arial', 'sans-serif';
+    clear:both;
+    line-height: 1.11;
+
+}
+
+.navbar {
+    margin-bottom: 0px;
+}
+
+#contents {
+    width:100%;
+    background-color: #fff;
+    min-height: 200px;
+}
+
+.footer {
+    margin: 10px auto;
+    background-color: #fff;
+}
+
+table {
+    width:90%;
+    
+    
+}
