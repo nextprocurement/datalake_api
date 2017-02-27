@@ -13,24 +13,8 @@ class TabTemplate {
     
     public function __construct ($fieldList = []) {
         $this->headerTempl = "#";
-//        if ($fieldList) {
-//            foreach ($fieldList as $f => $v) {
-//                $this->addField($f,$v);
-//            }
-//            $this->close();
-//        }
         return $this->setListFields($fieldList);
     }
-    
-//    public function setListFields ($fieldStr) {
-//        if ($fieldStr) {
-//            foreach (explode(',',str_replace(' ','',$fieldStr)) as $f) {
-//                $this->addField($f); // TODO Labels
-//            }
-//            $this->close();
-//        }
-//        return $this;
-//    }
     
     public function setListFields ($fieldList=[]) {
        if ($fieldList) {
@@ -68,27 +52,38 @@ class fastaTemplate extends TabTemplate {
 }
 
 class htmlTabTemplate extends TabTemplate {
-    public function __construct($fieldList = []) {
-        $this->headerTempl = "<table class=\"table table.striped table.hover\" id='##table_id##'><tr>";
-        if ($fieldList) {
+    public function __construct($fieldList = [], $custom = []) {
+        $this->headerTempl = "<div class=\"panel\"><h1>##title##</h1>\n<table class=\"table bgblank\" id='##table_id##'>\n<tr>\n";
+        $this->footerTempl="</tr>\n</table>\n</div>";
+        return $this->setListFields($fieldList, $custom);
+    }
+    
+    public function setListFields ($fieldList=[], $custom=[]) {
+       if ($fieldList) {
             foreach ($fieldList as $f => $v) {
-                $this->addField($f,$v);
+                if (!isset($custom[$f])) {
+                    $custom[$f]= '';
+                }
+                $this->addField($f,$v, $custom[$f]);
             }
             $this->close();
         }
-        $this->footerTempl="</tr></table>";
         return $this;
     }
-    public function addField ($field, $label='') {
+    public function addField ($field, $label='', $customTempl='') {
         if (!$label) {
             $label = $field;
         }
-        $this->headerTempl .= "<th>$label</th>";
-        $this->dataTempl .= "<td>##$field##</td>";
+        $this->headerTempl .= "<th>$label</th>\n";
+        if ($customTempl) {
+           $this->dataTempl.= "<td>$customTempl</td>";
+        } else {
+            $this->dataTempl .= "<td>##$field##</td>\n";
+        }
         return $this;
     }
     public function close() {
-        $this->headerTempl .= "</tr>";
+        $this->headerTempl .= "</tr>\n";
         $this->dataTempl .= "\n";
     }
 }

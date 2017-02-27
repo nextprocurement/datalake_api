@@ -46,6 +46,12 @@ function parseTemplate ($f, $txt, $indirFields='', $dateFields='', $incRec = Tru
     foreach (array_keys($f) as $k) {
         if (!is_array($f[$k])) {
             $txt = str_replace ("##$k##",$f[$k],$txt);
+        } elseif (isAssoc($f[$k])) {
+            foreach (array_keys($f[$k]) as $kk) {
+                $txt = str_replace("##$k.$kk##", $f[$k][$kk], $txt);
+            }
+        } else {
+            $txt = str_replace("##$k##", join (", ", $f[$k]), $txt);
         }
     }
     

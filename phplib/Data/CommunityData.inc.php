@@ -69,6 +69,18 @@ function getCommunityData($id, $extended = false) {
             $data[$colname . "s"] = $data1;
         }
     }
+    $data['BenchmarkingEventsList'] = [];
+    foreach ($data['BenchmarkingEvents'] as $be) {
+        $data['BenchmarkingEventsList'][] = $be['_id'];
+    }
+    $data['linksList'] = [];
+    foreach ($data['links'] as $lk) {
+        $data['linksList'][] = $lk['label'].": ".$lk['uri'];
+    }
+    $data['DatasetList'] = [];
+    foreach ($data['Datasets'] as $dts) {
+        $data['DatasetList'][] = $dts['_id'];
+    }
     if ($extended) {
         $contacts = [];
         foreach ($data['community_contacts'] as $contact) {

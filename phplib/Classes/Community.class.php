@@ -31,13 +31,23 @@ class Community extends DataStore {
             'status_id' => 'Status',
             'description' => 'Description',
             'linkMain' => 'URL'
-        ],
+        ]
+    ];
+    
+    public $templateLinks = [
+        '_id' => "<a href=\"##baseURL##/Community/##_id##.html\">##_id##</a>",
+        'community_contacts' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
+        'BenchmarkingEventsList' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
+        'DatasetList' => "<a href=\"##baseURL##/Dataset/##item##.html\">##item##</a>",        
     ];
     
     public $classTemplate = 'file';
 
     
     function getData($params) {
+        if (!isset($params->extended)) {
+            $params->extended=0;
+        }
         return $this->checkData(getCommunityData($params->id,$params->extended), $params->id);
     }
     
@@ -60,7 +70,7 @@ class Community extends DataStore {
         if (!isset($params->fields)) {
             $params->fields='';
         }
-        if (preg_match('/htm/',$params->fmt)) {
+        if (isset($params->fmt) and preg_match('/htm/',$params->fmt)) {
             $this->template = new htmlTabTemplate();
         } else {
             $this->template = new TabTemplate();
@@ -68,17 +78,17 @@ class Community extends DataStore {
         switch ($params->fields) {
             case 'ids':
                 $params->fields = '_id';
-                $this->template->setListFields(['_id' => 'Acronym']);
+                $this->template->setListFields(['_id' => 'Acronym'],$this->templateLinks);
                 break;
             case 'all':
                  // TODO definir llista
                 break;
             case '':
                 $params->fields = "_id,name,status_id,description,linkMain";
-                $this->template->setListFields($this->templateFieldDefaults['search']);
+                $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
                 break;
             default:
-                $this->template->setListFields($this->templateAllFields);
+                $this->template->setListFields($this->templateAllFields,$this->templateLinks);
         }        
         $dataOut = searchCommunity((array) $params);        
         if (!isset($params->fmt)) {

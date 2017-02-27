@@ -76,7 +76,7 @@ abstract class DataStore {
                 if (!$params->id) { //api/{store}/ Search
                     $this->output = $this->search($params);
                 } else { //api/{store}/{id}/op/
-                    if (method_exists($this, $this->currentPath[0])) { //next keyword is a valid method, go ahead
+                    if (count($this->currentPath) and method_exists($this, $this->currentPath[0])) { //next keyword is a valid method, go ahead
                         $op = array_shift($this->currentPath);
                     } else { //default methods
                         if (!$this->defaultOp) {
@@ -88,7 +88,7 @@ abstract class DataStore {
                             return $this;
                         }
                         $op = $this->defaultOp;
-                        if ($this->currentPath[0] == $op) { //remove defaultOp from URI, should never happen
+                        if (count($this->currentPath) and $this->currentPath[0] == $op) { //remove defaultOp from URI, should never happen
                             array_shift($this->currentPath);
                         }
                     }
@@ -105,7 +105,7 @@ abstract class DataStore {
         if (!isset($params->fmt)) {
             $params->fmt = 'json';
         }
-        if (!$this->currentPath[0]) { // Full Entry Fields
+        if (!count($this->currentPath) or !$this->currentPath[0]) { // Full Entry Fields
             if (isset($params->fields)) {
                 $data = selectArrayFields($data, $params->fields);
             }
@@ -176,17 +176,32 @@ abstract class DataStore {
         $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlHeader']));
         switch ($type) {
             case 'tab': 
-                $html .= parseTemplate([], $this->template->headerTempl);
+                $html .= parseTemplate(['title'=>$this->id,'table_id'=>$this->id], $this->template->headerTempl);
                 foreach ($data as $lin) {
-                    $html .= "<tr>".  setLinks(parseTemplate($lin, $this->template->dataTempl));
+                    $lin['baseURL'] = $GLOBALS['baseURL'];
+                    $html .= "<tr>\n". setLinks(parseTemplate($lin, $this->template->dataTempl))."</tr>\n";
                 }
+                $html.= parseTemplate([],$this->template->footerTempl);
                 break;
-                $html.=parseTemplate([],$this->template->footerTempl);
             case 'object':
+                $data['baseURL']=$GLOBALS['baseURL'];
+                // Replace selected fields by the appropriatelinks on arrays, single fields linksshoud be in the template
+                foreach (array_keys($this->templateLinks) as $k) {
+                    if (is_array($data[$k])) {
+                        $newArray=[];
+                        for ($i=0;$i<count($data[$k]); $i++) {
+                            $newArray[] = str_replace('##item##',$data[$k][$i],$this->templateLinks[$k]);
+                        }
+                        $data[$k] = $newArray;
+                    }
+                }
                 $html .= setLinks(parseTemplate($data, $this->classTemplate));
                 break;
         }
         $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlFooter']));
+        if ($type == 'tab') {
+            $html .= "\n<script type=\"text/javascript\">\n$(document).ready(function(){\n$('#".$this->id."').DataTable();\n});\n</script>\n";
+        }
         return $html;        
     }
 

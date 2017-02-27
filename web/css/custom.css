@@ -76,19 +76,11 @@ body { background-color: rgb(255, 255, 255);
     margin-bottom: 0px;
 }
 
-#contents {
-    width:100%;
-    background-color: #fff;
-    min-height: 200px;
-}
-
-.footer {
-    margin: 10px auto;
+.bgblank {
     background-color: #fff;
 }
 
-table {
-    width:90%;
-    
-    
+.footer{
+    background-color: #fff;
+    margin-top: 20px;
 }

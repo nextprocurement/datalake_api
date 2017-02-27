@@ -57,6 +57,10 @@ class App {
             $this->help(); // Include Help web page (HTML)
             exit;
         }
+        if ($this->pathList[0] == 'about') {
+            $this->about(); // Include About web page (HTML)
+            exit;
+        }
         // Capture QUERY_STRING parameters
         $this->params = new Parameters($_REQUEST);
         // recover formats and options from URI extensions
@@ -85,6 +89,10 @@ class App {
         include $GLOBALS['htmlib'] . "/help.inc.htm";
         exit;
     }
+    function about() {
+        include $GLOBALS['htmlib'] . "/about.inc.htm";
+        exit;
+    }
 
     function setDataStore($dataStore) {
         $this->dataStoreId = $dataStore;
@@ -95,7 +103,6 @@ class App {
         if ($this->dataStore->classTemplate == "file") {
             $this->dataStore->classTemplate = file_get_contents($GLOBALS['htmlib']."/templates/".$dataStore.".templ.html");
         }
-        print_r($this->dataStore);
         $this->dataStore->currentPath = $this->currentPath;
         return $this;
     }
