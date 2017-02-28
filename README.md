@@ -1,7 +1,8 @@
 # ELIXIRBenchmarking API v.0.1
 
 ### Introduction
-RESTful API to access ELIXIR Benchmarking data Store
+RESTful API to access ELIXIR Benchmarking data Store. Include HTML support allowing 
+web based browsing. HTML templates adapted to Elixir look.
 
 ### Dependencies
 
