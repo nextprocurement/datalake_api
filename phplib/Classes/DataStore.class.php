@@ -57,7 +57,8 @@ abstract class DataStore {
     }
 
     function processData($params) {
-        $params->id = array_shift($this->currentPath);
+//recover colon for prefixing escaped in App
+        $params->id = str_replace('__',':',array_shift($this->currentPath));
         switch ($params->id) {
             case 'info':
                 $this->output = $this->info($params);
@@ -185,7 +186,7 @@ abstract class DataStore {
                 break;
             case 'object':
                 $data['baseURL']=$GLOBALS['baseURL'];
-                // Replace selected fields by the appropriatelinks on arrays, single fields linksshoud be in the template
+                // Replace selected fields by the appropriatelinks on arrays, single fields links should be in the template
                 foreach (array_keys($this->templateArrayLinks) as $k) {
                     if (is_array($data[$k])) {
                         $newArray=[];

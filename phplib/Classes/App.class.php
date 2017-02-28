@@ -47,6 +47,8 @@ class App {
         } else {
 	    $ext = '';
         }
+        // Escape colon after prefixes on ids that look like ports :NN
+        $this->URI = str_replace(":","__", $this->URI);
 	if ($this->baseURL == '/') {	
 	        $this->pathList = explode('/', parse_url($this->URI, PHP_URL_PATH));
         } else {
