@@ -21,27 +21,29 @@ and open the template in the editor.
   }
 body { background-color: rgb(255, 255, 255);
         background-image: url(http://www.elixir-europe.org/global/images/pale_grey_slight_texture.jpg);
-        background-repeat: repeat;
+        background-repeat: none;
         background-attachment: scroll;
         background-clip: border-box;
         background-origin: padding-box;
-        background-position-x: left;
+        background-position-x: right;
         background-position-y: top;
         background-size: auto auto;
         font-family: Verdana, sans-serif;
         margin: 0 auto;
         width:96%;
-            color:#666
+            color:#666;
+        max-width: 1200px;
 }
 #ElixirHeader {
     display: block;    
-    background-color: transparent;
-    background-image: url(http://elixir-europe.org/global/images/ELIXIR_Banner_splice.png);
-    background-repeat: repeat;
+    background-color: #fd7f33;
+    background-image: url(http://www.elixir-europe.org/global/images/ELIXIR_headerimage2.jpg);
+    background-repeat: no-repeat;
     background-attachment: scroll;
     background-clip: border-box;
     background-origin: padding-box;
     background-size: auto auto;
+    background-position-x: right;
     border-bottom: 3px solid #eee;
     width: 100%;    
 }
@@ -80,7 +82,24 @@ body { background-color: rgb(255, 255, 255);
     background-color: #fff;
 }
 
+.nomargin {
+    margin:0;
+}
+
 .footer{
     background-color: #fff;
-    margin-top: 20px;
+    padding-top: 20px;
+}
+
+.bg-elixir {
+    background-color: #fd7f33;
+    color: #ffffff;
+}
+.quicklinks {
+    border-top: 1px #fd7f33 solid;
+    background-color: #d9edf7;
+}
+
+.paddingbottom20 {
+    padding: 0 0 20px 0;
 }

@@ -53,14 +53,19 @@ class App {
         	$this->pathList = explode('/', str_replace($this->baseURL, '', parse_url($this->URI, PHP_URL_PATH)));
 	}
         array_shift($this->pathList);
-        if (!$this->pathList[0] or ( $this->pathList[0] == 'help')) {
-            $this->help(); // Include Help web page (HTML)
+        if (!$this->pathList[0]) {
+            redirect($GLOBALS['baseURL']."/home.html");
             exit;
         }
-        if ($this->pathList[0] == 'about') {
-            $this->about(); // Include About web page (HTML)
+        if (preg_match('/(home|about)/', $this->pathList[0])) {
+            redirect($GLOBALS['baseURL']."/".$this->pathList[0].".htm");
             exit;
         }
+        if ($this->pathList[0] == 'help') {
+            return $this->help();
+            exit;
+        }
+
         // Capture QUERY_STRING parameters
         $this->params = new Parameters($_REQUEST);
         // recover formats and options from URI extensions
@@ -84,13 +89,9 @@ class App {
         $this->setDataStore(array_shift($this->currentPath)); 
         return $this;
     }
-
+    
     function help() {
         include $GLOBALS['htmlib'] . "/help.inc.htm";
-        exit;
-    }
-    function about() {
-        include $GLOBALS['htmlib'] . "/about.inc.htm";
         exit;
     }
 
