@@ -8,7 +8,7 @@
 
 class Dataset extends DataStore {
     
-    const StoreDescription = 'Benchmarking Dataset';
+    const StoreDescription = 'Benchmarking Datasets';
 
     public $baseXMLTag = 'Dataset';
     public $defaultOp = 'entry';

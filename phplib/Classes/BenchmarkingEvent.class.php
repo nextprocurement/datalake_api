@@ -8,7 +8,7 @@
 
 class BenchmarkingEvent extends DataStore {
     
-    const StoreDescription = 'Benchmarking Event';
+    const StoreDescription = 'Benchmarking Events';
 
     public $baseXMLTag = 'BenchmarkingEvent';
     public $defaultOp = 'entry';
@@ -55,15 +55,7 @@ class BenchmarkingEvent extends DataStore {
         return $this->checkData(getBenchmarkingEventData($params->id,$params->extended), $params->id);
     }
     
-    static function info($params) {
-        if (!isset($params->fmt)) {
-            $params->fmt="json";
-            $params->compact= false;
-        }
-        $data['Description'] = BenchmarkingEvent::StoreDescription;        
-        $data['Data'] = getBenchmarkingEventInfo();
-        return [STRUCT, $data];
-    }
+
     
     function search($params) {
         if (!isset($params->queryOn)) {

@@ -8,7 +8,7 @@
 
 class info extends DataStore {
 
-    const software = 'ELIXIR Benmarking Data Store';
+    const software = 'ELIXIR Benchmarking Data Store';
     const version = '0.1';
 
     public $baseXMLTag = 'ELIXIRBenchData';
@@ -20,7 +20,7 @@ class info extends DataStore {
         ];
         foreach ($GLOBALS['loadedClasses'] as $cl) {
             if (method_exists($cl, 'info')) {
-                $data[preg_replace('/s$/','s_',$cl)] = $cl::info()[1];
+                $data[preg_replace('/s$/','s_',$cl)] = $cl::info($params)[1];
             }
         }
         return [STRUCT,$data];

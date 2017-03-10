@@ -1,13 +1,17 @@
 <?php
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
+function getGenericInfo($dataStore) {
+    $data['Total'] = $GLOBALS['cols'][$dataStore]->count();
+    $data['lastUpdate'] = getUpdateDate($GLOBALS['cols'][$dataStore]);
+    return $data;
+}
 
-function searchBenchmarkingEvent($params) {
+function searchGeneric($dataStore,$params) {
     $cond = [];
 
     if (isset($params['query'])) {
@@ -35,18 +39,21 @@ function searchBenchmarkingEvent($params) {
 //print "</pre>";
 
     $sortA = [];
-    foreach ($GLOBALS['cols']['BenchmarkingEvent']->find($fcond, ['sort' => $sortA]) as $rs) {
+    foreach ($GLOBALS['cols'][$dataStore]->find($fcond, ['sort' => $sortA]) as $rs) {
         $results[] = $rs;
     }
     return $results;
 }
 
-function getBenchmarkingEventData($id, $extended = false) {
+function getDataGeneric($dataStore,$id, $extended = false) {
 
-    $data = $GLOBALS['cols']['BenchmarkingEvent']->findOne(['_id' => $id]);
-    
+    $data = $GLOBALS['cols'][$dataStore]->findOne(['_id' => $id]);
     foreach ($GLOBALS['cols']['Community']->find(['community_contacts' => $id],['projection'=>['_id'=>1]]) as $d) {
         $data['CommunityList'][]=$d['_id'];
+    }
+    $data['LinksList']=[];
+    foreach ($data['links'] as $l) {
+        $data['LinksList'][] = $l['label'].": ".$l['uri'];
     }
     return $data;
 }

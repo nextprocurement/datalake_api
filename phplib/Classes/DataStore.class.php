@@ -33,14 +33,22 @@ abstract class DataStore {
     }
     
     function getData($params) {
-        //placeholder for getting data form the DB;
-        $this->setError($this->id, NOTIMPLEMENTED);
-        return;
+        return getDataGeneric($this-id, $params->id);
     }
 
     function prepDataOutput($data) {
         //placeholder for getting formatting data if necessary;
         return $data;
+    }
+
+    static function info($params='') {
+        if (!isset($params->fmt)) {
+            $params->fmt="json";
+            $params->compact= false;
+        }
+        $data['Description'] = BenchmarkingEvent::StoreDescription;        
+        $data['Data'] = getGenericInfo('BenchmarkingEvent');
+        return [STRUCT, $data];
     }
 
     function checkData($data, $id) {
@@ -130,9 +138,49 @@ abstract class DataStore {
         }
     }
 
-    function search($params) {
-        $this->setError($this->id . " search", NOTIMPLEMENTED);
-        return;
+   function search($params) {
+        if (!isset($params->queryOn)) {
+            $params->queryOn = ["_id" => 1];
+        } else {
+            $params->expand('queryOn', 'queryOn');
+        }
+        if (!isset($params->fields)) {
+            $params->fields='';
+        }
+        if (isset($params->fmt) and preg_match('/htm/',$params->fmt)) {
+            $this->template = new htmlTabTemplate();
+        } else {
+            $this->template = new TabTemplate();
+        }        
+        switch ($params->fields) {
+            case 'ids':
+                $params->fields = '_id';
+                $this->template->setListFields(['_id' => 'Id'],$this->templateLinks);
+                break;
+            case 'all':
+                $params->fields = join (",",array_keys($this->templateAllFields));
+                $this->template->setListFields($this->templateAllFields,$this->templateLinks);
+                break;
+            default:
+                $params->fields = join (",",array_keys($this->templateFieldDefaults['search']));
+                $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
+                break;
+        }        
+        $dataOut = searchGeneric($this->id,(array) $params);        
+        if (!isset($params->fmt)) {
+            $params->fmt='tab';
+        }
+        switch ($params->fmt) {
+            case 'tab':
+                return [TEXT, $this->_formatTArray($params, $dataOut)];
+                break;
+            case 'html':
+            case 'htm':
+                return [HTML, $this->_formatHTML($params, $dataOut,'tab')];
+                break;
+            default:
+                return [STRUCT, [$baseXMLTag => $dataOut]];
+        }
     }
 
     function files($params) {

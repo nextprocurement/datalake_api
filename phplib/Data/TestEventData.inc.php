@@ -6,8 +6,13 @@
  * and open the template in the editor.
  */
 
+function getTestEventInfo() {
+    $data['Total'] = $GLOBALS['cols']['TestEvent']->count();
+    $data['lastUpdate'] = getUpdateDate($GLOBALS['cols']['TestEvent']);
+    return $data;
+}
 
-function searchBenchmarkingEvent($params) {
+function searchTestEvent($params) {
     $cond = [];
 
     if (isset($params['query'])) {
@@ -35,18 +40,21 @@ function searchBenchmarkingEvent($params) {
 //print "</pre>";
 
     $sortA = [];
-    foreach ($GLOBALS['cols']['BenchmarkingEvent']->find($fcond, ['sort' => $sortA]) as $rs) {
+    foreach ($GLOBALS['cols']['TestEvent']->find($fcond, ['sort' => $sortA]) as $rs) {
         $results[] = $rs;
     }
     return $results;
 }
 
-function getBenchmarkingEventData($id, $extended = false) {
+function getTestEventData($id, $extended = false) {
 
-    $data = $GLOBALS['cols']['BenchmarkingEvent']->findOne(['_id' => $id]);
-    
+    $data = $GLOBALS['cols']['TestEvent']->findOne(['_id' => $id]);
     foreach ($GLOBALS['cols']['Community']->find(['community_contacts' => $id],['projection'=>['_id'=>1]]) as $d) {
         $data['CommunityList'][]=$d['_id'];
+    }
+    $data['LinksList']=[];
+    foreach ($data['links'] as $l) {
+        $data['LinksList'][] = $l['label'].": ".$l['uri'];
     }
     return $data;
 }

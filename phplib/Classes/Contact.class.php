@@ -8,7 +8,7 @@
 
 class Contact extends DataStore {
     
-    const StoreDescription = 'Benchmarking community contact';
+    const StoreDescription = 'Benchmarking community contacts';
 
     public $baseXMLTag = 'Contact';
     public $defaultOp = 'entry';
