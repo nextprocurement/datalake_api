@@ -37,27 +37,16 @@ class Reference extends DataStore {
     ];
     
     public $classTemplate = 'file';
+    public $textQueryOn = ['_id'=>1,'title'=>1,'pubmed_id'=>1];
 
     function processId($params) { //fixing doi \/ as part of the id
+        print_r($this->currentPath);
+        if ($this->currentPath) { // Provisional
+            $params->id .= "/".join("/",$this->currentPath);
+        }
+        
         $params->id = str_replace('_','/',$params->id);
         return $params;
     }
     
-    function getData($params) {
-        if (!isset($params->extended)) {
-            $params->extended=0;
-        }
-        return $this->checkData(getReferenceData($params->id,$params->extended), $params->id);
-    }
-    
-    static function info($params) {
-        if (!isset($params->fmt)) {
-            $params->fmt="json";
-            $params->compact= false;
-        }
-        $data['Description'] = Reference::StoreDescription;        
-        $data['Data'] = getReferenceInfo();
-        return [STRUCT, $data];
-    }
-        
 }

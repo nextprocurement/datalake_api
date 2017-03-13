@@ -45,15 +45,7 @@ function searchGeneric($dataStore,$params) {
     return $results;
 }
 
-function getDataGeneric($dataStore,$id, $extended = false) {
-
+function getDataGeneric($dataStore,$id) {
     $data = $GLOBALS['cols'][$dataStore]->findOne(['_id' => $id]);
-    foreach ($GLOBALS['cols']['Community']->find(['community_contacts' => $id],['projection'=>['_id'=>1]]) as $d) {
-        $data['CommunityList'][]=$d['_id'];
-    }
-    $data['LinksList']=[];
-    foreach ($data['links'] as $l) {
-        $data['LinksList'][] = $l['label'].": ".$l['uri'];
-    }
     return $data;
 }

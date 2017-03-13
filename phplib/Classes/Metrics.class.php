@@ -38,21 +38,5 @@ class Metrics extends DataStore {
     
     public $classTemplate = 'file';
 
-    
-    function getData($params) {
-        if (!isset($params->extended)) {
-            $params->extended=0;
-        }
-        return $this->checkData(getMetricsData($params->id,$params->extended), $params->id);
-    }
-    
-    static function info($params) {
-        if (!isset($params->fmt)) {
-            $params->fmt="json";
-            $params->compact= false;
-        }
-        $data['Description'] = Metrics::StoreDescription;        
-        $data['Data'] = getMetricsInfo();
-        return [STRUCT, $data];
-    }
+    public $textQueryOn = ['_id'=>1,'title'=>1,'description'=>1];
 }

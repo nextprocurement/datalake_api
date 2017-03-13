@@ -32,24 +32,5 @@ class TestEvent extends DataStore {
     ];
     
     public $classTemplate = 'file';
-
     
-    function getData($params) {
-        if (!isset($params->extended)) {
-            $params->extended=0;
-        }
-        return $this->checkData(getTestEventData($params->id,$params->extended), $params->id);
-    }
-    
-    static function info($params) {
-        if (!isset($params->fmt)) {
-            $params->fmt="json";
-            $params->compact= false;
-        }
-        $data['Description'] = TestEvent::StoreDescription;        
-        $data['Data'] = getGenericInfo('TestEvent');
-        return [STRUCT, $data];
-    }
-    
-  
 }

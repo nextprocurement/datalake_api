@@ -43,24 +43,18 @@ class Tool extends DataStore {
     ];
     
     public $classTemplate = 'file';
+    
+    public $textQueryOn = ['_id'=>1,'name'=>1,'description'=>1,'status_id'=>1];
 
-    
-    function getData($params) {
-        if (!isset($params->extended)) {
-            $params->extended=0;
+    function getData ($params) {
+        $data = DataStore::getData($params);
+        if (preg_match('/htm/',$params->fmt) ) {
+            $data['accesslinkList']=[];
+            foreach ($data['tool_access'] as $lk) {
+                $data['accesslinkList'][] = $lk['tool_access_type_id'].": ".$lk['link'];
+            }
         }
-        return $this->checkData(getToolData($params->id,$params->extended), $params->id);
+        return $data;
     }
-    
-    static function info($params) {
-        if (!isset($params->fmt)) {
-            $params->fmt="json";
-            $params->compact= false;
-        }
-        $data['Description'] = Tool::StoreDescription;        
-        $data['Data'] = getToolInfo();
-        return [STRUCT, $data];
-    }
-    
    
 }

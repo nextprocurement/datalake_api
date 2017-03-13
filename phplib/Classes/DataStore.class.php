@@ -17,6 +17,7 @@ abstract class DataStore {
     public $templateFieldDefaults = [];
     public $templateAllFields = [];
     public $classTemplate = '';
+    public $textQueryOn=['_id'=>1];
 
     function __construct() {
         $this->id = get_class($this);
@@ -32,8 +33,12 @@ abstract class DataStore {
         $this->storeData = $dir;
     }
     
-    function getData($params) {
-        return getDataGeneric($this-id, $params->id);
+    function getData($params, $checkId=true) {
+        if ($checkId) {
+            return $this->checkData(getDataGeneric($this->id, $params->id),$params->id);
+        } else {
+            return getDataGeneric($this->id, $params->id);
+        }
     }
 
     function prepDataOutput($data) {
@@ -140,7 +145,7 @@ abstract class DataStore {
 
    function search($params) {
         if (!isset($params->queryOn)) {
-            $params->queryOn = ["_id" => 1];
+            $params->queryOn = $this->textQueryOn;
         } else {
             $params->expand('queryOn', 'queryOn');
         }

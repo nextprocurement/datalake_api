@@ -18,10 +18,12 @@ class ToolStatus extends DataStore {
     public $templateFieldDefaults = [
         'search' => [
             '_id' => 'Id',
+            'description' =>'Description'
         ],
     ];
     public $templateAllFields = [
             '_id' => 'Id',
+            'description' =>'Description'
     ];
     
     public $templateLinks = [
@@ -31,25 +33,6 @@ class ToolStatus extends DataStore {
         'CommunityList' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>"
     ];
     
-    public $classTemplate = 'file';
-
-    
-    function getData($params) {
-        if (!isset($params->extended)) {
-            $params->extended=0;
-        }
-        return $this->checkData(getToolStatusData($params->id,$params->extended), $params->id);
-    }
-    
-    static function info($params) {
-        if (!isset($params->fmt)) {
-            $params->fmt="json";
-            $params->compact= false;
-        }
-        $data['Description'] = ToolStatus::StoreDescription;        
-        $data['Data'] = getToolStatusInfo();
-        return [STRUCT, $data];
-    }
-    
+    public $textQueryOn = ['_id'=>1,'description'=>1];
  
 }
