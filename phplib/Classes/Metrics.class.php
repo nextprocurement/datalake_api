@@ -33,10 +33,29 @@ class Metrics extends DataStore {
     ];
     public $templateArrayLinks = [
         'metrics_contact_id' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
-        'references' => "<a href=\"##baseURL##/Reference/##item##.html\">##item##</a>"
+        'referencesList' => "<a href=\"##baseURL##/Reference/##item##.html\">##item##</a>"
     ];
     
     public $classTemplate = 'file';
 
     public $textQueryOn = ['_id'=>1,'title'=>1,'description'=>1];
+    
+    function getData($params) {
+        $data = parent::getData($params);
+        list($data['community_id'],$id) = explode(':',$data['_id']);
+        if (preg_match('/htm/',$params->fmt)) {
+            foreach ($data['references'] as $l) {
+                $data['referencesList'][] = $l;
+            }
+            foreach ($data['links'] as $l) {
+                $data['linksList'][] = $l['label'].": ". setLinks($l['uri']);
+            }
+        }
+        if (isset($params->extended) and $params->extended) {
+            $data['contacts'] = findArrayInDataStore('Contact', $data['metrics_contact_id']);
+            unset($data['metrics_contact_id']);
+            $data['references'] = findArrayInDataStore('Reference', $data['references']);
+        }
+        return $data;
+    }
 }

@@ -53,17 +53,7 @@ class Community extends DataStore {
         if (!isset($params->extended)) {
             $params->extended=0;
         }
-        return $this->checkData(getCommunityData($params->id,$params->extended), $params->id);
-    }
-    
-    static function info($params='') {
-        if (!isset($params->fmt)) {
-            $params->fmt="json";
-            $params->compact= false;
-        }
-        $data['Description'] = Community::StoreDescription;        
-        $data['Data'] = getCommunityInfo();
-        return [STRUCT, $data];
+        return $this->checkData(getCommunityData($params->id,$params->fmt,$params->extended), $params->id);
     }
     
 }

@@ -19,8 +19,11 @@ class info extends DataStore {
             'Version' => info::version
         ];
         foreach ($GLOBALS['loadedClasses'] as $cl) {
+            if (preg_match ('/(DataStore|info)/',$cl)) {
+                continue;
+            }
             if (method_exists($cl, 'info')) {
-                $data[preg_replace('/s$/','s_',$cl)] = $cl::info($params)[1];
+                $data[preg_replace('/s$/','s_',$cl)] = $cl::info($cl,$params)[1];
             }
         }
         return [STRUCT,$data];

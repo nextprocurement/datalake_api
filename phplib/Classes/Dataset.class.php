@@ -41,4 +41,12 @@ class Dataset extends DataStore {
     public $classTemplate = 'file';
     public $textQueryOn = ['_id'=>1,'name'=>1,'description'=>1];
     
+    function getData($params) {
+        $data = parent::getData($params);
+        if (isset($params->extended) and $params->extended) {
+            $data['contacts']=  findArrayInDataStore('Contact', $data['dataset_contact_id']);
+            $data['references'] = findArrayInDataStore('Reference', $data['references']);
+        }
+        return $data;
+    }
 }

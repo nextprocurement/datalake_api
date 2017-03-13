@@ -51,7 +51,21 @@ class Tool extends DataStore {
         if (preg_match('/htm/',$params->fmt) ) {
             $data['accesslinkList']=[];
             foreach ($data['tool_access'] as $lk) {
-                $data['accesslinkList'][] = $lk['tool_access_type_id'].": ".$lk['link'];
+                $data['accesslinkList'][] = $lk['tool_access_type_id'].": ".setLinks($lk['link']);
+            }
+        }
+        if (isset($params->extended) and $params->extended) {
+            foreach ([
+                'Community' => 'community_id',
+                'Contact' =>'tool_contact_id',
+                'Reference' => 'references'
+            ] as $col => $field) {
+                $data[$col] = findArrayInDataStore($col, $data[$field]);
+               unset($data[$field]);
+            }
+            foreach (['ToolStatus'=> 'status_id'] as $col=>$field) {
+                $data[$col] = getDataGeneric($col, $data[$field]);
+                unset($data[$field]);
             }
         }
         return $data;

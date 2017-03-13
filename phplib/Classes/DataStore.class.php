@@ -46,12 +46,12 @@ abstract class DataStore {
         return $data;
     }
 
-    static function info($params='') {
+    static function info($store='',$params='') {
         if (!isset($params->fmt)) {
             $params->fmt="json";
-            $params->compact= false;
+         //   $params->compact= false;
         }
-        $data['Description'] = BenchmarkingEvent::StoreDescription;        
+        $data['Description'] = $store::StoreDescription;        
         $data['Data'] = getGenericInfo('BenchmarkingEvent');
         return [STRUCT, $data];
     }
@@ -74,7 +74,7 @@ abstract class DataStore {
         $params->id = str_replace('__',':',array_shift($this->currentPath));
         switch ($params->id) {
             case 'info':
-                $this->output = $this->info($params);
+                $this->output = $this->info($this->id,$params);
                 break;
             case 'files':
                 if (!$this->storeData) {
@@ -249,7 +249,7 @@ abstract class DataStore {
                         $data[$k] = $newArray;
                     }
                 }
-                $html .= setLinks(parseTemplate($data, $this->classTemplate));
+                $html .= parseTemplate($data, $this->classTemplate);
                 break;
         }
         $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlFooter']));

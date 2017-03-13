@@ -49,3 +49,17 @@ function getDataGeneric($dataStore,$id) {
     $data = $GLOBALS['cols'][$dataStore]->findOne(['_id' => $id]);
     return $data;
 }
+
+function findInDataStore($dataStore,$query, $options) {
+    return $GLOBALS['cols'][$dataStore]->find($query,$options);
+}
+
+function findArrayInDataStore($dataStore,$idsArray) {
+   $data=[];
+   if (isset($idsArray)) {
+    foreach ($idsArray as $id) {
+           $data[] = getDataGeneric($dataStore,$id);
+    }
+   }
+   return $data;
+}

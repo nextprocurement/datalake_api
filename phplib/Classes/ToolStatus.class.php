@@ -34,5 +34,11 @@ class ToolStatus extends DataStore {
     ];
     
     public $textQueryOn = ['_id'=>1,'description'=>1];
+    
+    function getData($params) {
+        $data = parent::getData($params);
+        $data['Tools']= iterator_to_array(findInDataStore('Tool', ['status_id' => $data['_id']], ['projection'=>['_id']]));
+        return $data;
+    }
  
 }

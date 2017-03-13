@@ -49,4 +49,20 @@ class BenchmarkingEvent extends DataStore {
     
     public $textQueryOn=['_id'=>1, 'name'=> 1];
    
+    function getData($params) {
+        $data = parent::getData($params);
+        if (isset($params->extended) and $params->extended) {
+            $data['bench_contacts']=[];
+            foreach ($data['bench_contact_id'] as $c) {
+                $data['bench_contacts'][] = getDataGeneric('Contact', $c);
+            }
+            unset($data['bench_contact_id']);
+            $data['referencesList'] = [];
+            foreach ($data['references'] as $r) {
+                $data['referencesList'][] = getDataGeneric('Reference',$r);
+            }
+            unset ($data['references']);
+        }
+        return $data;
+    }
 }

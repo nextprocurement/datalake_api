@@ -25,10 +25,15 @@ function getGSFile($col, $fn) {
 }
 
 function getUpdateDate ($col, $stampfield='stamp') {
-    return date('d M Y', iterator_to_array(
+    $data = iterator_to_array(
             $col->find([],[
                 'projection'=>[$stampfield=>1,'_id'=>0],
                 'sort'=>[$stampfield=>-1],
-                'limit'=>1]))[0]['stamp']);
+                'limit'=>1]));
+    if ($data[0]) {
+        return date('d M Y', $data[0]['stamp']);
+    } else {
+        return '';
+    }
 }
 

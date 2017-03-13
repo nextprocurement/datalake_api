@@ -66,7 +66,7 @@ function xml_encode($mixed, $domElement = null, $DOMDocument = null) {
 }
 
 function setLinks ($a) {
-    $d = preg_replace('/(http:\/\/[^ |<]*)/',"<a href=\"\\1\">\\1</a>", $a);
+    $d = preg_replace('/(htt[p|ps]:\/\/[^ |<]*)/',"<a href=\"\\1\">\\1</a>", $a);
     return $d;
 }
 

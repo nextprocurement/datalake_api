@@ -18,12 +18,12 @@ class CommunityStatus extends DataStore {
     public $templateFieldDefaults = [
         'search' => [
             '_id' => 'Id',
-            'description', 'Description'
+            'description' => 'Description'
         ],
     ];
     public $templateAllFields = [
             '_id' => 'Id',
-            'description', 'Description'
+            'description' => 'Description'
     ];
     
     public $templateLinks = [
@@ -32,5 +32,11 @@ class CommunityStatus extends DataStore {
  
     public $templateArrayLinks = [
     ];
+    
+    function getData($params) {
+        $data = parent::getData($params);
+        $data['communities'] = iterator_to_array(findInDataStore('Community',['status_id' => $data['_id']], ['projection'=>['_id'=>1]]));
+        return $data;
+    }
         
 }
