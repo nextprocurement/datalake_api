@@ -1,0 +1,2232 @@
+<!doctype html>
+<html>
+    <head>
+        <title>ELIXIR Benchmarking platform. Data Store API</title>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <title>Elixir Benchmarking Platform</title>
+
+        <!-- Bootstrap -->
+        <link href="##baseURL##/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="##baseURL##/css/custom.css">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style type="text/css">
+            .app-desc {
+                clear: both;
+                margin-left: 20px;
+            }
+            .param-name {
+                width: 100%;
+            }
+            .license-info {
+                margin-left: 20px;
+            }
+
+            .license-url {
+                margin-left: 20px;
+            }
+
+            .model {
+                margin: 0 0 0px 20px;
+            }
+
+            .method {
+                margin-left: 20px;
+            }
+
+            .method-notes	{
+                margin: 10px 0 20px 0;
+                font-size: 90%;
+                color: #555;
+            }
+
+            pre {
+                padding: 10px;
+                margin-bottom: 2px;
+            }
+
+            .http-method {
+                text-transform: uppercase;
+            }
+
+            pre.get {
+                background-color: #0f6ab4;
+            }
+
+            pre.post {
+                background-color: #10a54a;
+            }
+
+            pre.put {
+                background-color: #c5862b;
+            }
+
+            pre.delete {
+                background-color: #a41e22;
+            }
+
+            .huge	{
+                color: #fff;
+            }
+
+            pre.example {
+                background-color: #f3f3f3;
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+
+            code {
+                white-space: pre;
+            }
+
+            .nickname {
+                font-weight: bold;
+            }
+
+            .method-path {
+                font-size: 1.5em;
+                background-color: #0f6ab4;
+            }
+
+            .up {
+                float:right;
+            }
+
+            .parameter {
+                width: 500px;
+            }
+
+            .param {
+                width: 500px;
+                padding: 10px 0 0 20px;
+                font-weight: bold;
+            }
+
+            .param-desc {
+                width: 700px;
+                padding: 0 0 0 20px;
+                color: #777;
+            }
+
+            .param-type {
+                font-style: italic;
+            }
+
+            .param-enum-header {
+                width: 700px;
+                padding: 0 0 0 60px;
+                color: #777;
+                font-weight: bold;
+            }
+
+            .param-enum {
+                width: 700px;
+                padding: 0 0 0 80px;
+                color: #777;
+                font-style: italic;
+            }
+
+            .field-label {
+                padding: 0;
+                margin: 0;
+                clear: both;
+            }
+
+            .field-items	{
+                padding: 0 0 15px 0;
+                margin-bottom: 15px;
+            }
+
+            .return-type {
+                clear: both;
+                padding-bottom: 10px;
+            }
+
+            .param-header {
+                font-weight: bold;
+            }
+
+            .method-tags {
+                text-align: right;
+            }
+
+            .method-tag {
+                background: none repeat scroll 0% 0% #24A600;
+                border-radius: 3px;
+                padding: 2px 10px;
+                margin: 2px;
+                color: #FFF;
+                display: inline-block;
+                text-decoration: none;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <nav class="navbar navbar-inverse">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="http://elixir-europe.org"><img src="http://www.elixir-europe.org/global/images/elixir-logo-transparent-ultrasmall.png" alt="Elixir"/></a>
+
+                    </div>
+                    <div id="navbar" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li class="active"><a href="home.htm">Home</a></li>
+                            <li><a href="Community/search.html">Benchmarking</a></li>
+                            <li><a href="/elixibilitas">Tools Monitoring</a></li>
+                            <li><a href="about">About</a></li>
+                        </ul>
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+            <div id="ElixirHeader">
+                <h1>ELIXIR</h1>
+                <h2>Benchmarking platform. Data Store API</h2>
+            </div>
+            <div class="panel">
+                <div class="app-desc">Access to ELXIR benchmarking data store</div>
+                <div class="app-desc">Version: 1.0.0</div>
+                <div class="app-desc">BasePath:/benchmarking</div>
+                <div class="license-info">All rights reserved</div>
+                <div class="license-url">http://apache.org/licenses/LICENSE-2.0.html</div>
+                <h2>Access</h2>
+
+                <h2><a name="__Methods">Methods</a></h2>
+                [ Jump to <a href="#__Models">Models</a> ]
+
+                <h3>Table of Contents </h3>
+                <div class="method-summary"></div>
+                <h4><a href="#Community">Community</a></h4>
+                <ul>
+                    <li><a href="#benchmarkingEventIdFmtGet"><code><span class="http-method">get</span> /BenchmarkingEvent/{id}.{fmt}</code></a></li>
+                    <li><a href="#communityFmtGet"><code><span class="http-method">get</span> /Community.{fmt}</code></a></li>
+                    <li><a href="#communityIdFmtGet"><code><span class="http-method">get</span> /Community/{id}.{fmt}</code></a></li>
+                    <li><a href="#communityStatusFmtGet"><code><span class="http-method">get</span> /CommunityStatus.{fmt}</code></a></li>
+                    <li><a href="#communityStatusIdFmtGet"><code><span class="http-method">get</span> /CommunityStatus/{id}.{fmt}</code></a></li>
+                </ul>
+                <h4><a href="#Contacts">Contacts</a></h4>
+                <ul>
+                    <li><a href="#contactFmtGet"><code><span class="http-method">get</span> /Contact.{fmt}</code></a></li>
+                    <li><a href="#contactIdFmtGet"><code><span class="http-method">get</span> /Contact/{id}.{fmt}</code></a></li>
+                </ul>
+                <h4><a href="#Datasets">Datasets</a></h4>
+                <ul>
+                    <li><a href="#datasetFmtGet"><code><span class="http-method">get</span> /Dataset.{fmt}</code></a></li>
+                    <li><a href="#datasetIdFmtGet"><code><span class="http-method">get</span> /Dataset/{id}.{fmt}</code></a></li>
+                    <li><a href="#metricsFmtGet"><code><span class="http-method">get</span> /Metrics.{fmt}</code></a></li>
+                    <li><a href="#metricsIdFmtGet"><code><span class="http-method">get</span> /Metrics/{id}.{fmt}</code></a></li>
+                </ul>
+                <h4><a href="#Events">Events</a></h4>
+                <ul>
+                    <li><a href="#benchmarkingEventFmtGet"><code><span class="http-method">get</span> /BenchmarkingEvent.{fmt}</code></a></li>
+                    <li><a href="#testEventFmtGet"><code><span class="http-method">get</span> /TestEvent.{fmt}</code></a></li>
+                    <li><a href="#testEventIdFmtGet"><code><span class="http-method">get</span> /TestEvent/{id}.{fmt}</code></a></li>
+                </ul>
+                <h4><a href="#Metrics">Metrics</a></h4>
+                <ul>
+                    <li><a href="#metricsFmtGet"><code><span class="http-method">get</span> /Metrics.{fmt}</code></a></li>
+                    <li><a href="#metricsIdFmtGet"><code><span class="http-method">get</span> /Metrics/{id}.{fmt}</code></a></li>
+                </ul>
+                <h4><a href="#References">References</a></h4>
+                <ul>
+                    <li><a href="#referenceFmtGet"><code><span class="http-method">get</span> /Reference.{fmt}</code></a></li>
+                    <li><a href="#referenceIdFmtGet"><code><span class="http-method">get</span> /Reference/{id}.{fmt}</code></a></li>
+                </ul>
+                <h4><a href="#Tools">Tools</a></h4>
+                <ul>
+                    <li><a href="#toolAccessTypeFmtGet"><code><span class="http-method">get</span> /ToolAccessType.{fmt}</code></a></li>
+                    <li><a href="#toolAccessTypeIdFmtGet"><code><span class="http-method">get</span> /ToolAccessType/{id}.{fmt}</code></a></li>
+                    <li><a href="#toolFmtGet"><code><span class="http-method">get</span> /Tool.{fmt}</code></a></li>
+                    <li><a href="#toolIdFmtGet"><code><span class="http-method">get</span> /Tool/{id}.{fmt}</code></a></li>
+                    <li><a href="#toolStatusFmtGet"><code><span class="http-method">get</span> /ToolStatus.{fmt}</code></a></li>
+                    <li><a href="#toolStatusIdFmtGet"><code><span class="http-method">get</span> /ToolStatus/{id}.{fmt}</code></a></li>
+                </ul>
+
+                <h1><a name="Community">Community</a></h1>
+                <div class="method"><a name="benchmarkingEventIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /BenchmarkingEvent/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">A benchmarking Event (<span class="nickname">benchmarkingEventIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a given benchmarking Event</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the Benchmarking Event </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#BenchmarkingEvent">BenchmarkingEvent</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "community_id" : "aeiou",
+  "references" : [ "aeiou" ],
+  "bench_contact_id" : [ "aeiou" ],
+  "is_automated" : true,
+  "_type" : "aeiou",
+  "name" : "aeiou",
+  "dates" : {
+    "benchmark_start" : "2000-01-23T04:56:07.000+00:00",
+    "benchmark_stop" : "2000-01-23T04:56:07.000+00:00",
+    "modification" : "2000-01-23T04:56:07.000+00:00",
+    "creation" : "2000-01-23T04:56:07.000+00:00"
+  },
+  "_id" : "aeiou",
+  "_version" : "aeiou",
+  "url" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Benchmarking Event object
+                    <a href="#BenchmarkingEvent">BenchmarkingEvent</a>
+                    <h4 class="field-label">404</h4>
+                    Event Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="communityFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Community.{fmt}</code></pre></div>
+                    <div class="method-summary">Benchmarking Communities (<span class="nickname">communityFmtGet</span>)</div>
+                    <div class="method-notes">Information about Benchmarking communitites affiliated at the platform</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#Community">Community</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "status_id" : [ "aeiou" ],
+  "community_contacts" : [ "aeiou" ],
+  "acronym" : "aeiou",
+  "_type" : "aeiou",
+  "name" : "aeiou",
+  "description" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Communities
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="communityIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Community/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">A benchmarking Community (<span class="nickname">communityIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a given benchmarking community</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the community </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#Community">Community</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "status_id" : [ "aeiou" ],
+  "community_contacts" : [ "aeiou" ],
+  "acronym" : "aeiou",
+  "_type" : "aeiou",
+  "name" : "aeiou",
+  "description" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Community object
+                    <a href="#Community">Community</a>
+                    <h4 class="field-label">404</h4>
+                    Community Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="communityStatusFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /CommunityStatus.{fmt}</code></pre></div>
+                    <div class="method-summary">Possible Status for Benchmarking Communities (<span class="nickname">communityStatusFmtGet</span>)</div>
+                    <div class="method-notes">Possible values for Benchmarking communitites statuses</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#CommunityStatus">CommunityStatus</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Communities Status
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="communityStatusIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /CommunityStatus/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Possible Status for Benchmarking Communities (<span class="nickname">communityStatusIdFmtGet</span>)</div>
+                    <div class="method-notes">Possible values for Benchmarking communitites statuses</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#CommunityStatus">CommunityStatus</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    Description of a Community Status
+                    <a href="#CommunityStatus">CommunityStatus</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <h1><a name="Contacts">Contacts</a></h1>
+                <div class="method"><a name="contactFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Contact.{fmt}</code></pre></div>
+                    <div class="method-summary">Contact persons (<span class="nickname">contactFmtGet</span>)</div>
+                    <div class="method-notes">Information about Contact personso from the Communities affiliated at the platform</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#Contact">Contact</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "notes" : "aeiou",
+  "surname" : [ "aeiou" ],
+  "givenName" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "_version" : "aeiou",
+  "email" : [ "aeiou" ]
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Benchmarking Events
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="contactIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Contact/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Contact Data (<span class="nickname">contactIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Contact</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the Contact (givenname.surname) </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#Contact">Contact</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "notes" : "aeiou",
+  "surname" : [ "aeiou" ],
+  "givenName" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "_version" : "aeiou",
+  "email" : [ "aeiou" ]
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Contact object
+                    <a href="#Contact">Contact</a>
+                    <h4 class="field-label">404</h4>
+                    Contact Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <h1><a name="Datasets">Datasets</a></h1>
+                <div class="method"><a name="datasetFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Dataset.{fmt}</code></pre></div>
+                    <div class="method-summary">Datasets involved in Benchmarking (<span class="nickname">datasetFmtGet</span>)</div>
+                    <div class="method-notes">Information about Datasets used in benchmarking</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#Dataset">Dataset</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "references" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "name" : "aeiou",
+  "description" : "aeiou",
+  "datalink" : "aeiou",
+  "dates" : {
+    "modification" : "2000-01-23T04:56:07.000+00:00",
+    "creation" : "2000-01-23T04:56:07.000+00:00"
+  },
+  "dataset_contact_id" : [ "aeiou" ],
+  "_id" : "aeiou",
+  "metrics" : [ {
+    "result" : "{}",
+    "metrics_id" : "aeiou"
+  } ],
+  "type" : "aeiou",
+  "_version" : "aeiou",
+  "version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Datasets
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="datasetIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Dataset/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Dataset Data (<span class="nickname">datasetIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Dataset</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the Dataset </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#Dataset">Dataset</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "references" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "name" : "aeiou",
+  "description" : "aeiou",
+  "datalink" : "aeiou",
+  "dates" : {
+    "modification" : "2000-01-23T04:56:07.000+00:00",
+    "creation" : "2000-01-23T04:56:07.000+00:00"
+  },
+  "dataset_contact_id" : [ "aeiou" ],
+  "_id" : "aeiou",
+  "metrics" : [ {
+    "result" : "{}",
+    "metrics_id" : "aeiou"
+  } ],
+  "type" : "aeiou",
+  "_version" : "aeiou",
+  "version" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Dataset object
+                    <a href="#Dataset">Dataset</a>
+                    <h4 class="field-label">404</h4>
+                    Dataset Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="metricsFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Metrics.{fmt}</code></pre></div>
+                    <div class="method-summary">Metrics used in benchmarking (<span class="nickname">metricsFmtGet</span>)</div>
+                    <div class="method-notes">Information about Metrics used by the Communities affiliated at the platform</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#Metrics">Metrics</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "metrics_contact_id" : [ "aeiou" ],
+  "formal_definition" : "aeiou",
+  "references" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "execution_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "data_schemas" : "aeiou",
+  "title" : "aeiou",
+  "_version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Metrics
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="metricsIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Metrics/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Metrics Data (<span class="nickname">metricsIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Metrics</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the Metric </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#Metrics">Metrics</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "metrics_contact_id" : [ "aeiou" ],
+  "formal_definition" : "aeiou",
+  "references" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "execution_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "data_schemas" : "aeiou",
+  "title" : "aeiou",
+  "_version" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Metrics object
+                    <a href="#Metrics">Metrics</a>
+                    <h4 class="field-label">404</h4>
+                    Metrics Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <h1><a name="Events">Events</a></h1>
+                <div class="method"><a name="benchmarkingEventFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /BenchmarkingEvent.{fmt}</code></pre></div>
+                    <div class="method-summary">Benchmarking Events (<span class="nickname">benchmarkingEventFmtGet</span>)</div>
+                    <div class="method-notes">Information about Benchmarking Events organized by Communitites affiliated at the platform</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#CommunityStatus">CommunityStatus</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Benchmarking Events
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="testEventFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /TestEvent.{fmt}</code></pre></div>
+                    <div class="method-summary">Test Events (input + tool -&gt; output) (<span class="nickname">testEventFmtGet</span>)</div>
+                    <div class="method-notes">Information about Performed tests</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#TestEvent">TestEvent</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "metadata" : "{}",
+  "_type" : "aeiou",
+  "tool_id" : "aeiou",
+  "result_report" : [ {
+    "status_date" : "2000-01-23T04:56:07.000+00:00",
+    "report" : "aeiou",
+    "status" : 123
+  } ],
+  "dates" : {
+    "reception" : "2000-01-23T04:56:07.000+00:00",
+    "modification" : "2000-01-23T04:56:07.000+00:00",
+    "creation" : "2000-01-23T04:56:07.000+00:00"
+  },
+  "_id" : "aeiou",
+  "output_dataset_id" : "aeiou",
+  "_version" : "aeiou",
+  "benchmarking_event_id" : "aeiou",
+  "input_dataset_id" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of TestEvents
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="testEventIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /TestEvent/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Test Event Data (<span class="nickname">testEventIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Test Event</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the TestEvent </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#TestEvent">TestEvent</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "metadata" : "{}",
+  "_type" : "aeiou",
+  "tool_id" : "aeiou",
+  "result_report" : [ {
+    "status_date" : "2000-01-23T04:56:07.000+00:00",
+    "report" : "aeiou",
+    "status" : 123
+  } ],
+  "dates" : {
+    "reception" : "2000-01-23T04:56:07.000+00:00",
+    "modification" : "2000-01-23T04:56:07.000+00:00",
+    "creation" : "2000-01-23T04:56:07.000+00:00"
+  },
+  "_id" : "aeiou",
+  "output_dataset_id" : "aeiou",
+  "_version" : "aeiou",
+  "benchmarking_event_id" : "aeiou",
+  "input_dataset_id" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a TestEvent object
+                    <a href="#TestEvent">TestEvent</a>
+                    <h4 class="field-label">404</h4>
+                    TestEvent Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <h1><a name="Metrics">Metrics</a></h1>
+                <div class="method"><a name="metricsFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Metrics.{fmt}</code></pre></div>
+                    <div class="method-summary">Metrics used in benchmarking (<span class="nickname">metricsFmtGet</span>)</div>
+                    <div class="method-notes">Information about Metrics used by the Communities affiliated at the platform</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#Metrics">Metrics</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "metrics_contact_id" : [ "aeiou" ],
+  "formal_definition" : "aeiou",
+  "references" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "execution_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "data_schemas" : "aeiou",
+  "title" : "aeiou",
+  "_version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Metrics
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="metricsIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Metrics/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Metrics Data (<span class="nickname">metricsIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Metrics</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the Metric </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#Metrics">Metrics</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "metrics_contact_id" : [ "aeiou" ],
+  "formal_definition" : "aeiou",
+  "references" : [ "aeiou" ],
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "execution_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "data_schemas" : "aeiou",
+  "title" : "aeiou",
+  "_version" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Metrics object
+                    <a href="#Metrics">Metrics</a>
+                    <h4 class="field-label">404</h4>
+                    Metrics Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <h1><a name="References">References</a></h1>
+                <div class="method"><a name="referenceFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Reference.{fmt}</code></pre></div>
+                    <div class="method-summary">References (<span class="nickname">referenceFmtGet</span>)</div>
+                    <div class="method-notes">Information about published references</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#Reference">Reference</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "pubmed_id" : 123,
+  "_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "abstract" : "aeiou",
+  "_version" : "aeiou",
+  "doi" : "aeiou",
+  "authors" : [ {
+    "surname" : [ "aeiou" ],
+    "givenName" : [ "aeiou" ],
+    "contact_id" : "aeiou"
+  } ]
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of References
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="referenceIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Reference/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Reference Data (<span class="nickname">referenceIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Reference</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the Reference (DOI) </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#Reference">Reference</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "pubmed_id" : 123,
+  "_type" : "aeiou",
+  "links" : [ {
+    "label" : "aeiou",
+    "uri" : "aeiou"
+  } ],
+  "_id" : "aeiou",
+  "abstract" : "aeiou",
+  "_version" : "aeiou",
+  "doi" : "aeiou",
+  "authors" : [ {
+    "surname" : [ "aeiou" ],
+    "givenName" : [ "aeiou" ],
+    "contact_id" : "aeiou"
+  } ]
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Reference object
+                    <a href="#Reference">Reference</a>
+                    <h4 class="field-label">404</h4>
+                    Reference Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <h1><a name="Tools">Tools</a></h1>
+                <div class="method"><a name="toolAccessTypeFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /ToolAccessType.{fmt}</code></pre></div>
+                    <div class="method-summary">Tool AccessTypes (<span class="nickname">toolAccessTypeFmtGet</span>)</div>
+                    <div class="method-notes">Information about Tool AccessTypes</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#ToolAccessType">ToolAccessType</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Tools AccessTypes
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="toolAccessTypeIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /ToolAccessType/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">ToolAccessType Data (<span class="nickname">toolAccessTypeIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Tool AccessType</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the ToolAccessType </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#ToolAccessType">ToolAccessType</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a ToolStatus object
+                    <a href="#ToolAccessType">ToolAccessType</a>
+                    <h4 class="field-label">404</h4>
+                    ToolAccessType Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="toolFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Tool.{fmt}</code></pre></div>
+                    <div class="method-summary">Tools (<span class="nickname">toolFmtGet</span>)</div>
+                    <div class="method-notes">Information about Tools</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+
+                        array[Tool]
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ "" ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Tools
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="toolIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /Tool/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">Tool Data (<span class="nickname">toolIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Tool</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the Tool </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+
+                        Tool
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>""</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a Tool object
+                    <a href="#Tool">Tool</a>
+                    <h4 class="field-label">404</h4>
+                    Tool Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="toolStatusFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /ToolStatus.{fmt}</code></pre></div>
+                    <div class="method-summary">Tool Statuses (<span class="nickname">toolStatusFmtGet</span>)</div>
+                    <div class="method-notes">Information about Tools Status</div>
+
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">query (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Text Search query </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        array[<a href="#ToolStatus">ToolStatus</a>]
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>[ {
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+} ]</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/xml</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/plain</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    An array of Tools Statuses
+
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+                <div class="method"><a name="toolStatusIdFmtGet"/>
+                    <div class="method-path">
+                        <a class="up" href="#__Methods">Up</a>
+                        <pre class="get"><code class="huge"><span class="http-method">get</span> /ToolStatus/{id}.{fmt}</code></pre></div>
+                    <div class="method-summary">ToolStatus Data (<span class="nickname">toolStatusIdFmtGet</span>)</div>
+                    <div class="method-notes">Info about a Tool Status</div>
+
+                    <h3 class="field-label">Path parameters</h3>
+                    <div class="field-items">
+                        <div class="param">id (required)</div>
+
+                        <div class="param-desc"><span class="param-type">Path Parameter</span> &mdash; Unique Id of the ToolStatus </div>
+                    </div>  <!-- field-items -->
+
+
+
+
+                    <h3 class="field-label">Query parameters</h3>
+                    <div class="field-items">
+                        <div class="param">fmtQuery (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Output format (tab, json, xml, html) </div><div class="param">extended (optional)</div>
+
+                        <div class="param-desc"><span class="param-type">Query Parameter</span> &mdash; Provide extended information by denormalizing internal ids </div>
+                    </div>  <!-- field-items -->
+
+
+                    <h3 class="field-label">Return type</h3>
+                    <div class="return-type">
+                        <a href="#ToolStatus">ToolStatus</a>
+
+                    </div>
+
+                    <!--Todo: process Response Object and its headers, schema, examples -->
+
+                    <h3 class="field-label">Example data</h3>
+                    <div class="example-data-content-type">Content-Type: application/json</div>
+                    <pre class="example"><code>{
+  "_type" : "aeiou",
+  "description" : "aeiou",
+  "_id" : "aeiou",
+  "_version" : "aeiou"
+}</code></pre>
+
+                    <h3 class="field-label">Produces</h3>
+                    This API call produces the following media types according to the <span class="header">Accept</span> request header;
+                    the media type will be conveyed by the <span class="heaader">Content-Type</span> response header.
+                    <ul>
+                        <li><code>application/json</code></li>
+                        <li><code>text/html</code></li>
+                        <li><code>text/xml</code></li>
+                    </ul>
+
+                    <h3 class="field-label">Responses</h3>
+                    <h4 class="field-label">200</h4>
+                    a ToolStatus object
+                    <a href="#ToolStatus">ToolStatus</a>
+                    <h4 class="field-label">404</h4>
+                    ToolStatus Id not found Error
+                    <a href="#Error">Error</a>
+                    <h4 class="field-label">0</h4>
+                    Unexpected error
+                    <a href="#Error">Error</a>
+                </div> <!-- method -->
+                <hr/>
+
+                <div class="up"><a href="#__Models">Up</a></div>
+                <h2><a name="__Models">Models</a></h2>
+                [ Jump to <a href="#__Methods">Methods</a> ]
+
+                <h3>Table of Contents</h3>
+                <ol>
+                    <li><a href="#benchmarkingEvent"><code>benchmarkingEvent</code></a></li>
+                    <li><a href="#community"><code>community</code></a></li>
+                    <li><a href="#communityStatus"><code>communityStatus</code></a></li>
+                    <li><a href="#Community_links"><code>Community_links</code></a></li>
+                    <li><a href="#contact"><code>contact</code></a></li>
+                    <li><a href="#Contact_links"><code>Contact_links</code></a></li>
+                    <li><a href="#dataset"><code>dataset</code></a></li>
+                    <li><a href="#Dataset_metrics"><code>Dataset_metrics</code></a></li>
+                    <li><a href="#Error"><code>Error</code></a></li>
+                    <li><a href="#metrics"><code>metrics</code></a></li>
+                    <li><a href="#Metrics_links"><code>Metrics_links</code></a></li>
+                    <li><a href="#reference"><code>reference</code></a></li>
+                    <li><a href="#Reference_authors"><code>Reference_authors</code></a></li>
+                    <li><a href="#Reference_links"><code>Reference_links</code></a></li>
+                    <li><a href="#Relevant dates for this benchmarking event"><code>Relevant dates for this benchmarking event</code></a></li>
+                    <li><a href="#Relevant dates for this dataset"><code>Relevant dates for this dataset</code></a></li>
+                    <li><a href="#Relevant dates for this test event"><code>Relevant dates for this test event</code></a></li>
+                    <li><a href="#testEvent"><code>testEvent</code></a></li>
+                    <li><a href="#TestEvent_result_report"><code>TestEvent_result_report</code></a></li>
+                    <li><a href="#tool"><code>tool</code></a></li>
+                    <li><a href="#Tool:"><code>Tool:</code></a></li>
+                    <li><a href="#toolAccessType"><code>toolAccessType</code></a></li>
+                    <li><a href="#toolStatus"><code>toolStatus</code></a></li>
+                    <li><a href="#Tool_tool_access"><code>Tool_tool_access</code></a></li>
+                </ol>
+
+                <div class="model">
+                    <h3 class="field-label"><a name="benchmarkingEvent">benchmarkingEvent - Benchmarking Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">BenchmarkingEvent</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">is_automated </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+                        <div class="param">dates (optional)</div><div class="param-desc"><span class="param-type"><a href="#Relevant dates for this benchmarking event">Relevant dates for this benchmarking event</a></span>  </div>
+                        <div class="param">url (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">community_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">bench_contact_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">references (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="community">community - Community concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">Community</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">acronym </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">status_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">links (optional)</div><div class="param-desc"><span class="param-type"><a href="#Community_links">array[Community_links]</a></span>  </div>
+                        <div class="param">community_contacts </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="communityStatus">communityStatus - Community Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">CommunityStatus</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Community_links">Community_links - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">uri </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">label </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">PublicationDOI</div><div class="param-enum">LinkedInGroup</div><div class="param-enum">MainSite</div><div class="param-enum">DataSite</div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="contact">contact - Contact concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">Contact</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">givenName </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">surname </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">email </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  format: email</div>
+                        <div class="param">notes (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">links (optional)</div><div class="param-desc"><span class="param-type"><a href="#Contact_links">array[Contact_links]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Contact_links">Contact_links - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">uri </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">label </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">PublicationDOI</div><div class="param-enum">LinkedIn</div><div class="param-enum">ORCID</div><div class="param-enum">MainSite</div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="dataset">dataset - Dataset concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">Dataset</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">dates (optional)</div><div class="param-desc"><span class="param-type"><a href="#Relevant dates for this dataset">Relevant dates for this dataset</a></span>  </div>
+                        <div class="param">type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">datalink (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">dataset_contact_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">metrics (optional)</div><div class="param-desc"><span class="param-type"><a href="#Dataset_metrics">array[Dataset_metrics]</a></span>  </div>
+                        <div class="param">references (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Dataset_metrics">Dataset_metrics - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">metrics_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">result (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">Object</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Error">Error - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">code (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  format: int32</div>
+                        <div class="param">message (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="metrics">metrics - Metrics concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">Metrics</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">title </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">metrics_contact_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">formal_definition (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">execution_type (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">data_schemas (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">links (optional)</div><div class="param-desc"><span class="param-type"><a href="#Metrics_links">array[Metrics_links]</a></span>  </div>
+                        <div class="param">references (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Metrics_links">Metrics_links - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">uri </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">label </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="reference">reference - Bibliographic reference concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">Reference</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">doi (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">pubmed_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+                        <div class="param">abstract (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">links (optional)</div><div class="param-desc"><span class="param-type"><a href="#Reference_links">array[Reference_links]</a></span>  </div>
+                        <div class="param">authors (optional)</div><div class="param-desc"><span class="param-type"><a href="#Reference_authors">array[Reference_authors]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Reference_authors">Reference_authors - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">givenName </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">surname </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">contact_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Reference_links">Reference_links - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">uri </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">label </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">PublicationDOI</div><div class="param-enum">LinkedInGroup</div><div class="param-enum">MainSite</div><div class="param-enum">DataSite</div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Relevant dates for this benchmarking event">Relevant dates for this benchmarking event - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">creation </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                        <div class="param">modification </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                        <div class="param">benchmark_start </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                        <div class="param">benchmark_stop </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Relevant dates for this dataset">Relevant dates for this dataset - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">creation </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                        <div class="param">modification </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Relevant dates for this test event">Relevant dates for this test event - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">creation </div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                        <div class="param">modification (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                        <div class="param">reception (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="testEvent">testEvent - Test Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">TestEvent</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">tool_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">input_dataset_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">output_dataset_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">benchmarking_event_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">result_report (optional)</div><div class="param-desc"><span class="param-type"><a href="#TestEvent_result_report">array[TestEvent_result_report]</a></span>  </div>
+                        <div class="param">dates (optional)</div><div class="param-desc"><span class="param-type"><a href="#Relevant dates for this test event">Relevant dates for this test event</a></span>  </div>
+                        <div class="param">metadata (optional)</div><div class="param-desc"><span class="param-type"><a href="#object">Object</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="TestEvent_result_report">TestEvent_result_report - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">status (optional)</div><div class="param-desc"><span class="param-type"><a href="#integer">Integer</a></span>  </div>
+                        <div class="param">status_date (optional)</div><div class="param-desc"><span class="param-type"><a href="#DateTime">Date</a></span>  format: date-time</div>
+                        <div class="param">report (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="tool">tool - Tool concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">Tool</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">bioTools_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">is_automated </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+                        <div class="param">community_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">tool_contact_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">status_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">references (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">tool_access </div><div class="param-desc"><span class="param-type"><a href="#Tool_tool_access">array[Tool_tool_access]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Tool:">Tool: - Tool concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">Tool</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">bioTools_id (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                        <div class="param">name </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">is_automated </div><div class="param-desc"><span class="param-type"><a href="#boolean">Boolean</a></span>  </div>
+                        <div class="param">community_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">tool_contact_id </div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">status_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">references (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">array[String]</a></span>  </div>
+                        <div class="param">tool_access </div><div class="param-desc"><span class="param-type"><a href="#Tool_tool_access">array[Tool_tool_access]</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="toolAccessType">toolAccessType - Tool Access Type concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">ToolAccessType</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="toolStatus">toolStatus - Tool Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)</a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">_type </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">ToolStatus</div>
+                        <div class="param">_version </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param-enum-header">Enum:</div>
+                        <div class="param-enum">0.2</div>
+                        <div class="param">description (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                    </div>  <!-- field-items -->
+                </div>
+                <div class="model">
+                    <h3 class="field-label"><a name="Tool_tool_access">Tool_tool_access - </a> <a class="up" href="#__Models">Up</a></h3>
+                    <div class='model-description'></div>
+                    <div class="field-items">
+                        <div class="param">tool_access_type_id </div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  </div>
+                        <div class="param">link (optional)</div><div class="param-desc"><span class="param-type"><a href="#string">String</a></span>  format: uri</div>
+                    </div>  <!-- field-items -->
+                </div>
