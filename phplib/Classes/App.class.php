@@ -93,7 +93,9 @@ class App {
     }
     
     function help() {
-        include $GLOBALS['htmlib'] . "/help.inc.htm";
+        $html = parseTemplate(['baseURL'=> $GLOBALS['baseURL']], file_get_contents($GLOBALS['htmlib']. "/API.inc.htm"));
+        $html .= parseTemplate(['baseURL'=> $GLOBALS['baseURL']], file_get_contents($GLOBALS['htmlib']. "/templates/footer.templ.htm"));
+        print $html;
         exit;
     }
 
