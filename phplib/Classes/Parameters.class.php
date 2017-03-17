@@ -22,4 +22,16 @@ class Parameters {
         $this->$compField=$d;
         return $this;
     }
+    function toQueryString($nofmt=true) {
+        $prmArray=[];
+        foreach (array_keys((array)$this) as $k) {
+            if ($nofmt and ($k=='fmt')) {
+                continue;
+            }
+            if (!is_array($this->$k)) {
+                $prmArray[] = "$k=".$this->$k;
+            }
+        }
+        return join ("&", $prmArray);
+    }
 }
