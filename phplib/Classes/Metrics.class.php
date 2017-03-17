@@ -40,7 +40,7 @@ class Metrics extends DataStore {
 
     public $textQueryOn = ['_id'=>1,'title'=>1,'description'=>1];
     
-    function getData($params) {
+    function getData($params, $checkId=true) {
         $data = parent::getData($params);
         list($data['community_id'],$id) = explode(':',$data['_id']);
         if (preg_match('/htm/',$params->fmt)) {

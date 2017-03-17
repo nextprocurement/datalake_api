@@ -39,7 +39,7 @@ class Contact extends DataStore {
     public $classTemplate = 'file';
     public $textQueryOn = ["givenName", "_id", "surname", "notes"];
 
-    function getData($params) {
+    function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if (isset($params->extended) and $params->extended) {
             foreach (

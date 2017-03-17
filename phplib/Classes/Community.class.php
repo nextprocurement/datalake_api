@@ -49,7 +49,7 @@ class Community extends DataStore {
     public $textQueryOn = ["name" => 1, "_id" => 1, "description" => 1, "community_contacts" => 1];
 
     
-    function getData($params) {
+    function getData($params, $checkId=true) {
         if (!isset($params->extended)) {
             $params->extended=0;
         }

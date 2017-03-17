@@ -2,6 +2,7 @@
 #
 $baseDir = pathinfo($_SERVER['SCRIPT_FILENAME'],PATHINFO_DIRNAME);
 $baseURL = pathinfo($_SERVER['SCRIPT_NAME'],PATHINFO_DIRNAME);
+$APIDocsURL = "$baseURL/APIDocs.php";
 //
 require_once "../vendor/autoload.php";
 include "../settings.inc.php";
