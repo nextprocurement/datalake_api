@@ -30,7 +30,7 @@ class TestEvent extends DataStore {
     ];
     public $classTemplate = 'file';
 
-    function getData($params) {
+    function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if (isset($params->extended)and $params->extended) {
             foreach (

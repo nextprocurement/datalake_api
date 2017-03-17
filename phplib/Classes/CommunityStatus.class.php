@@ -33,7 +33,7 @@ class CommunityStatus extends DataStore {
     public $templateArrayLinks = [
     ];
     
-    function getData($params) {
+    function getData($params, $checkId=true) {
         $data = parent::getData($params);
         $data['communities'] = iterator_to_array(findInDataStore('Community',['status_id' => $data['_id']], ['projection'=>['_id'=>1]]));
         return $data;

@@ -42,7 +42,7 @@ class App {
         $this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);        
         $this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
         $ext = pathinfo($this->URI, PATHINFO_EXTENSION);
-        if (!preg_match('/\/files\//', $this->URI) and preg_match('/(gz|json|xml|html|htm)/', $ext)) { // Hack to avoid get dotted ids (Enzyme) as extensions
+        if (!preg_match('/\/files\//', $this->URI) and preg_match('/(gz|json|xml|html|htm|tsv)/', $ext)) { // Hack to avoid get dotted ids (Enzyme) as extensions
             $this->URI = str_replace('.'.$ext,'',$this->URI);
         } else {
 	    $ext = '';
@@ -96,7 +96,7 @@ class App {
 //        $html = parseTemplate(['baseURL'=> $GLOBALS['baseURL']], file_get_contents($GLOBALS['htmlib']. "/API.inc.htm"));
 //        $html .= parseTemplate(['baseURL'=> $GLOBALS['baseURL']], file_get_contents($GLOBALS['htmlib']. "/templates/footer.templ.htm"));
 //        print $html;
-        header("Location: ".$GLOBALS['baseURL']."/APIDocs/");
+        header("Location: ".$GLOBALS['APIDocsURL']);
         exit;
     }
 

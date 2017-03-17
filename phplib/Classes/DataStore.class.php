@@ -173,18 +173,18 @@ abstract class DataStore {
         }        
         $dataOut = searchGeneric($this->id,(array) $params);        
         if (!isset($params->fmt)) {
-            $params->fmt='tab';
+            $params->fmt='tsv';
         }
         switch ($params->fmt) {
-            case 'tab':
+            case 'tsv':
                 return [TEXT, $this->_formatTArray($params, $dataOut)];
                 break;
             case 'html':
             case 'htm':
-                return [HTML, $this->_formatHTML($params, $dataOut,'tab')];
+                return [HTML, $this->_formatHTML($params, $dataOut,'tsv')];
                 break;
             default:
-                return [STRUCT, [$baseXMLTag => $dataOut]];
+                return [STRUCT, [$this->baseXMLTag => $dataOut]];
         }
     }
 
@@ -229,7 +229,7 @@ abstract class DataStore {
     protected function _formatHTML($params, $data, $type) {
         $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlHeader']));
         switch ($type) {
-            case 'tab': 
+            case 'tsv': 
                 $html .= parseTemplate(['title'=>$this->id,'table_id'=>$this->id], $this->template->headerTempl);
                 foreach ($data as $lin) {
                     $lin['baseURL'] = $GLOBALS['baseURL'];

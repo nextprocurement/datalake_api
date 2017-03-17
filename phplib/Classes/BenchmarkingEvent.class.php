@@ -49,7 +49,7 @@ class BenchmarkingEvent extends DataStore {
     
     public $textQueryOn=['_id'=>1, 'name'=> 1];
    
-    function getData($params) {
+    function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if (isset($params->extended) and $params->extended) {
             $data['bench_contacts']=[];

@@ -49,7 +49,7 @@ class Reference extends DataStore {
         return $params;
     }
     
-    function getData($params) {//TODO
+    function getData($params, $checkId=true) {//TODO
         $data = parent::getData($params);
         if (preg_match('/htm/',$params->fmt)) {
             foreach ($data['links'] as $l) {
