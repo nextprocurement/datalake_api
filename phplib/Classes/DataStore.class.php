@@ -234,7 +234,8 @@ abstract class DataStore {
         $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlHeader']));
         switch ($type) {
             case 'tsv': 
-                $html .= parseTemplate(['title'=>$this->id,'table_id'=>$this->id], $this->template->headerTempl);
+                $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL'], 'title'=>$this->id, 'table_id'=>$this->id, 'params'=>$params->toQueryString()], 
+                        $this->template->headerTempl);
                 foreach ($data as $lin) {
                     $lin['baseURL'] = $GLOBALS['baseURL'];
                     $html .= "<tr>\n". setLinks(parseTemplate($lin, $this->template->dataTempl))."</tr>\n";
