@@ -34,7 +34,7 @@ abstract class DataStore {
     }
     
     function getData($params, $checkId=true) {
-        if ($checkId) {
+          if ($checkId) {
             return $this->checkData(getDataGeneric($this->id, $params->id),$params->id);
         } else {
             return getDataGeneric($this->id, $params->id);
@@ -72,6 +72,10 @@ abstract class DataStore {
     function processData($params) {
 //recover colon for prefixing escaped in App
         $params->id = str_replace('__',':',array_shift($this->currentPath));
+        // Accept Boolean on extended
+        if ($params->extended and ($params->extended=='false')) {
+            $params->extended=0;
+        }
         switch ($params->id) {
             case 'info':
                 $this->output = $this->info($this->id,$params);
