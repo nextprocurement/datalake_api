@@ -1,2323 +1,2445 @@
 {
-  "swagger" : "2.0",
-  "info" : {
-    "description" : "Access to ELXIR benchmarking data store",
-    "version" : "1.0.0",
-    "title" : "ELIXIR Benchmarking platform. Data Store API"
-  },
-  "host" : "elixir.bsc.es",
-  "basePath" : "/benchmarking",
-  "schemes" : [ "https" ],
-  "produces" : [ "application/json", "text/html", "text/xml" ],
-  "paths" : {
-    "/Community.{fmt}" : {
-      "get" : {
-        "tags" : [ "Community" ],
-        "summary" : "Benchmarking Communities",
-        "description" : "Information about Benchmarking communitites affiliated at the platform",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Communities",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Community"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
+    "swagger": "2.0",
+    "info": {
+        "description": "Access to ELXIR benchmarking data store",
+        "version": "1.0.0",
+        "title": "ELIXIR Benchmarking platform. Data Store API"
     },
-    "/Community/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Community" ],
-        "summary" : "A benchmarking Community",
-        "description" : "Info about a given benchmarking community",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the community",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a Community object",
-            "schema" : {
-              "$ref" : "#/definitions/Community"
+    "host": "elixir.bsc.es",
+    "basePath": "/benchmarking",
+    "schemes": ["https"],
+    "produces": ["application/json", "text/html", "text/xml"],
+    "paths": {
+        "/Community": {
+            "get": {
+                "tags": ["Community"],
+                "summary": "Benchmarking Communities",
+                "description": "Information about Benchmarking communitites affiliated at the platform",
+                "produces": ["text/plain"],
+                "parameters": [
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of Communities",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Community"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
             }
-          },
-          "404" : {
-            "description" : "Community Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
+        },
+        "/Community.{fmt}": {
+            "get": {
+                "tags": ["Community"],
+                "summary": "Benchmarking Communities",
+                "description": "Information about Benchmarking communitites affiliated at the platform",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "An array of Communities",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Community"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
             }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
+        },
+        "/Community/{id}": {
+            "get": {
+                "tags": ["Community"],
+                "summary": "A benchmarking Community",
+                "description": "Info about a given benchmarking community",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the community",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "a Community object",
+                        "schema": {
+                            "$ref": "#/definitions/Community"
+                        }
+                    },
+                    "404": {
+                        "description": "Community Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error404"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
             }
-          }
+        },
+        "/Community/{id}.{fmt}": {
+            "get": {
+                "tags": ["Community"],
+                "summary": "A benchmarking Community",
+                "description": "Info about a given benchmarking community",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the community",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }
+                 ],
+                "responses": {
+                    "200": {
+                        "description": "a Community object",
+                        "schema": {
+                            "$ref": "#/definitions/Community"
+                        }
+                    },
+                    "404": {
+                        "description": "Community Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error404"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/CommunityStatus.{fmt}": {
+            "get": {
+                "tags": ["Community"],
+                "summary": "Possible Status for Benchmarking Communities",
+                "description": "Possible values for Benchmarking communitites statuses",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [
+                    {
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Communities Status",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CommunityStatus"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/CommunityStatus/{id}.{fmt}": {
+            "get": {
+                "tags": ["Community"],
+                "summary": "Possible Status for Benchmarking Communities",
+                "description": "Possible values for Benchmarking communitites statuses",
+                "produces": ["application/json", "text/xml", "text/html"],
+                "parameters": [{
+                        "$ref": "#/parameters/fmt"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Description of a Community Status",
+                        "schema": {
+                            "$ref": "#/definitions/CommunityStatus"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/BenchmarkingEvent.{fmt}": {
+            "get": {
+                "tags": ["Events"],
+                "summary": "Benchmarking Events",
+                "description": "Information about Benchmarking Events organized by Communitites affiliated at the platform",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Benchmarking Events",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/CommunityStatus"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/BenchmarkingEvent/{id}.{fmt}": {
+            "get": {
+                "tags": ["Community"],
+                "summary": "A benchmarking Event",
+                "description": "Info about a given benchmarking Event",
+                "parameters": [{
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the Benchmarking Event",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a Benchmarking Event object",
+                        "schema": {
+                            "$ref": "#/definitions/BenchmarkingEvent"
+                        }
+                    },
+                    "404": {
+                        "description": "Event Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Contact.{fmt}": {
+            "get": {
+                "tags": ["Contacts"],
+                "summary": "Contact persons",
+                "description": "Information about Contact personso from the Communities affiliated at the platform",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Benchmarking Events",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Contact"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Contact/{id}.{fmt}": {
+            "get": {
+                "tags": ["Contacts"],
+                "summary": "Contact Data",
+                "description": "Info about a Contact",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the Contact (givenname.surname)",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a Contact object",
+                        "schema": {
+                            "$ref": "#/definitions/Contact"
+                        }
+                    },
+                    "404": {
+                        "description": "Contact Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Dataset.{fmt}": {
+            "get": {
+                "tags": ["Datasets"],
+                "summary": "Datasets involved in Benchmarking",
+                "description": "Information about Datasets used in benchmarking",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Datasets",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Dataset"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Dataset/{id}.{fmt}": {
+            "get": {
+                "tags": ["Datasets"],
+                "summary": "Dataset Data",
+                "description": "Info about a Dataset",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the Dataset",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "$ref": "#/parameters/fmt"
+                    },
+                    {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a Dataset object",
+                        "schema": {
+                            "$ref": "#/definitions/Dataset"
+                        }
+                    },
+                    "404": {
+                        "description": "Dataset Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Metrics.{fmt}": {
+            "get": {
+                "tags": ["Metrics", "Datasets"],
+                "summary": "Metrics used in benchmarking",
+                "description": "Information about Metrics used by the Communities affiliated at the platform",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Metrics",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Metrics"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Metrics/{id}.{fmt}": {
+            "get": {
+                "tags": ["Metrics", "Datasets"],
+                "summary": "Metrics Data",
+                "description": "Info about a Metrics",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the Metric",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a Metrics object",
+                        "schema": {
+                            "$ref": "#/definitions/Metrics"
+                        }
+                    },
+                    "404": {
+                        "description": "Metrics Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Reference.{fmt}": {
+            "get": {
+                "tags": ["References"],
+                "summary": "References",
+                "description": "Information about published references",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of References",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Reference"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Reference/{id}.{fmt}": {
+            "get": {
+                "tags": ["References"],
+                "summary": "Reference Data",
+                "description": "Info about a Reference",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the Reference (DOI)",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a Reference object",
+                        "schema": {
+                            "$ref": "#/definitions/Reference"
+                        }
+                    },
+                    "404": {
+                        "description": "Reference Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/TestEvent.{fmt}": {
+            "get": {
+                "tags": ["Events"],
+                "summary": "Test Events (input + tool -> output)",
+                "description": "Information about Performed tests",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of TestEvents",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/TestEvent"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/TestEvent/{id}.{fmt}": {
+            "get": {
+                "tags": ["Events"],
+                "summary": "Test Event Data",
+                "description": "Info about a Test Event",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the TestEvent",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a TestEvent object",
+                        "schema": {
+                            "$ref": "#/definitions/TestEvent"
+                        }
+                    },
+                    "404": {
+                        "description": "TestEvent Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error404"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Tool.{fmt}": {
+            "get": {
+                "tags": ["Tools"],
+                "summary": "Tools",
+                "description": "Information about Tools",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Tools",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Tool"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/Tool/{id}.{fmt}": {
+            "get": {
+                "tags": ["Tools"],
+                "summary": "Tool Data",
+                "description": "Info about a Tool",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the Tool",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a Tool object",
+                        "schema": {
+                            "$ref": "#/definitions/Tool"
+                        }
+                    },
+                    "404": {
+                        "description": "Tool Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ToolStatus.{fmt}": {
+            "get": {
+                "tags": ["Tools"],
+                "summary": "Tool Statuses",
+                "description": "Information about Tools Status",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Tools Statuses",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ToolStatus"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ToolStatus/{id}.{fmt}": {
+            "get": {
+                "tags": ["Tools"],
+                "summary": "ToolStatus Data",
+                "description": "Info about a Tool Status",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the ToolStatus",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a ToolStatus object",
+                        "schema": {
+                            "$ref": "#/definitions/ToolStatus"
+                        }
+                    },
+                    "404": {
+                        "description": "ToolStatus Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ToolAccessType.{fmt}": {
+            "get": {
+                "tags": ["Tools"],
+                "summary": "Tool AccessTypes",
+                "description": "Information about Tool AccessTypes",
+                "produces": ["application/json", "text/xml", "text/html", "text/plain"],
+                "parameters": [{
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "query",
+                        "in": "query",
+                        "description": "Text Search query",
+                        "required": false,
+                        "type": "string"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "An array of Tools AccessTypes",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/ToolAccessType"
+                            }
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
+        },
+        "/ToolAccessType/{id}.{fmt}": {
+            "get": {
+                "tags": ["Tools"],
+                "summary": "ToolAccessType Data",
+                "description": "Info about a Tool AccessType",
+                "parameters": [{
+                        "name": "id",
+                        "in": "path",
+                        "description": "Unique Id of the ToolAccessType",
+                        "required": true,
+                        "type": "string"
+                    }, {
+                        "name": "fmtQuery",
+                        "in": "query",
+                        "description": "Output format (tab, json, xml, html)",
+                        "required": false,
+                        "type": "string"
+                    }, {
+                        "name": "extended",
+                        "in": "query",
+                        "description": "Provide extended information by denormalizing internal ids",
+                        "required": false,
+                        "type": "boolean"
+                    }],
+                "responses": {
+                    "200": {
+                        "description": "a ToolStatus object",
+                        "schema": {
+                            "$ref": "#/definitions/ToolAccessType"
+                        }
+                    },
+                    "404": {
+                        "description": "ToolAccessType Id not found Error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    },
+                    "default": {
+                        "description": "Unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/Error"
+                        }
+                    }
+                }
+            }
         }
-      }
     },
-    "/CommunityStatus.{fmt}" : {
-      "get" : {
-        "tags" : [ "Community" ],
-        "summary" : "Possible Status for Benchmarking Communities",
-        "description" : "Possible values for Benchmarking communitites statuses",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Communities Status",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/CommunityStatus"
-              }
+    "definitions": {
+        "Community": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "acronym", "community_contacts", "name", "status_id"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the community. It should be something unique of the community (for instance, an acronym)",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Community",
+                    "enum": ["Community"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short community name",
+                    "minLength": 1
+                },
+                "acronym": {
+                    "type": "string",
+                    "title": "Unique community acronym",
+                    "minLength": 1
+                },
+                "status_id": {
+                    "type": "array",
+                    "title": "_id(s) of the current community status(es)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long community name or description"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the community",
+                    "items": {
+                        "$ref": "#/definitions/Community_links"
+                    }
+                },
+                "community_contacts": {
+                    "type": "array",
+                    "title": "_id of the contacts of the responsible researchers in charge of the community coordination",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Community concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "BenchmarkingEvent": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "bench_contact_id", "community_id", "is_automated", "name"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the benchmarking event. If it is possible, it should be something meaningful, like an URL",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to BenchmarkingEvent",
+                    "enum": ["BenchmarkingEvent"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short benchmarking event name",
+                    "minLength": 1
+                },
+                "is_automated": {
+                    "type": "boolean",
+                    "title": "Is this an automated event?"
+                },
+                "dates": {
+                    "$ref": "#/definitions/Relevant dates for this benchmarking event"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The link to the benchmarking event"
+                },
+                "community_id": {
+                    "type": "string",
+                    "title": "The community id where this benchmarking event belongs",
+                    "minLength": 1
+                },
+                "bench_contact_id": {
+                    "type": "array",
+                    "title": "The benchmarking event contact id(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The benchmarking event reference id(s) (if any)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Benchmarking Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "Contact": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "email", "givenName", "surname"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the contact. It should be whatever ELIXIR AAI uses as public unique user id (for instance, a URI)",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Contact",
+                    "enum": ["Contact"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "givenName": {
+                    "type": "array",
+                    "title": "First / given name",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "surname": {
+                    "type": "array",
+                    "title": "Surname(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "email": {
+                    "type": "array",
+                    "title": "The e-mail address(es) of the contact",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "format": "email",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "notes": {
+                    "type": "string",
+                    "title": "Comments about the contact"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the contact",
+                    "items": {
+                        "$ref": "#/definitions/Contact_links"
+                    }
+                }
+            },
+            "title": "Contact concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "Dataset": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "dataset_contact_id", "name", "type", "version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the dataset. If it is possible, it should be something meaningful",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Dataset",
+                    "enum": ["Dataset"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short dataset name",
+                    "minLength": 1
+                },
+                "version": {
+                    "type": "string",
+                    "title": "Version (or relelase date) of the dataset",
+                    "minLength": 1
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long dataset description"
+                },
+                "dates": {
+                    "$ref": "#/definitions/Relevant dates for this dataset"
+                },
+                "type": {
+                    "type": "string",
+                    "title": "Type of dataset"
+                },
+                "datalink": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The link to the dataset itself"
+                },
+                "dataset_contact_id": {
+                    "type": "array",
+                    "title": "The contact id(s) of the creators of this dataset",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "metrics": {
+                    "type": "array",
+                    "title": "The different metrics generated from this dataset",
+                    "items": {
+                        "$ref": "#/definitions/Dataset_metrics"
+                    }
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The reference id(s) of this dataset (if any)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Dataset concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "CommunityStatus": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the community status. It should be something meaningful, like a short word or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to CommunityStatus",
+                    "enum": ["CommunityStatus"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Description of this community status"
+                }
+            },
+            "title": "Community Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "Metrics": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "metrics_contact_id", "title"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the metrics.",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Metrics",
+                    "enum": ["Metrics"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "title": {
+                    "type": "string",
+                    "title": "Short metrics name",
+                    "minLength": 1
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long metrics description"
+                },
+                "metrics_contact_id": {
+                    "type": "array",
+                    "title": "The contact id(s) of the creators of this metrics",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "formal_definition": {
+                    "type": "string",
+                    "title": "Formal definition of the metrics"
+                },
+                "execution_type": {
+                    "type": "string",
+                    "title": "Type of execution"
+                },
+                "data_schemas": {
+                    "type": "string",
+                    "title": "Data schemas"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the metrics",
+                    "items": {
+                        "$ref": "#/definitions/Metrics_links"
+                    }
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The metrics reference id(s) (if any)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Metrics concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "Reference": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the bibliographic reference. It should be something meaningful, like its DOI or its PubMedId",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Reference",
+                    "enum": ["Reference"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "doi": {
+                    "type": "string",
+                    "title": "The DOI of the referenced material (in case of books, its ISBN in ISBN-A DOI format)"
+                },
+                "pubmed_id": {
+                    "type": "integer",
+                    "title": "The PubMed id of the referenced material (if any)",
+                    "minimum": 1
+                },
+                "abstract": {
+                    "type": "string",
+                    "title": "Optionally, the abstract of the referenced material"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the bibliographic reference",
+                    "items": {
+                        "$ref": "#/definitions/Reference_links"
+                    }
+                },
+                "authors": {
+                    "type": "array",
+                    "title": "Optional list of authors of the referenced material",
+                    "items": {
+                        "$ref": "#/definitions/Reference_authors"
+                    }
+                }
+            },
+            "title": "Bibliographic reference concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "TestEvent": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "benchmarking_event_id", "input_dataset_id", "tool_id"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the test event.",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to TestEvent",
+                    "enum": ["TestEvent"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "tool_id": {
+                    "type": "string",
+                    "title": "The tool id which takes this input dataset",
+                    "minLength": 1
+                },
+                "input_dataset_id": {
+                    "type": "string",
+                    "title": "The id of the input dataset",
+                    "minLength": 1
+                },
+                "output_dataset_id": {
+                    "type": "string",
+                    "title": "The id of the output dataset (if available)",
+                    "minLength": 1
+                },
+                "benchmarking_event_id": {
+                    "type": "string",
+                    "title": "The id of the benchmarking event where this test event was generated",
+                    "minLength": 1
+                },
+                "result_report": {
+                    "type": "array",
+                    "title": "Relevant information about the status changes",
+                    "items": {
+                        "$ref": "#/definitions/TestEvent_result_report"
+                    }
+                },
+                "dates": {
+                    "$ref": "#/definitions/Relevant dates for this test event"
+                },
+                "metadata": {
+                    "type": "object",
+                    "title": "Relevant metadata used to call the tool",
+                    "properties": {}
+                }
+            },
+            "title": "Test Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "ToolAccessType": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the tool access type. It should be something meaningful, like a short word or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to ToolAccessType",
+                    "enum": ["ToolAccessType"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Description of this tool access type"
+                }
+            },
+            "title": "Tool Access Type concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "Tool:": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "community_id", "is_automated", "name", "status_id", "tool_access", "tool_contact_id"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the tool. It should be something meaningful, like the tool name, its uri or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Tool",
+                    "enum": ["Tool"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "bioTools_id": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The unique id of the tool in EXCELERATE WP1 bio.tools registry"
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short tool name",
+                    "minLength": 1
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long tool name or description"
+                },
+                "is_automated": {
+                    "type": "boolean",
+                    "title": "Can this tool be automatically invoked?"
+                },
+                "community_id": {
+                    "type": "array",
+                    "title": "The community id(s) where this tool belongs",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "tool_contact_id": {
+                    "type": "array",
+                    "title": "The tool's contact id(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "status_id": {
+                    "type": "string",
+                    "title": "_id of the current tool status",
+                    "minLength": 1
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The tool's reference id(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "tool_access": {
+                    "type": "array",
+                    "title": "Methods to access the tool",
+                    "items": {
+                        "$ref": "#/definitions/Tool_tool_access"
+                    }
+                }
+            },
+            "title": "Tool concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "ToolStatus": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the tool status. It should be something meaningful, like a short word or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to ToolStatus",
+                    "enum": ["ToolStatus"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Description of this tool status"
+                }
+            },
+            "title": "Tool Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "Error": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32"
+                },
+                "message": {
+                    "type": "string"
+                }
             }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
+        },
+        "Error404": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "format": "int32",
+                    "default": 404
+                },
+                "message": {
+                    "type": "string",
+                    "default": "Id not found"
+                }
             }
-          }
+        },
+        "tool": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "community_id", "is_automated", "name", "status_id", "tool_access", "tool_contact_id"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the tool. It should be something meaningful, like the tool name, its uri or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Tool",
+                    "enum": ["Tool"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "bioTools_id": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The unique id of the tool in EXCELERATE WP1 bio.tools registry"
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short tool name",
+                    "minLength": 1
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long tool name or description"
+                },
+                "is_automated": {
+                    "type": "boolean",
+                    "title": "Can this tool be automatically invoked?"
+                },
+                "community_id": {
+                    "type": "array",
+                    "title": "The community id(s) where this tool belongs",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "tool_contact_id": {
+                    "type": "array",
+                    "title": "The tool's contact id(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "status_id": {
+                    "type": "string",
+                    "title": "_id of the current tool status",
+                    "minLength": 1
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The tool's reference id(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "tool_access": {
+                    "type": "array",
+                    "title": "Methods to access the tool",
+                    "items": {
+                        "$ref": "#/definitions/Tool_tool_access"
+                    }
+                }
+            },
+            "title": "Tool concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "toolStatus": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the tool status. It should be something meaningful, like a short word or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to ToolStatus",
+                    "enum": ["ToolStatus"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Description of this tool status"
+                }
+            },
+            "title": "Tool Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "metrics": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "metrics_contact_id", "title"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the metrics.",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Metrics",
+                    "enum": ["Metrics"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "title": {
+                    "type": "string",
+                    "title": "Short metrics name",
+                    "minLength": 1
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long metrics description"
+                },
+                "metrics_contact_id": {
+                    "type": "array",
+                    "title": "The contact id(s) of the creators of this metrics",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "formal_definition": {
+                    "type": "string",
+                    "title": "Formal definition of the metrics"
+                },
+                "execution_type": {
+                    "type": "string",
+                    "title": "Type of execution"
+                },
+                "data_schemas": {
+                    "type": "string",
+                    "title": "Data schemas"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the metrics",
+                    "items": {
+                        "$ref": "#/definitions/Metrics_links"
+                    }
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The metrics reference id(s) (if any)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Metrics concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "testEvent": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "benchmarking_event_id", "input_dataset_id", "tool_id"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the test event.",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to TestEvent",
+                    "enum": ["TestEvent"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "tool_id": {
+                    "type": "string",
+                    "title": "The tool id which takes this input dataset",
+                    "minLength": 1
+                },
+                "input_dataset_id": {
+                    "type": "string",
+                    "title": "The id of the input dataset",
+                    "minLength": 1
+                },
+                "output_dataset_id": {
+                    "type": "string",
+                    "title": "The id of the output dataset (if available)",
+                    "minLength": 1
+                },
+                "benchmarking_event_id": {
+                    "type": "string",
+                    "title": "The id of the benchmarking event where this test event was generated",
+                    "minLength": 1
+                },
+                "result_report": {
+                    "type": "array",
+                    "title": "Relevant information about the status changes",
+                    "items": {
+                        "$ref": "#/definitions/TestEvent_result_report"
+                    }
+                },
+                "dates": {
+                    "$ref": "#/definitions/Relevant dates for this test event"
+                },
+                "metadata": {
+                    "type": "object",
+                    "title": "Relevant metadata used to call the tool",
+                    "properties": {}
+                }
+            },
+            "title": "Test Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "dataset": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "dataset_contact_id", "name", "type", "version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the dataset. If it is possible, it should be something meaningful",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Dataset",
+                    "enum": ["Dataset"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short dataset name",
+                    "minLength": 1
+                },
+                "version": {
+                    "type": "string",
+                    "title": "Version (or relelase date) of the dataset",
+                    "minLength": 1
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long dataset description"
+                },
+                "dates": {
+                    "$ref": "#/definitions/Relevant dates for this dataset"
+                },
+                "type": {
+                    "type": "string",
+                    "title": "Type of dataset"
+                },
+                "datalink": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The link to the dataset itself"
+                },
+                "dataset_contact_id": {
+                    "type": "array",
+                    "title": "The contact id(s) of the creators of this dataset",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "metrics": {
+                    "type": "array",
+                    "title": "The different metrics generated from this dataset",
+                    "items": {
+                        "$ref": "#/definitions/Dataset_metrics"
+                    }
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The reference id(s) of this dataset (if any)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Dataset concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "reference": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the bibliographic reference. It should be something meaningful, like its DOI or its PubMedId",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Reference",
+                    "enum": ["Reference"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "doi": {
+                    "type": "string",
+                    "title": "The DOI of the referenced material (in case of books, its ISBN in ISBN-A DOI format)"
+                },
+                "pubmed_id": {
+                    "type": "integer",
+                    "title": "The PubMed id of the referenced material (if any)",
+                    "minimum": 1
+                },
+                "abstract": {
+                    "type": "string",
+                    "title": "Optionally, the abstract of the referenced material"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the bibliographic reference",
+                    "items": {
+                        "$ref": "#/definitions/Reference_links"
+                    }
+                },
+                "authors": {
+                    "type": "array",
+                    "title": "Optional list of authors of the referenced material",
+                    "items": {
+                        "$ref": "#/definitions/Reference_authors"
+                    }
+                }
+            },
+            "title": "Bibliographic reference concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "communityStatus": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the community status. It should be something meaningful, like a short word or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to CommunityStatus",
+                    "enum": ["CommunityStatus"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Description of this community status"
+                }
+            },
+            "title": "Community Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "benchmarkingEvent": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "bench_contact_id", "community_id", "is_automated", "name"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the benchmarking event. If it is possible, it should be something meaningful, like an URL",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to BenchmarkingEvent",
+                    "enum": ["BenchmarkingEvent"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short benchmarking event name",
+                    "minLength": 1
+                },
+                "is_automated": {
+                    "type": "boolean",
+                    "title": "Is this an automated event?"
+                },
+                "dates": {
+                    "$ref": "#/definitions/Relevant dates for this benchmarking event"
+                },
+                "url": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The link to the benchmarking event"
+                },
+                "community_id": {
+                    "type": "string",
+                    "title": "The community id where this benchmarking event belongs",
+                    "minLength": 1
+                },
+                "bench_contact_id": {
+                    "type": "array",
+                    "title": "The benchmarking event contact id(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "references": {
+                    "type": "array",
+                    "title": "The benchmarking event reference id(s) (if any)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Benchmarking Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "community": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "acronym", "community_contacts", "name", "status_id"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the community. It should be something unique of the community (for instance, an acronym)",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Community",
+                    "enum": ["Community"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "name": {
+                    "type": "string",
+                    "title": "Short community name",
+                    "minLength": 1
+                },
+                "acronym": {
+                    "type": "string",
+                    "title": "Unique community acronym",
+                    "minLength": 1
+                },
+                "status_id": {
+                    "type": "array",
+                    "title": "_id(s) of the current community status(es)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Long community name or description"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the community",
+                    "items": {
+                        "$ref": "#/definitions/Community_links"
+                    }
+                },
+                "community_contacts": {
+                    "type": "array",
+                    "title": "_id of the contacts of the responsible researchers in charge of the community coordination",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    }
+                }
+            },
+            "title": "Community concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "toolAccessType": {
+            "type": "object",
+            "required": ["_id", "_type", "_version"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the tool access type. It should be something meaningful, like a short word or an acronym",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to ToolAccessType",
+                    "enum": ["ToolAccessType"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "description": {
+                    "type": "string",
+                    "title": "Description of this tool access type"
+                }
+            },
+            "title": "Tool Access Type concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "contact": {
+            "type": "object",
+            "required": ["_id", "_type", "_version", "email", "givenName", "surname"],
+            "properties": {
+                "_id": {
+                    "type": "string",
+                    "title": "The unique id of the contact. It should be whatever ELIXIR AAI uses as public unique user id (for instance, a URI)",
+                    "minLength": 1
+                },
+                "_type": {
+                    "type": "string",
+                    "title": "The document type. In this case, fixed to Contact",
+                    "enum": ["Contact"]
+                },
+                "_version": {
+                    "type": "string",
+                    "title": "The document type version. In this case, fixed to 0.2",
+                    "enum": ["0.2"]
+                },
+                "givenName": {
+                    "type": "array",
+                    "title": "First / given name",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "surname": {
+                    "type": "array",
+                    "title": "Surname(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "email": {
+                    "type": "array",
+                    "title": "The e-mail address(es) of the contact",
+                    "uniqueItems": true,
+                    "items": {
+                        "type": "string",
+                        "format": "email",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "notes": {
+                    "type": "string",
+                    "title": "Comments about the contact"
+                },
+                "links": {
+                    "type": "array",
+                    "title": "Optional links related to the contact",
+                    "items": {
+                        "$ref": "#/definitions/Contact_links"
+                    }
+                }
+            },
+            "title": "Contact concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
+        },
+        "Community_links": {
+            "required": ["label", "uri"],
+            "properties": {
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The URI of the link related to the community"
+                },
+                "label": {
+                    "type": "string",
+                    "title": "The type of URI",
+                    "enum": ["PublicationDOI", "LinkedInGroup", "MainSite", "DataSite"]
+                }
+            }
+        },
+        "Relevant dates for this benchmarking event": {
+            "required": ["benchmark_start", "benchmark_stop", "creation", "modification"],
+            "properties": {
+                "creation": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Creation date of the benchmarking event"
+                },
+                "modification": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Last modification date of the benchmarking event"
+                },
+                "benchmark_start": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "When starts the benchmarking event?"
+                },
+                "benchmark_stop": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "When stops the benchmarking event?"
+                }
+            }
+        },
+        "Contact_links": {
+            "required": ["label", "uri"],
+            "properties": {
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The URI of the link related to the contact"
+                },
+                "label": {
+                    "type": "string",
+                    "title": "The type of URI",
+                    "enum": ["PublicationDOI", "LinkedIn", "ORCID", "MainSite"]
+                }
+            }
+        },
+        "Relevant dates for this dataset": {
+            "required": ["creation", "modification"],
+            "properties": {
+                "creation": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Creation date of the dataset"
+                },
+                "modification": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Last modification date of the dataset"
+                }
+            }
+        },
+        "Dataset_metrics": {
+            "properties": {
+                "metrics_id": {
+                    "type": "string",
+                    "title": "The id of the metrics as such",
+                    "minLength": 1
+                },
+                "result": {
+                    "type": "object",
+                    "title": "The results obtained from the metrics",
+                    "properties": {}
+                }
+            }
+        },
+        "Metrics_links": {
+            "required": ["label", "uri"],
+            "properties": {
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The URI of the link related to the metrics"
+                },
+                "label": {
+                    "type": "string",
+                    "title": "The type of URI"
+                }
+            }
+        },
+        "Reference_links": {
+            "required": ["label", "uri"],
+            "properties": {
+                "uri": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The URI of the link related to the bibliographic reference"
+                },
+                "label": {
+                    "type": "string",
+                    "title": "The type of URI",
+                    "enum": ["PublicationDOI", "LinkedInGroup", "MainSite", "DataSite"]
+                }
+            }
+        },
+        "Reference_authors": {
+            "required": ["givenName", "surname"],
+            "properties": {
+                "givenName": {
+                    "type": "array",
+                    "title": "First / given name (or initials)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "surname": {
+                    "type": "array",
+                    "title": "Surname(s)",
+                    "items": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "minItems": 1
+                },
+                "contact_id": {
+                    "type": "string",
+                    "title": "If it is a known contact, its contact id",
+                    "minLength": 1
+                }
+            }
+        },
+        "TestEvent_result_report": {
+            "properties": {
+                "status": {
+                    "type": "integer",
+                    "title": "Status retval"
+                },
+                "status_date": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Date of the status reception"
+                },
+                "report": {
+                    "type": "string",
+                    "title": "Textual report for this status"
+                }
+            }
+        },
+        "Relevant dates for this test event": {
+            "required": ["creation"],
+            "properties": {
+                "creation": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Creation date of the test event"
+                },
+                "modification": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Last modification date of the test event"
+                },
+                "reception": {
+                    "type": "string",
+                    "format": "date-time",
+                    "title": "Last reception date of the output dataset (redundant, as the output dataset already has this date)"
+                }
+            }
+        },
+        "Tool_tool_access": {
+            "required": ["tool_access_type_id"],
+            "properties": {
+                "tool_access_type_id": {
+                    "type": "string",
+                    "title": "The tool access type id",
+                    "minLength": 1
+                },
+                "link": {
+                    "type": "string",
+                    "format": "uri",
+                    "title": "The link to the access point"
+                }
+            }
         }
-      }
     },
-    "/CommunityStatus/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Community" ],
-        "summary" : "Possible Status for Benchmarking Communities",
-        "description" : "Possible values for Benchmarking communitites statuses",
-        "produces" : [ "application/json", "text/xml", "text/html" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "Description of a Community Status",
-            "schema" : {
-              "$ref" : "#/definitions/CommunityStatus"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
+    "parameters": {
+        "fmt": {
+            "name": "fmt",
+            "in": "path",
+            "description": "Output format (tab, json, xml, html)",
+            "required": true,
+            "type": "string",
+            "default": "json"
+        },
+        "fmtQuery": {
+            "name": "fmtQuery",
+            "in": "query",
+            "description": "Output format (tab, json, xml, html)",
+            "required": false,
+            "type": "string"
+        },
+        "textQuery": {
+            "name": "query",
+            "in": "query",
+            "description": "Text Search query",
+            "required": false,
+            "type": "string"
+        },
+        "extendedInfo": {
+            "name": "extended",
+            "in": "query",
+            "description": "Provide extended information by denormalizing internal ids",
+            "required": false,
+            "type": "boolean"
         }
-      }
     },
-    "/BenchmarkingEvent.{fmt}" : {
-      "get" : {
-        "tags" : [ "Events" ],
-        "summary" : "Benchmarking Events",
-        "description" : "Information about Benchmarking Events organized by Communitites affiliated at the platform",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Benchmarking Events",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/CommunityStatus"
-              }
+    "responses": {
+        "default": {
+            "description": "Unexpected error",
+            "schema": {
+                "$ref": "#/definitions/Error"
             }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
         }
-      }
-    },
-    "/BenchmarkingEvent/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Community" ],
-        "summary" : "A benchmarking Event",
-        "description" : "Info about a given benchmarking Event",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the Benchmarking Event",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a Benchmarking Event object",
-            "schema" : {
-              "$ref" : "#/definitions/BenchmarkingEvent"
-            }
-          },
-          "404" : {
-            "description" : "Event Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Contact.{fmt}" : {
-      "get" : {
-        "tags" : [ "Contacts" ],
-        "summary" : "Contact persons",
-        "description" : "Information about Contact personso from the Communities affiliated at the platform",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Benchmarking Events",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Contact"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Contact/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Contacts" ],
-        "summary" : "Contact Data",
-        "description" : "Info about a Contact",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the Contact (givenname.surname)",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a Contact object",
-            "schema" : {
-              "$ref" : "#/definitions/Contact"
-            }
-          },
-          "404" : {
-            "description" : "Contact Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Dataset.{fmt}" : {
-      "get" : {
-        "tags" : [ "Datasets" ],
-        "summary" : "Datasets involved in Benchmarking",
-        "description" : "Information about Datasets used in benchmarking",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Datasets",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Dataset"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Dataset/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Datasets" ],
-        "summary" : "Dataset Data",
-        "description" : "Info about a Dataset",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the Dataset",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a Dataset object",
-            "schema" : {
-              "$ref" : "#/definitions/Dataset"
-            }
-          },
-          "404" : {
-            "description" : "Dataset Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Metrics.{fmt}" : {
-      "get" : {
-        "tags" : [ "Metrics", "Datasets" ],
-        "summary" : "Metrics used in benchmarking",
-        "description" : "Information about Metrics used by the Communities affiliated at the platform",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Metrics",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Metrics"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Metrics/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Metrics", "Datasets" ],
-        "summary" : "Metrics Data",
-        "description" : "Info about a Metrics",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the Metric",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a Metrics object",
-            "schema" : {
-              "$ref" : "#/definitions/Metrics"
-            }
-          },
-          "404" : {
-            "description" : "Metrics Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Reference.{fmt}" : {
-      "get" : {
-        "tags" : [ "References" ],
-        "summary" : "References",
-        "description" : "Information about published references",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of References",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Reference"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Reference/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "References" ],
-        "summary" : "Reference Data",
-        "description" : "Info about a Reference",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the Reference (DOI)",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a Reference object",
-            "schema" : {
-              "$ref" : "#/definitions/Reference"
-            }
-          },
-          "404" : {
-            "description" : "Reference Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/TestEvent.{fmt}" : {
-      "get" : {
-        "tags" : [ "Events" ],
-        "summary" : "Test Events (input + tool -> output)",
-        "description" : "Information about Performed tests",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of TestEvents",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/TestEvent"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/TestEvent/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Events" ],
-        "summary" : "Test Event Data",
-        "description" : "Info about a Test Event",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the TestEvent",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a TestEvent object",
-            "schema" : {
-              "$ref" : "#/definitions/TestEvent"
-            }
-          },
-          "404" : {
-            "description" : "TestEvent Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Tool.{fmt}" : {
-      "get" : {
-        "tags" : [ "Tools" ],
-        "summary" : "Tools",
-        "description" : "Information about Tools",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Tools",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/Tool"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/Tool/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Tools" ],
-        "summary" : "Tool Data",
-        "description" : "Info about a Tool",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the Tool",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a Tool object",
-            "schema" : {
-              "$ref" : "#/definitions/Tool"
-            }
-          },
-          "404" : {
-            "description" : "Tool Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/ToolStatus.{fmt}" : {
-      "get" : {
-        "tags" : [ "Tools" ],
-        "summary" : "Tool Statuses",
-        "description" : "Information about Tools Status",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Tools Statuses",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/ToolStatus"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/ToolStatus/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Tools" ],
-        "summary" : "ToolStatus Data",
-        "description" : "Info about a Tool Status",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the ToolStatus",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a ToolStatus object",
-            "schema" : {
-              "$ref" : "#/definitions/ToolStatus"
-            }
-          },
-          "404" : {
-            "description" : "ToolStatus Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/ToolAccessType.{fmt}" : {
-      "get" : {
-        "tags" : [ "Tools" ],
-        "summary" : "Tool AccessTypes",
-        "description" : "Information about Tool AccessTypes",
-        "produces" : [ "application/json", "text/xml", "text/html", "text/plain" ],
-        "parameters" : [ {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "query",
-          "in" : "query",
-          "description" : "Text Search query",
-          "required" : false,
-          "type" : "string"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "An array of Tools AccessTypes",
-            "schema" : {
-              "type" : "array",
-              "items" : {
-                "$ref" : "#/definitions/ToolAccessType"
-              }
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
-    },
-    "/ToolAccessType/{id}.{fmt}" : {
-      "get" : {
-        "tags" : [ "Tools" ],
-        "summary" : "ToolAccessType Data",
-        "description" : "Info about a Tool AccessType",
-        "parameters" : [ {
-          "name" : "id",
-          "in" : "path",
-          "description" : "Unique Id of the ToolAccessType",
-          "required" : true,
-          "type" : "string"
-        }, {
-          "name" : "fmtQuery",
-          "in" : "query",
-          "description" : "Output format (tab, json, xml, html)",
-          "required" : false,
-          "type" : "string"
-        }, {
-          "name" : "extended",
-          "in" : "query",
-          "description" : "Provide extended information by denormalizing internal ids",
-          "required" : false,
-          "type" : "boolean"
-        } ],
-        "responses" : {
-          "200" : {
-            "description" : "a ToolStatus object",
-            "schema" : {
-              "$ref" : "#/definitions/ToolAccessType"
-            }
-          },
-          "404" : {
-            "description" : "ToolAccessType Id not found Error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          },
-          "default" : {
-            "description" : "Unexpected error",
-            "schema" : {
-              "$ref" : "#/definitions/Error"
-            }
-          }
-        }
-      }
     }
-  },
-  "definitions" : {
-    "Community" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "acronym", "community_contacts", "name", "status_id" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the community. It should be something unique of the community (for instance, an acronym)",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Community",
-          "enum" : [ "Community" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short community name",
-          "minLength" : 1
-        },
-        "acronym" : {
-          "type" : "string",
-          "title" : "Unique community acronym",
-          "minLength" : 1
-        },
-        "status_id" : {
-          "type" : "array",
-          "title" : "_id(s) of the current community status(es)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long community name or description"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the community",
-          "items" : {
-            "$ref" : "#/definitions/Community_links"
-          }
-        },
-        "community_contacts" : {
-          "type" : "array",
-          "title" : "_id of the contacts of the responsible researchers in charge of the community coordination",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Community concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "BenchmarkingEvent" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "bench_contact_id", "community_id", "is_automated", "name" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the benchmarking event. If it is possible, it should be something meaningful, like an URL",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to BenchmarkingEvent",
-          "enum" : [ "BenchmarkingEvent" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short benchmarking event name",
-          "minLength" : 1
-        },
-        "is_automated" : {
-          "type" : "boolean",
-          "title" : "Is this an automated event?"
-        },
-        "dates" : {
-          "$ref" : "#/definitions/Relevant dates for this benchmarking event"
-        },
-        "url" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The link to the benchmarking event"
-        },
-        "community_id" : {
-          "type" : "string",
-          "title" : "The community id where this benchmarking event belongs",
-          "minLength" : 1
-        },
-        "bench_contact_id" : {
-          "type" : "array",
-          "title" : "The benchmarking event contact id(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The benchmarking event reference id(s) (if any)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Benchmarking Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "Contact" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "email", "givenName", "surname" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the contact. It should be whatever ELIXIR AAI uses as public unique user id (for instance, a URI)",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Contact",
-          "enum" : [ "Contact" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "givenName" : {
-          "type" : "array",
-          "title" : "First / given name",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "surname" : {
-          "type" : "array",
-          "title" : "Surname(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "email" : {
-          "type" : "array",
-          "title" : "The e-mail address(es) of the contact",
-          "uniqueItems" : true,
-          "items" : {
-            "type" : "string",
-            "format" : "email",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "notes" : {
-          "type" : "string",
-          "title" : "Comments about the contact"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the contact",
-          "items" : {
-            "$ref" : "#/definitions/Contact_links"
-          }
-        }
-      },
-      "title" : "Contact concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "Dataset" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "dataset_contact_id", "name", "type", "version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the dataset. If it is possible, it should be something meaningful",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Dataset",
-          "enum" : [ "Dataset" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short dataset name",
-          "minLength" : 1
-        },
-        "version" : {
-          "type" : "string",
-          "title" : "Version (or relelase date) of the dataset",
-          "minLength" : 1
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long dataset description"
-        },
-        "dates" : {
-          "$ref" : "#/definitions/Relevant dates for this dataset"
-        },
-        "type" : {
-          "type" : "string",
-          "title" : "Type of dataset"
-        },
-        "datalink" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The link to the dataset itself"
-        },
-        "dataset_contact_id" : {
-          "type" : "array",
-          "title" : "The contact id(s) of the creators of this dataset",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "metrics" : {
-          "type" : "array",
-          "title" : "The different metrics generated from this dataset",
-          "items" : {
-            "$ref" : "#/definitions/Dataset_metrics"
-          }
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The reference id(s) of this dataset (if any)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Dataset concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "CommunityStatus" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the community status. It should be something meaningful, like a short word or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to CommunityStatus",
-          "enum" : [ "CommunityStatus" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Description of this community status"
-        }
-      },
-      "title" : "Community Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "Metrics" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "metrics_contact_id", "title" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the metrics.",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Metrics",
-          "enum" : [ "Metrics" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "title" : {
-          "type" : "string",
-          "title" : "Short metrics name",
-          "minLength" : 1
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long metrics description"
-        },
-        "metrics_contact_id" : {
-          "type" : "array",
-          "title" : "The contact id(s) of the creators of this metrics",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "formal_definition" : {
-          "type" : "string",
-          "title" : "Formal definition of the metrics"
-        },
-        "execution_type" : {
-          "type" : "string",
-          "title" : "Type of execution"
-        },
-        "data_schemas" : {
-          "type" : "string",
-          "title" : "Data schemas"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the metrics",
-          "items" : {
-            "$ref" : "#/definitions/Metrics_links"
-          }
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The metrics reference id(s) (if any)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Metrics concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "Reference" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the bibliographic reference. It should be something meaningful, like its DOI or its PubMedId",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Reference",
-          "enum" : [ "Reference" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "doi" : {
-          "type" : "string",
-          "title" : "The DOI of the referenced material (in case of books, its ISBN in ISBN-A DOI format)"
-        },
-        "pubmed_id" : {
-          "type" : "integer",
-          "title" : "The PubMed id of the referenced material (if any)",
-          "minimum" : 1
-        },
-        "abstract" : {
-          "type" : "string",
-          "title" : "Optionally, the abstract of the referenced material"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the bibliographic reference",
-          "items" : {
-            "$ref" : "#/definitions/Reference_links"
-          }
-        },
-        "authors" : {
-          "type" : "array",
-          "title" : "Optional list of authors of the referenced material",
-          "items" : {
-            "$ref" : "#/definitions/Reference_authors"
-          }
-        }
-      },
-      "title" : "Bibliographic reference concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "TestEvent" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "benchmarking_event_id", "input_dataset_id", "tool_id" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the test event.",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to TestEvent",
-          "enum" : [ "TestEvent" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "tool_id" : {
-          "type" : "string",
-          "title" : "The tool id which takes this input dataset",
-          "minLength" : 1
-        },
-        "input_dataset_id" : {
-          "type" : "string",
-          "title" : "The id of the input dataset",
-          "minLength" : 1
-        },
-        "output_dataset_id" : {
-          "type" : "string",
-          "title" : "The id of the output dataset (if available)",
-          "minLength" : 1
-        },
-        "benchmarking_event_id" : {
-          "type" : "string",
-          "title" : "The id of the benchmarking event where this test event was generated",
-          "minLength" : 1
-        },
-        "result_report" : {
-          "type" : "array",
-          "title" : "Relevant information about the status changes",
-          "items" : {
-            "$ref" : "#/definitions/TestEvent_result_report"
-          }
-        },
-        "dates" : {
-          "$ref" : "#/definitions/Relevant dates for this test event"
-        },
-        "metadata" : {
-          "type" : "object",
-          "title" : "Relevant metadata used to call the tool",
-          "properties" : { }
-        }
-      },
-      "title" : "Test Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "ToolAccessType" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the tool access type. It should be something meaningful, like a short word or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to ToolAccessType",
-          "enum" : [ "ToolAccessType" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Description of this tool access type"
-        }
-      },
-      "title" : "Tool Access Type concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "Tool:" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "community_id", "is_automated", "name", "status_id", "tool_access", "tool_contact_id" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the tool. It should be something meaningful, like the tool name, its uri or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Tool",
-          "enum" : [ "Tool" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "bioTools_id" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The unique id of the tool in EXCELERATE WP1 bio.tools registry"
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short tool name",
-          "minLength" : 1
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long tool name or description"
-        },
-        "is_automated" : {
-          "type" : "boolean",
-          "title" : "Can this tool be automatically invoked?"
-        },
-        "community_id" : {
-          "type" : "array",
-          "title" : "The community id(s) where this tool belongs",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "tool_contact_id" : {
-          "type" : "array",
-          "title" : "The tool's contact id(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "status_id" : {
-          "type" : "string",
-          "title" : "_id of the current tool status",
-          "minLength" : 1
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The tool's reference id(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "tool_access" : {
-          "type" : "array",
-          "title" : "Methods to access the tool",
-          "items" : {
-            "$ref" : "#/definitions/Tool_tool_access"
-          }
-        }
-      },
-      "title" : "Tool concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "ToolStatus" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the tool status. It should be something meaningful, like a short word or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to ToolStatus",
-          "enum" : [ "ToolStatus" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Description of this tool status"
-        }
-      },
-      "title" : "Tool Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "Error" : {
-      "type" : "object",
-      "properties" : {
-        "code" : {
-          "type" : "integer",
-          "format" : "int32"
-        },
-        "message" : {
-          "type" : "string"
-        }
-      }
-    },
-    "tool" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "community_id", "is_automated", "name", "status_id", "tool_access", "tool_contact_id" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the tool. It should be something meaningful, like the tool name, its uri or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Tool",
-          "enum" : [ "Tool" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "bioTools_id" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The unique id of the tool in EXCELERATE WP1 bio.tools registry"
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short tool name",
-          "minLength" : 1
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long tool name or description"
-        },
-        "is_automated" : {
-          "type" : "boolean",
-          "title" : "Can this tool be automatically invoked?"
-        },
-        "community_id" : {
-          "type" : "array",
-          "title" : "The community id(s) where this tool belongs",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "tool_contact_id" : {
-          "type" : "array",
-          "title" : "The tool's contact id(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "status_id" : {
-          "type" : "string",
-          "title" : "_id of the current tool status",
-          "minLength" : 1
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The tool's reference id(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "tool_access" : {
-          "type" : "array",
-          "title" : "Methods to access the tool",
-          "items" : {
-            "$ref" : "#/definitions/Tool_tool_access"
-          }
-        }
-      },
-      "title" : "Tool concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "toolStatus" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the tool status. It should be something meaningful, like a short word or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to ToolStatus",
-          "enum" : [ "ToolStatus" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Description of this tool status"
-        }
-      },
-      "title" : "Tool Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "metrics" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "metrics_contact_id", "title" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the metrics.",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Metrics",
-          "enum" : [ "Metrics" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "title" : {
-          "type" : "string",
-          "title" : "Short metrics name",
-          "minLength" : 1
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long metrics description"
-        },
-        "metrics_contact_id" : {
-          "type" : "array",
-          "title" : "The contact id(s) of the creators of this metrics",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "formal_definition" : {
-          "type" : "string",
-          "title" : "Formal definition of the metrics"
-        },
-        "execution_type" : {
-          "type" : "string",
-          "title" : "Type of execution"
-        },
-        "data_schemas" : {
-          "type" : "string",
-          "title" : "Data schemas"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the metrics",
-          "items" : {
-            "$ref" : "#/definitions/Metrics_links"
-          }
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The metrics reference id(s) (if any)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Metrics concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "testEvent" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "benchmarking_event_id", "input_dataset_id", "tool_id" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the test event.",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to TestEvent",
-          "enum" : [ "TestEvent" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "tool_id" : {
-          "type" : "string",
-          "title" : "The tool id which takes this input dataset",
-          "minLength" : 1
-        },
-        "input_dataset_id" : {
-          "type" : "string",
-          "title" : "The id of the input dataset",
-          "minLength" : 1
-        },
-        "output_dataset_id" : {
-          "type" : "string",
-          "title" : "The id of the output dataset (if available)",
-          "minLength" : 1
-        },
-        "benchmarking_event_id" : {
-          "type" : "string",
-          "title" : "The id of the benchmarking event where this test event was generated",
-          "minLength" : 1
-        },
-        "result_report" : {
-          "type" : "array",
-          "title" : "Relevant information about the status changes",
-          "items" : {
-            "$ref" : "#/definitions/TestEvent_result_report"
-          }
-        },
-        "dates" : {
-          "$ref" : "#/definitions/Relevant dates for this test event"
-        },
-        "metadata" : {
-          "type" : "object",
-          "title" : "Relevant metadata used to call the tool",
-          "properties" : { }
-        }
-      },
-      "title" : "Test Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "dataset" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "dataset_contact_id", "name", "type", "version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the dataset. If it is possible, it should be something meaningful",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Dataset",
-          "enum" : [ "Dataset" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short dataset name",
-          "minLength" : 1
-        },
-        "version" : {
-          "type" : "string",
-          "title" : "Version (or relelase date) of the dataset",
-          "minLength" : 1
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long dataset description"
-        },
-        "dates" : {
-          "$ref" : "#/definitions/Relevant dates for this dataset"
-        },
-        "type" : {
-          "type" : "string",
-          "title" : "Type of dataset"
-        },
-        "datalink" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The link to the dataset itself"
-        },
-        "dataset_contact_id" : {
-          "type" : "array",
-          "title" : "The contact id(s) of the creators of this dataset",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "metrics" : {
-          "type" : "array",
-          "title" : "The different metrics generated from this dataset",
-          "items" : {
-            "$ref" : "#/definitions/Dataset_metrics"
-          }
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The reference id(s) of this dataset (if any)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Dataset concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "reference" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the bibliographic reference. It should be something meaningful, like its DOI or its PubMedId",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Reference",
-          "enum" : [ "Reference" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "doi" : {
-          "type" : "string",
-          "title" : "The DOI of the referenced material (in case of books, its ISBN in ISBN-A DOI format)"
-        },
-        "pubmed_id" : {
-          "type" : "integer",
-          "title" : "The PubMed id of the referenced material (if any)",
-          "minimum" : 1
-        },
-        "abstract" : {
-          "type" : "string",
-          "title" : "Optionally, the abstract of the referenced material"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the bibliographic reference",
-          "items" : {
-            "$ref" : "#/definitions/Reference_links"
-          }
-        },
-        "authors" : {
-          "type" : "array",
-          "title" : "Optional list of authors of the referenced material",
-          "items" : {
-            "$ref" : "#/definitions/Reference_authors"
-          }
-        }
-      },
-      "title" : "Bibliographic reference concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "communityStatus" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the community status. It should be something meaningful, like a short word or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to CommunityStatus",
-          "enum" : [ "CommunityStatus" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Description of this community status"
-        }
-      },
-      "title" : "Community Status concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "benchmarkingEvent" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "bench_contact_id", "community_id", "is_automated", "name" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the benchmarking event. If it is possible, it should be something meaningful, like an URL",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to BenchmarkingEvent",
-          "enum" : [ "BenchmarkingEvent" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short benchmarking event name",
-          "minLength" : 1
-        },
-        "is_automated" : {
-          "type" : "boolean",
-          "title" : "Is this an automated event?"
-        },
-        "dates" : {
-          "$ref" : "#/definitions/Relevant dates for this benchmarking event"
-        },
-        "url" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The link to the benchmarking event"
-        },
-        "community_id" : {
-          "type" : "string",
-          "title" : "The community id where this benchmarking event belongs",
-          "minLength" : 1
-        },
-        "bench_contact_id" : {
-          "type" : "array",
-          "title" : "The benchmarking event contact id(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "references" : {
-          "type" : "array",
-          "title" : "The benchmarking event reference id(s) (if any)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Benchmarking Event concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "community" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "acronym", "community_contacts", "name", "status_id" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the community. It should be something unique of the community (for instance, an acronym)",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Community",
-          "enum" : [ "Community" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "name" : {
-          "type" : "string",
-          "title" : "Short community name",
-          "minLength" : 1
-        },
-        "acronym" : {
-          "type" : "string",
-          "title" : "Unique community acronym",
-          "minLength" : 1
-        },
-        "status_id" : {
-          "type" : "array",
-          "title" : "_id(s) of the current community status(es)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Long community name or description"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the community",
-          "items" : {
-            "$ref" : "#/definitions/Community_links"
-          }
-        },
-        "community_contacts" : {
-          "type" : "array",
-          "title" : "_id of the contacts of the responsible researchers in charge of the community coordination",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          }
-        }
-      },
-      "title" : "Community concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "toolAccessType" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the tool access type. It should be something meaningful, like a short word or an acronym",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to ToolAccessType",
-          "enum" : [ "ToolAccessType" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "description" : {
-          "type" : "string",
-          "title" : "Description of this tool access type"
-        }
-      },
-      "title" : "Tool Access Type concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "contact" : {
-      "type" : "object",
-      "required" : [ "_id", "_type", "_version", "email", "givenName", "surname" ],
-      "properties" : {
-        "_id" : {
-          "type" : "string",
-          "title" : "The unique id of the contact. It should be whatever ELIXIR AAI uses as public unique user id (for instance, a URI)",
-          "minLength" : 1
-        },
-        "_type" : {
-          "type" : "string",
-          "title" : "The document type. In this case, fixed to Contact",
-          "enum" : [ "Contact" ]
-        },
-        "_version" : {
-          "type" : "string",
-          "title" : "The document type version. In this case, fixed to 0.2",
-          "enum" : [ "0.2" ]
-        },
-        "givenName" : {
-          "type" : "array",
-          "title" : "First / given name",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "surname" : {
-          "type" : "array",
-          "title" : "Surname(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "email" : {
-          "type" : "array",
-          "title" : "The e-mail address(es) of the contact",
-          "uniqueItems" : true,
-          "items" : {
-            "type" : "string",
-            "format" : "email",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "notes" : {
-          "type" : "string",
-          "title" : "Comments about the contact"
-        },
-        "links" : {
-          "type" : "array",
-          "title" : "Optional links related to the contact",
-          "items" : {
-            "$ref" : "#/definitions/Contact_links"
-          }
-        }
-      },
-      "title" : "Contact concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-    },
-    "Community_links" : {
-      "required" : [ "label", "uri" ],
-      "properties" : {
-        "uri" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The URI of the link related to the community"
-        },
-        "label" : {
-          "type" : "string",
-          "title" : "The type of URI",
-          "enum" : [ "PublicationDOI", "LinkedInGroup", "MainSite", "DataSite" ]
-        }
-      }
-    },
-    "Relevant dates for this benchmarking event" : {
-      "required" : [ "benchmark_start", "benchmark_stop", "creation", "modification" ],
-      "properties" : {
-        "creation" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Creation date of the benchmarking event"
-        },
-        "modification" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Last modification date of the benchmarking event"
-        },
-        "benchmark_start" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "When starts the benchmarking event?"
-        },
-        "benchmark_stop" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "When stops the benchmarking event?"
-        }
-      }
-    },
-    "Contact_links" : {
-      "required" : [ "label", "uri" ],
-      "properties" : {
-        "uri" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The URI of the link related to the contact"
-        },
-        "label" : {
-          "type" : "string",
-          "title" : "The type of URI",
-          "enum" : [ "PublicationDOI", "LinkedIn", "ORCID", "MainSite" ]
-        }
-      }
-    },
-    "Relevant dates for this dataset" : {
-      "required" : [ "creation", "modification" ],
-      "properties" : {
-        "creation" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Creation date of the dataset"
-        },
-        "modification" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Last modification date of the dataset"
-        }
-      }
-    },
-    "Dataset_metrics" : {
-      "properties" : {
-        "metrics_id" : {
-          "type" : "string",
-          "title" : "The id of the metrics as such",
-          "minLength" : 1
-        },
-        "result" : {
-          "type" : "object",
-          "title" : "The results obtained from the metrics",
-          "properties" : { }
-        }
-      }
-    },
-    "Metrics_links" : {
-      "required" : [ "label", "uri" ],
-      "properties" : {
-        "uri" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The URI of the link related to the metrics"
-        },
-        "label" : {
-          "type" : "string",
-          "title" : "The type of URI"
-        }
-      }
-    },
-    "Reference_links" : {
-      "required" : [ "label", "uri" ],
-      "properties" : {
-        "uri" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The URI of the link related to the bibliographic reference"
-        },
-        "label" : {
-          "type" : "string",
-          "title" : "The type of URI",
-          "enum" : [ "PublicationDOI", "LinkedInGroup", "MainSite", "DataSite" ]
-        }
-      }
-    },
-    "Reference_authors" : {
-      "required" : [ "givenName", "surname" ],
-      "properties" : {
-        "givenName" : {
-          "type" : "array",
-          "title" : "First / given name (or initials)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "surname" : {
-          "type" : "array",
-          "title" : "Surname(s)",
-          "items" : {
-            "type" : "string",
-            "minLength" : 1
-          },
-          "minItems" : 1
-        },
-        "contact_id" : {
-          "type" : "string",
-          "title" : "If it is a known contact, its contact id",
-          "minLength" : 1
-        }
-      }
-    },
-    "TestEvent_result_report" : {
-      "properties" : {
-        "status" : {
-          "type" : "integer",
-          "title" : "Status retval"
-        },
-        "status_date" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Date of the status reception"
-        },
-        "report" : {
-          "type" : "string",
-          "title" : "Textual report for this status"
-        }
-      }
-    },
-    "Relevant dates for this test event" : {
-      "required" : [ "creation" ],
-      "properties" : {
-        "creation" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Creation date of the test event"
-        },
-        "modification" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Last modification date of the test event"
-        },
-        "reception" : {
-          "type" : "string",
-          "format" : "date-time",
-          "title" : "Last reception date of the output dataset (redundant, as the output dataset already has this date)"
-        }
-      }
-    },
-    "Tool_tool_access" : {
-      "required" : [ "tool_access_type_id" ],
-      "properties" : {
-        "tool_access_type_id" : {
-          "type" : "string",
-          "title" : "The tool access type id",
-          "minLength" : 1
-        },
-        "link" : {
-          "type" : "string",
-          "format" : "uri",
-          "title" : "The link to the access point"
-        }
-      }
-    }
-  },
-  "parameters" : {
-    "fmtExt" : {
-      "name" : "fmt",
-      "in" : "path",
-      "description" : "Output format (tab, json, xml, html)",
-      "required" : true,
-      "type" : "string",
-      "default" : "json"
-    },
-    "fmt" : {
-      "name" : "fmtQuery",
-      "in" : "query",
-      "description" : "Output format (tab, json, xml, html)",
-      "required" : false,
-      "type" : "string"
-    },
-    "textQuery" : {
-      "name" : "query",
-      "in" : "query",
-      "description" : "Text Search query",
-      "required" : false,
-      "type" : "string"
-    },
-    "extendedInfo" : {
-      "name" : "extended",
-      "in" : "query",
-      "description" : "Provide extended information by denormalizing internal ids",
-      "required" : false,
-      "type" : "boolean"
-    }
-  },
-  "responses" : {
-    "default" : {
-      "description" : "Unexpected error",
-      "schema" : {
-        "$ref" : "#/definitions/Error"
-      }
-    }
-  }
 }
