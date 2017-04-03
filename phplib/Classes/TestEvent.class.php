@@ -32,12 +32,17 @@ class TestEvent extends DataStore {
 
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        if (preg_match("/htm/",$params->fmt)) {
+            foreach ($data['result_report'] as $r) {
+            $data['reports'][] = "Status: ".$r['status'].", Date:".$r['status_date'].", Report: ".$r['report'];
+            }
+        }
         if (isset($params->extended)and $params->extended) {
             foreach (
-            ['Tool' => 'tool_id',
+            [   'Tool' => 'tool_id',
                 'Dataset' => 'input_dataset_id',
                 'BenchmarkingEvent' => 'benchmarking_event_id'] as $col => $field) {
-                $data[$col] = getDataGeneric($col, $data[$field]);
+                $data[$col] = getOneDocument($col, $data[$field]);
             }
         }
 

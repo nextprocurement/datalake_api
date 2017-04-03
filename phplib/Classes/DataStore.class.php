@@ -35,9 +35,9 @@ abstract class DataStore {
     
     function getData($params, $checkId=true) {
           if ($checkId) {
-            return $this->checkData(getDataGeneric($this->id, $params->id),$params->id);
+            return $this->checkData(getOneDocument($this->id, $params->id),$params->id);
         } else {
-            return getDataGeneric($this->id, $params->id);
+            return getOneDocument($this->id, $params->id);
         }
     }
 
@@ -73,7 +73,7 @@ abstract class DataStore {
 //recover colon for prefixing escaped in App
         $params->id = str_replace('__',':',array_shift($this->currentPath));
         // Accept Boolean on extended
-        if ($params->extended and ($params->extended=='false')) {
+        if (isset($params->extended) and ($params->extended=='false')) {
             $params->extended=0;
         }
         switch ($params->id) {
@@ -230,7 +230,7 @@ abstract class DataStore {
     }
     
 
-    protected function _formatHTML($params, $data, $type) {
+    protected function _formatHTML($params, $data, $type,$removePrefix=true) {
         $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlHeader']));
         switch ($type) {
             case 'tsv': 
@@ -258,8 +258,14 @@ abstract class DataStore {
                 break;
         }
         $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlFooter']));
-        if ($type == 'tab') {
+        if ($type == 'tsv') {
             $html .= "\n<script type=\"text/javascript\">\n$(document).ready(function(){\n$('#".$this->id."').DataTable();\n});\n</script>\n";
+        }
+        if ($removePrefix and isset($data['_id'])) {// Remove Prefixes from shown data, URLs unchanged
+            $prefix = explode (":",$data['_id']);
+            if ($prefix[0]) {
+                $html = str_replace (">$prefix[0]:",">",$html);
+            }
         }
         return $html;        
     }

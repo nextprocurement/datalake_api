@@ -43,6 +43,8 @@ class BenchmarkingEvent extends DataStore {
         'bench_contact_id' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
         'references' => "<a href=\"https://dx.doi.org/##item##\">##item##</a>",
         'target-list' => "<a href=\"##baseURL##/Dataset/##item##.html\">##item##</a>",
+        'TestEvent' => "<a href=\"##baseURL##/TestEvent/##item##.html\">##item##</a>",
+        'tools' => "<a href=\"##baseURL##/Tool/##item##.html\">##item##</a>",
     ];
     
     public $classTemplate = 'file';
@@ -51,15 +53,21 @@ class BenchmarkingEvent extends DataStore {
    
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        foreach (iterator_to_array(findInDataStore('TestEvent', ['benchmarking_event_id' => $data['_id']],[])) as $te) {
+            $data['TestEvent'][]=$te['_id'];
+            $data['tools'][] = $te['tool_id'];
+        }
+        print_r($data['tools']);
+        $data['tools']= array_values(array_unique($data['tools']));
         if (isset($params->extended) and $params->extended) {
             $data['bench_contacts']=[];
             foreach ($data['bench_contact_id'] as $c) {
-                $data['bench_contacts'][] = getDataGeneric('Contact', $c);
+                $data['bench_contacts'][] = getOneDocument('Contact', $c);
             }
             unset($data['bench_contact_id']);
             $data['referencesList'] = [];
             foreach ($data['references'] as $r) {
-                $data['referencesList'][] = getDataGeneric('Reference',$r);
+                $data['referencesList'][] = getOneDocument('Reference',$r);
             }
             unset ($data['references']);
         }

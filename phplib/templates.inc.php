@@ -51,7 +51,15 @@ function parseTemplate ($f, $txt, $indirFields='', $dateFields='', $incRec = Tru
                 $txt = str_replace("##$k.$kk##", $f[$k][$kk], $txt);
             }
         } else {
-            $txt = str_replace("##$k##", join (", ", $f[$k]), $txt);
+            $vv=[];
+            foreach (array_values($f[$k]) as $v) {
+                if (!is_array($v)) {
+                    $vv[]=$v;
+                } else {
+                    $vv[] = $v['_id'];
+                }
+            }
+            $txt = str_replace("##$k##", join (", ", $vv), $txt);
         }
     }
     

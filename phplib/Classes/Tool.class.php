@@ -64,7 +64,7 @@ class Tool extends DataStore {
                unset($data[$field]);
             }
             foreach (['ToolStatus'=> 'status_id'] as $col=>$field) {
-                $data[$col] = getDataGeneric($col, $data[$field]);
+                $data[$col] = getOneDocument($col, $data[$field]);
                 unset($data[$field]);
             }
         }

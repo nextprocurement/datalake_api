@@ -25,14 +25,23 @@ function getCommunityData($id, $fmt='', $extended = false) {
         foreach ($data['links'] as $lk) {
             $data['linksList'][] = $lk['label'] . ": " . setLinks($lk['uri']);
         }
+        unset($data['links']);
         $data['DatasetList'] = [];
         foreach ($data['Dataset'] as $dts) {
             $data['DatasetList'][] = $dts['_id'];
         }
+        $data['toolsList'] = [];
+        foreach ($data['Tool'] as $dts) {
+            $data['toolsList'][] = $dts['_id'];
+        }
+        $data['metricsList'] = [];
+        foreach ($data['Metrics'] as $dts) {
+            $data['metricsList'][] = $dts['_id'];
+        }
     }
     if ($extended) {
         $data['community_contacts'] = findArrayInDataStore('Contact', $data['community_contacts']);
-        $data['status'] = getDataGeneric('CommunityStatus', $data['status']);
+        $data['status'] = getOneDocument('CommunityStatus', $data['status']);
         if ($data['status']) {
             unset($data['status_id']);
         }

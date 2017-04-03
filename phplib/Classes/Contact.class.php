@@ -34,14 +34,18 @@ class Contact extends DataStore {
         '_id' => "<a href=\"##baseURL##/Contact/##_id##.html\">##_id##</a>",
     ];
     public $templateArrayLinks = [
-        'CommunityList' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>"
+        'Community' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>",
+        'BenchmarkingEvent' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
+        'Dataset' => "<a href=\"##baseURL##/Dataset/##item##.html\">##item##</a>",
+        'Metrics' => "<a href=\"##baseURL##/Metrics/##item##.html\">##item##</a>",
+        'Tool' => "<a href=\"##baseURL##/Tool/##item##.html\">##item##</a>"
     ];
     public $classTemplate = 'file';
     public $textQueryOn = ["givenName", "_id", "surname", "notes"];
 
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
-        if (isset($params->extended) and $params->extended) {
+        if (preg_match("/htm/",$params->fmt) or (isset($params->extended) and $params->extended )) {
             foreach (
             [
                 'BenchmarkingEvent' => 'bench_contact_id',
@@ -50,13 +54,11 @@ class Contact extends DataStore {
                 'Metrics' => 'metrics_contact_id',
                 'Tool' => 'tool_contact_id'
             ] as $col => $field) {
-                $ldata = iterator_to_array(findInDataStore(
-                                $col, [$field => $data['_id']], ['projection' => ['_id' => 1]]
-                        )
-                );
-                if ($ldata) {
-                    $data[$col] = $ldata;
-                }
+                $data[$col] = getIdsArray($col, $field, $data['_id']);
+            }
+            $data['linksList'] = [];
+                foreach ($data['links'] as $lk) {
+                    $data['linksList'][] = $lk['label'] . ": " . setLinks($lk['uri']);
             }
         }
         return $data;

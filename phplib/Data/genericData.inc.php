@@ -44,22 +44,38 @@ function searchGeneric($dataStore,$params) {
     }
     return $results;
 }
+// MongoDB wrappers
 
-function getDataGeneric($dataStore,$id) {
+//MongoDB findOne wrapper
+function getOneDocument($dataStore,$id) {
     $data = $GLOBALS['cols'][$dataStore]->findOne(['_id' => $id]);
     return $data;
 }
 
+// MongoDB find wrapper
 function findInDataStore($dataStore,$query, $options) {
     return $GLOBALS['cols'][$dataStore]->find($query,$options);
 }
 
+// returns an array of MongoDB documents from an array of _id's 
 function findArrayInDataStore($dataStore,$idsArray) {
    $data=[];
    if (isset($idsArray)) {
     foreach ($idsArray as $id) {
-           $data[] = getDataGeneric($dataStore,$id);
+           $data[] = getOneDocument($dataStore,$id);
     }
    }
    return $data;
+}
+
+// returns an array of "targetField" values on docs that contain $field:$id
+function getIdsArray($dataStore,$field,$id,$targetField='_id') {
+    $odata = iterator_to_array(findInDataStore(
+        $dataStore, [$field => $id], ['projection' => [$targetField => 1]])
+    );
+    $data=[];
+    foreach ($odata as $v) {
+        $data[]=$v[$targetField];
+    }
+    return $data;
 }
