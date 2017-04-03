@@ -57,9 +57,9 @@ class Dataset extends DataStore {
         if (preg_match("/htm/",$params->fmt)) {
         //Metrics  Inline HTML, TODO nested templates
             foreach ($data['metrics'] as $m) {
-                $lin = "<a href=".$m['metrics_id']." target='_blank'>".$m['metrics_id']."</a><br> ";
+                $lin = "<a href='".$GLOBALS['baseURL']."/Metrics/".$m['metrics_id']."' target='_blank'>".$m['metrics_id']."</a><br> ";
                 foreach (array_keys($m['result']) as $mm) {
-                    $lin .= "<a href='$mm'>$mm</a>: ".$m['result'][$mm]." ";
+                    $lin .= "<a href='".$GLOBALS['baseURL']."/Tool/$mm'>$mm</a>: ".$m['result'][$mm]." ";
                 }
                 $dataMetricsTxt[]=$lin;
             };
