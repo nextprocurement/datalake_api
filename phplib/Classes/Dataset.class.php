@@ -35,7 +35,7 @@ class Dataset extends DataStore {
     ];
     public $templateArrayLinks = [
         'dataset_contact_id' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
-        'event' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
+        'Events' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
     ];
     
     public $classTemplate = 'file';
@@ -46,7 +46,24 @@ class Dataset extends DataStore {
         if (isset($params->extended) and $params->extended) {
             $data['contacts']=  findArrayInDataStore('Contact', $data['dataset_contact_id']);
             $data['references'] = findArrayInDataStore('Reference', $data['references']);
+        }        
+        $testEvents = iterator_to_array(findInDataStore('TestEvent', ['input_dataset_id'=> $data['_id']], []));
+        foreach ($testEvents as $te) {
+            $data['Events'][]=$te['benchmarking_event_id'];
         }
+        $data['Events']=array_values(array_unique($data['Events']));
+        if (preg_match("/htm/",$params->fmt)) {
+        //Metrics  Inline HTML, TODO nested templates
+            foreach ($data['metrics'] as $m) {
+                $lin = "<a href=".$m['metrics_id']." target='_blank'>".$m['metrics_id']."</a><br> ";
+                foreach (array_keys($m['result']) as $mm) {
+                    $lin .= "<a href='$mm'>$mm</a>: ".$m['result'][$mm]." ";
+                }
+                $dataMetricsTxt[]=$lin;
+            };
+            $data['metricsTab'] = "<table><tr>".join("</tr><tr>",$dataMetricsTxt)."</tr></table>";
+        }
+        
         return $data;
     }
 }

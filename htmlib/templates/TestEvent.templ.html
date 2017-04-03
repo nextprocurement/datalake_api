@@ -24,25 +24,20 @@ and open the template in the editor.
             <td><a href="##baseURL##/Tool/##tool_id##.html">##tool_id##</a></td>
         </tr>
         <tr>
-            <td>Input Dataset</td>
-            <td><a href="##baseURL##/Dataset/##input_dataset_id##.html">##input_dataset_id##</a></td>
+            <td>Datasets</td>
+            <td>
+                <table border="0">
+                    <tr>
+                        <td>Input:</td><td><a href="##baseURL##/Dataset/##input_dataset_id##.html">##input_dataset_id##</a></td>
+                    </tr>
+                    <tr>
+                        <td>Output:</td><td><a href="##baseURL##/Dataset/##output_dataset_id##.html">##output_dataset_id##</a></td>
+                    </tr>
+                </table>
         </tr>
         <tr>
             <td>Result report</td>
-            <td><table>
-                    <tr>
-                        <td>Status</td>
-                        <td>##result_report.status##</td>
-                    </tr>
-                    <tr>
-                        <td>Date</td>
-                        <td>##result_report.date##</td>
-                    </tr>
-                    <tr>
-                        <td>Report</td>
-                        <td>##result_report.report##</td>
-                    </tr>
-                </table></td>
+            <td>##reports##</td>
         </tr>
         <tr>
             <td>Dates</td>
