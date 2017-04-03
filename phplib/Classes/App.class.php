@@ -134,7 +134,7 @@ class App {
         $result = $this->dataStore->processData($this->params);
         // Error state
         if ($result->error) {
-            $this->sendError($result->error);
+            $this->sendError($result->error,$this->params->fmt);
         } 
         // Redirect state
         if (isset($result->redirect)) {
@@ -244,16 +244,29 @@ class App {
         header ('Location: '. $GLOBALS['baseURL']."/".$this->dataStore->id."/".$this->params->id.$newUri);
     }
     
-    function sendError($error) {
+    function sendError($error, $fmt='json') {
         list ($str, $errorId) = $error;
         http_response_code($this->errorData[$errorId]['httpCode']);
-        header ("Content-type: application/json");
         $error = [
             'errorId' => $errorId,
             'httpCode' => $this->errorData[$errorId]['httpCode'],
             'msg' => $this->errorData[$errorId]['msg']. " (" . $str . ")"
         ];        
-        print json_encode($error, JSON_PRETTY_PRINT);
+        switch ($fmt) {
+            case 'html':
+            case 'htm':
+                header ("Content-type: text/html");
+                $error['baseURL'] = $GLOBALS['baseURL'];
+                $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlHeader']));
+                $html .= parseTemplate($error,file_get_contents($GLOBALS['htmlError']));
+                $html .=  parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlFooter']));
+                print $html;
+                break;
+            case 'json':
+            default:
+                header ("Content-type: application/json");
+                print json_encode($error, JSON_PRETTY_PRINT);
+        }
         exit(1);
     }
 
