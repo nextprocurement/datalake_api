@@ -57,7 +57,7 @@ abstract class DataStore {
     }
 
     function checkData($data, $id) {
-        if (strtolower($data['_id']) != strtolower($id)) {
+        if (!isset($data['_id']) or (strtolower($data['_id']) != strtolower($id))) {
             $this->setError($id, IDNOTFOUND);
             return;
         } else {
@@ -246,6 +246,9 @@ abstract class DataStore {
                 $data['baseURL']=$GLOBALS['baseURL'];
                 // Replace selected fields by the appropriatelinks on arrays, single fields links should be in the template
                 foreach (array_keys($this->templateArrayLinks) as $k) {
+                    if (!isset($data[$k])){
+                        continue;
+                    }
                     if (is_array($data[$k])) {
                         $newArray=[];
                         for ($i=0;$i<count($data[$k]); $i++) {

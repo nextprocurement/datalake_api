@@ -42,6 +42,8 @@ class Metrics extends DataStore {
     
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        if ($this->error) 
+            {return '';};
         list($data['community_id'],$id) = explode(':',$data['_id']);
         if (preg_match('/htm/',$params->fmt)) {
             foreach ($data['references'] as $l) {

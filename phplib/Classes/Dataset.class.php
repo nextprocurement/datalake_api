@@ -43,6 +43,8 @@ class Dataset extends DataStore {
     
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        if ($this->error) 
+            {return '';}
         if (isset($params->extended) and $params->extended) {
             $data['contacts']=  findArrayInDataStore('Contact', $data['dataset_contact_id']);
             $data['references'] = findArrayInDataStore('Reference', $data['references']);

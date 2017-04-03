@@ -11,6 +11,7 @@ $phplib = "$baseDir/../phplib";
 $htmlib = "$baseDir/../htmlib";
 $htmlHeader = "$htmlib/templates/header.templ.htm";
 $htmlFooter = "$htmlib/templates/footer.templ.htm";
+$htmlError = "$htmlib/templates/error.templ.html";
 // Loading php libraries
 require_once "$phplib/libraries.inc.php";
 

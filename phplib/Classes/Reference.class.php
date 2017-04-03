@@ -40,17 +40,19 @@ class Reference extends DataStore {
     public $textQueryOn = ['_id'=>1,'title'=>1,'pubmed_id'=>1];
 
     function processId($params) { //fixing doi \/ as part of the id
-        print_r($this->currentPath);
+#        print_r($this->currentPath);
         if ($this->currentPath) { // Provisional
             $params->id .= "/".join("/",$this->currentPath);
+            $this->currentPath=[''];
         }
         
-        $params->id = str_replace('_','/',$params->id);
         return $params;
     }
     
     function getData($params, $checkId=true) {//TODO
         $data = parent::getData($params);
+        if ($this->error) 
+            {return '';};
         if (preg_match('/htm/',$params->fmt)) {
             foreach ($data['links'] as $l) {
                 $data['linksList'][] = $l['label'].": ". setLinks($l['uri']);

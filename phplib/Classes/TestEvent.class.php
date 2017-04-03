@@ -25,13 +25,16 @@ class TestEvent extends DataStore {
     public $templateLinks = [
         '_id' => "<a href=\"##baseURL##/TestEvent/##_id##.html\">##_id##</a>",
     ];
-    public $templateArrayLinks = [
-        'CommunityList' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>"
+    public $templateArrayLinks = [        
     ];
     public $classTemplate = 'file';
 
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        if ($this->error) 
+            {return '';};
+        $prefix=explode(":",$data['_id']);
+        $data['community_id']=$prefix[0];
         if (preg_match("/htm/",$params->fmt)) {
             foreach ($data['result_report'] as $r) {
             $data['reports'][] = "Status: ".$r['status'].", Date:".$r['status_date'].", Report: ".$r['report'];

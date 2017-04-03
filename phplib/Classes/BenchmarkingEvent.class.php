@@ -53,7 +53,9 @@ class BenchmarkingEvent extends DataStore {
    
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
-        foreach (iterator_to_array(findInDataStore('TestEvent', ['benchmarking_event_id' => $data['_id']],[])) as $te) {
+        if ($this->error) 
+            {return '';};
+      foreach (iterator_to_array(findInDataStore('TestEvent', ['benchmarking_event_id' => $data['_id']],[])) as $te) {
             $data['TestEvent'][]=$te['_id'];
             $data['tools'][] = $te['tool_id'];
         }

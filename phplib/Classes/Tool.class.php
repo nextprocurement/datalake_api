@@ -47,7 +47,9 @@ class Tool extends DataStore {
     public $textQueryOn = ['_id'=>1,'name'=>1,'description'=>1,'status_id'=>1];
 
     function getData ($params, $checkId=true) {
-        $data = DataStore::getData($params);
+        $data = parent::getData($params);
+        if ($this->error) 
+            {return '';};
         if (preg_match('/htm/',$params->fmt) ) {
             $data['accesslinkList']=[];
             foreach ($data['tool_access'] as $lk) {

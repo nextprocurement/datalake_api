@@ -45,6 +45,8 @@ class Contact extends DataStore {
 
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        if ($this->error) 
+            {return '';};
         if (preg_match("/htm/",$params->fmt) or (isset($params->extended) and $params->extended )) {
             foreach (
             [

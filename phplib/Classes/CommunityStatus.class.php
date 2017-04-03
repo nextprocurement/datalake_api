@@ -35,6 +35,8 @@ class CommunityStatus extends DataStore {
     
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        if ($this->error) 
+        {return '';};
         $data['communities'] = iterator_to_array(findInDataStore('Community',['status_id' => $data['_id']], ['projection'=>['_id'=>1]]));
         return $data;
     }

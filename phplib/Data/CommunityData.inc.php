@@ -1,8 +1,10 @@
 <?php
 
 function getCommunityData($id, $fmt='', $extended = false) {
-
     $data = $GLOBALS['cols']['Community']->findOne(['_id' => $id]);
+    if ($data['_id'] != $id) {
+        return '';
+    }
     foreach (array_keys($GLOBALS['cols']) as $colname) {
         if ($colname == 'Community') {
             continue;

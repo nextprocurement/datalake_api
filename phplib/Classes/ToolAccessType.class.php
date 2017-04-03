@@ -36,6 +36,8 @@ class ToolAccessType extends DataStore {
     
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        if ($this->error) 
+            {return '';};
         $data['Tools']= iterator_to_array(findInDataStore('Tool', ['tool_access.tool_access_type_id' => $data['_id']], ['projection'=>['_id']]));
         return $data;
     }
