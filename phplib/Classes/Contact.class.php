@@ -47,6 +47,9 @@ class Contact extends DataStore {
         $data = parent::getData($params);
         if ($this->error) 
             {return '';};
+        if (!isset($params->fmt)) {
+            $params->fmt='json';
+        }
         if (preg_match("/htm/",$params->fmt) or (isset($params->extended) and $params->extended )) {
             foreach (
             [
@@ -56,7 +59,7 @@ class Contact extends DataStore {
                 'Metrics' => 'metrics_contact_id',
                 'Tool' => 'tool_contact_id'
             ] as $col => $field) {
-                $data[$col] = getIdsArray($col, $field, $data['_id']);
+                $data[$col] = getFieldArray($col, $field, $data['_id']);
             }
             $data['linksList'] = [];
                 foreach ($data['links'] as $lk) {

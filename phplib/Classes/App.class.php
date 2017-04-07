@@ -42,19 +42,21 @@ class App {
         $this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);        
         $this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
         // Format from HTTP
-        switch ($_SERVER['HTTP_ACCEPT']) {
-            case 'application/json' :
-                $fmtHTTP = 'json';
-                break;
-            case 'text/xml': 
-                $fmtHTTP = 'xml';
-                break;
-            case 'text/html':
-                $fmtHTTP = 'html';
-                break;
-            case 'text/plain':
-                $fmtHTTP = 'tsv';
-        };
+        if (isset($_SERVER['HTTP_ACCEPT'])) {
+            switch ($_SERVER['HTTP_ACCEPT']) {
+                case 'application/json' :
+                    $fmtHTTP = 'json';
+                    break;
+                case 'text/xml': 
+                    $fmtHTTP = 'xml';
+                    break;
+                case 'text/html':
+                    $fmtHTTP = 'html';
+                    break;
+                case 'text/plain':
+                    $fmtHTTP = 'tsv';
+            };
+        }
         $ext = pathinfo($this->URI, PATHINFO_EXTENSION);
         if (!preg_match('/\/files\//', $this->URI) and preg_match('/(gz|json|xml|html|htm|tsv)/', $ext)) { // Hack to avoid get dotted ids (Enzyme) as extensions
             $this->URI = str_replace('.'.$ext,'',$this->URI);
@@ -94,7 +96,7 @@ class App {
         }
         if ($ext) {
             $this->params->fmt=$ext;
-        } elseif ($fmtHTTP) {
+        } elseif (isset($fmtHTTP)) {
             $this->params->fmt=$fmtHTTP;
         }
         //
