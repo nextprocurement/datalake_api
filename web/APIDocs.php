@@ -1,4 +1,6 @@
 <?php
+// Provisional
+header ("Location: APIDocs/");
 include "../phplib/globals.inc.php";
 ?>
 <!DOCTYPE html>
