@@ -1,9 +1,4 @@
 <?php
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 function getGenericInfo($dataStore) {
     $data['Total'] = $GLOBALS['cols'][$dataStore]->count();
@@ -69,7 +64,7 @@ function findArrayInDataStore($dataStore,$idsArray) {
 }
 
 // returns an array of "targetField" values on docs that contain $field:$id
-function getIdsArray($dataStore,$field,$id,$targetField='_id') {
+function getFieldArray($dataStore,$field,$id,$targetField='_id') {
     $odata = iterator_to_array(findInDataStore(
         $dataStore, [$field => $id], ['projection' => [$targetField => 1]])
     );

@@ -55,6 +55,9 @@ class Community extends DataStore {
         if (!isset($params->extended)) {
             $params->extended=0;
         }
+        if (!isset($params->fmt)) {
+            $params->fmt='json';
+        }
         return $this->checkData(getCommunityData($params->id,$params->fmt,$params->extended), $params->id);
     }
     

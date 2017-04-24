@@ -55,7 +55,7 @@ function parseTemplate ($f, $txt, $indirFields='', $dateFields='', $incRec = Tru
             foreach (array_values($f[$k]) as $v) {
                 if (!is_array($v)) {
                     $vv[]=$v;
-                } else {
+                } elseif (isset($v['_id'])) { //For mongodb output objects
                     $vv[] = $v['_id'];
                 }
             }
