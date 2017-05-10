@@ -1027,65 +1027,7 @@
         }
     },
     "definitions": {
-        "Community": {
-            "type": "object",
-            "required": ["_id", "_type", "_version", "acronym", "community_contacts", "name", "status_id"],
-            "properties": {
-                "_id": {
-                    "type": "string",
-                    "title": "The unique id of the community. It should be something unique of the community (for instance, an acronym)",
-                    "minLength": 1
-                },
-                "_type": {
-                    "type": "string",
-                    "title": "The document type. In this case, fixed to Community",
-                    "enum": ["Community"]
-                },
-                "_version": {
-                    "type": "string",
-                    "title": "The document type version. In this case, fixed to 0.2",
-                    "enum": ["0.2"]
-                },
-                "name": {
-                    "type": "string",
-                    "title": "Short community name",
-                    "minLength": 1
-                },
-                "acronym": {
-                    "type": "string",
-                    "title": "Unique community acronym",
-                    "minLength": 1
-                },
-                "status_id": {
-                    "type": "array",
-                    "title": "_id(s) of the current community status(es)",
-                    "items": {
-                        "type": "string",
-                        "minLength": 1
-                    }
-                },
-                "description": {
-                    "type": "string",
-                    "title": "Long community name or description"
-                },
-                "links": {
-                    "type": "array",
-                    "title": "Optional links related to the community",
-                    "items": {
-                        "$ref": "#/definitions/Community_links"
-                    }
-                },
-                "community_contacts": {
-                    "type": "array",
-                    "title": "_id of the contacts of the responsible researchers in charge of the community coordination",
-                    "items": {
-                        "type": "string",
-                        "minLength": 1
-                    }
-                }
-            },
-            "title": "Community concept (ELIXIR-EXCELERATE WP2 Benchmarking schemas)"
-        },
+        "Community": {"$ref": "https://elixir.bsc.es/benchmarking/APIDocs/json-schemas/community.json"},
         "BenchmarkingEvent": {
             "type": "object",
             "required": ["_id", "_type", "_version", "bench_contact_id", "community_id", "is_automated", "name"],

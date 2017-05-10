@@ -34,7 +34,7 @@ class Tool extends DataStore {
     
     public $templateLinks = [
         '_id' => "<a href=\"##baseURL##/Tool/##_id##.html\">##_id##</a>",
-        'bioTools_id' => "<a href=\"https://bio.tools/tool/##bioTools_id##.html\">##bioTools_id##</a>",
+        'bioTools_id' => "<a href=\"https://bio.tools/tool/##bioTools_id##\">##bioTools_id##</a>",
     ];
     public $templateArrayLinks = [
         'community_id' =>    'API:Community',
