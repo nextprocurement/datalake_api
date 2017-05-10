@@ -275,13 +275,13 @@ abstract class DataStore {
     }
     
     function _prepLinkTemplate($k) {
-        list($lb,$store,$field) = explode (":",$this->templateArrayLinks[$k]);
-        if (!$field) {
-            $field = "item";
+        $tmpdata = explode (":",$this->templateArrayLinks[$k]);
+        if (!isset($tmpdata[2])) {
+            $tmpdata[2] = "item";
         }
-        switch ($lb) {
+        switch ($tmpdata[0]) {
             case 'API' : 
-                return "<a href=\"##baseURL##/$store/##$field##.html\">##$field##</a>";
+                return "<a href=\"##baseURL##/$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[2]##</a>";
                 break; 
             case 'DOI' :
                 return "<a href=\"https://dx.doi.org/##item##\" target=\"_blank\">##item##</a>";
