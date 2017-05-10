@@ -55,6 +55,7 @@ class Tool extends DataStore {
             foreach ($data['tool_access'] as $lk) {
                 $data['accesslinkList'][] = $lk['tool_access_type_id'].": ".setLinks($lk['link']);
             }
+            $data['description']=  setLinks($data['description']);
         }
         if (isset($params->extended) and $params->extended) {
             foreach ([
