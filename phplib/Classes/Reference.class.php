@@ -33,7 +33,7 @@ class Reference extends DataStore {
         'pubmed_id' => "<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/##pubmed_id##\">##pubmed_id##</a>",
     ];
     public $templateArrayLinks = [
-        'CommunityList' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>"
+        'CommunityList' => 'API:Community'
     ];
     
     public $classTemplate = 'file';

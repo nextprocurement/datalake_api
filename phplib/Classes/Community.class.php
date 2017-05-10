@@ -39,11 +39,14 @@ class Community extends DataStore {
     ];
     
     public $templateArrayLinks = [
-        'community_contacts' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
-        'BenchmarkingEventsList' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
-        'DatasetList' => "<a href=\"##baseURL##/Dataset/##item##.html\">##item##</a>",        
-        'toolsList' => "<a href=\"##baseURL##/Tool/##item##.html\">##item##</a>",        
-        'metricsList' => "<a href=\"##baseURL##/Metrics/##item##.html\">##item##</a>",        
+        'community_contacts' =>     "API:Contact",
+        'BenchmarkingEventsList' => "API:BenchmarkingEvent",
+        'DatasetList' =>            "API:Dataset",        
+        'DatasetInputList' =>       "API:Dataset",        
+        'DatasetOutputList' =>      "API:Dataset",        
+        'DatasetOtherList' =>       "API:Dataset",        
+        'toolsList' =>              "API:Tool",        
+        'metricsList' =>            "API:Metrics",        
     ];
     
     public $classTemplate = 'file';

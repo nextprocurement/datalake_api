@@ -244,15 +244,16 @@ abstract class DataStore {
                 break;
             case 'object':
                 $data['baseURL']=$GLOBALS['baseURL'];
-                // Replace selected fields by the appropriatelinks on arrays, single fields links should be in the template
+                // Replace selected fields by the appropriate links on arrays, single fields links should be in the template
                 foreach (array_keys($this->templateArrayLinks) as $k) {
                     if (!isset($data[$k])){
                         continue;
                     }
                     if (is_array($data[$k])) {
+                        $template = $this->_prepLinkTemplate($k);
                         $newArray=[];
                         for ($i=0;$i<count($data[$k]); $i++) {
-                            $newArray[] = str_replace('##item##',$data[$k][$i],$this->templateArrayLinks[$k]);
+                            $newArray[] = str_replace('##item##',$data[$k][$i],$template);
                         }
                         $data[$k] = $newArray;
                     }
@@ -271,6 +272,25 @@ abstract class DataStore {
             }
         }
         return $html;        
+    }
+    
+    function _prepLinkTemplate($k) {
+        list($lb,$store,$field) = explode (":",$this->templateArrayLinks[$k]);
+        if (!$field) {
+            $field = "item";
+        }
+        switch ($lb) {
+            case 'API' : 
+                return "<a href=\"##baseURL##/$store/##$field##.html\">##$field##</a>";
+                break; 
+            case 'DOI' :
+                return "<a href=\"https://dx.doi.org/##item##\" target=\"_blank\">##item##</a>";
+                break;
+            case 'PM' :
+                return "<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/##item##\" target=\"_blank\">##item##</a>";
+            default:
+                return $this->templateArrayLinks[$k];
+        }
     }
 
 }

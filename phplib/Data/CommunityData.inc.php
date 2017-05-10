@@ -29,9 +29,21 @@ function getCommunityData($id, $fmt='', $extended = false) {
         }
         unset($data['links']);
         $data['DatasetList'] = [];
+        $data['DatasetInputList']=[];
+        $data['DatasetOutputList']=[];
+        $data['DatasetOtherList']=[];
         foreach ($data['Dataset'] as $dts) {
-            $data['DatasetList'][] = $dts['_id'];
+            $dtsData=getOneDocument('Dataset',$dts['_id']);
+            switch ($dtsData['type']) {
+                case 'Input': $data['DatasetInputList'][] = $dts['_id'];
+                    break;
+                case 'Output':$data['DatasetOutputList'][] = $dts['_id'];
+                    break;
+                default:
+                    $data['DatasetOtherList'][] = $dts['_id'];
+            }
         }
+        $data['DatasetList'] = [$data['DatasetInputList'], $data['DatasetOutputList'], $data['DatasetOtherList']];
         $data['toolsList'] = [];
         foreach ($data['Tool'] as $dts) {
             $data['toolsList'][] = $dts['_id'];

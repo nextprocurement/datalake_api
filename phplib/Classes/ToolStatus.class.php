@@ -30,7 +30,7 @@ class ToolStatus extends DataStore {
         '_id' => "<a href=\"##baseURL##/ToolStatus/##_id##.html\">##_id##</a>",
     ];
     public $templateArrayLinks = [
-        'CommunityList' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>"
+        'CommunityList' => 'API:Community/'
     ];
     
     public $textQueryOn = ['_id'=>1,'description'=>1];

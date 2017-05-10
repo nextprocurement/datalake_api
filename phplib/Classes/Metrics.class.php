@@ -32,8 +32,8 @@ class Metrics extends DataStore {
         '_id' => "<a href=\"##baseURL##/Metrics/##_id##.html\">##_id##</a>",
     ];
     public $templateArrayLinks = [
-        'metrics_contact_id' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
-        'referencesList' => "<a href=\"##baseURL##/Reference/##item##.html\">##item##</a>"
+        'metrics_contact_id' => 'API:Contact',
+        'referencesList' =>     'API:Reference'
     ];
     
     public $classTemplate = 'file';

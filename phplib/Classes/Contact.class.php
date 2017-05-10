@@ -34,11 +34,11 @@ class Contact extends DataStore {
         '_id' => "<a href=\"##baseURL##/Contact/##_id##.html\">##_id##</a>",
     ];
     public $templateArrayLinks = [
-        'Community' => "<a href=\"##baseURL##/Community/##item##.html\">##item##</a>",
-        'BenchmarkingEvent' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
-        'Dataset' => "<a href=\"##baseURL##/Dataset/##item##.html\">##item##</a>",
-        'Metrics' => "<a href=\"##baseURL##/Metrics/##item##.html\">##item##</a>",
-        'Tool' => "<a href=\"##baseURL##/Tool/##item##.html\">##item##</a>"
+        'Community' =>         'API:Community',
+        'BenchmarkingEvent' => 'API:BenchmarkingEvent',
+        'Dataset' =>           'API:Dataset',
+        'Metrics' =>           'API:Metrics',
+        'Tool' =>              'API:Tool'
     ];
     public $classTemplate = 'file';
     public $textQueryOn = ["givenName", "_id", "surname", "notes"];

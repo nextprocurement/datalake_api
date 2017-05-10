@@ -40,11 +40,12 @@ class BenchmarkingEvent extends DataStore {
         '_id' => "<a href=\"##baseURL##/BenchmarkingEvent/##_id##.html\">##_id##</a>",
     ];
     public $templateArrayLinks = [        
-        'bench_contact_id' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
-        'references' => "<a href=\"https://dx.doi.org/##item##\">##item##</a>",
-        'target-list' => "<a href=\"##baseURL##/Dataset/##item##.html\">##item##</a>",
-        'TestEvent' => "<a href=\"##baseURL##/TestEvent/##item##.html\">##item##</a>",
-        'tools' => "<a href=\"##baseURL##/Tool/##item##.html\">##item##</a>",
+        'bench_contact_id' => 'API:Contact',
+        'references' =>       'DOI:doi',
+        'target-list' =>      'API:Dataset',
+        'TestEvent' =>        'API:TestEvent',
+        'InputDatasets' =>    'API:Dataset',
+        'tools' =>            'API:Tool',
     ];
     
     public $classTemplate = 'file';
@@ -58,9 +59,10 @@ class BenchmarkingEvent extends DataStore {
       foreach (iterator_to_array(findInDataStore('TestEvent', ['benchmarking_event_id' => $data['_id']],[])) as $te) {
             $data['TestEvent'][]=$te['_id'];
             $data['tools'][] = $te['tool_id'];
+            $data['InputDatasets'][]= $te['input_dataset_id'];
         }
-        print_r($data['tools']);
         $data['tools']= array_values(array_unique($data['tools']));
+        $data['InputDatasets']= array_values(array_unique($data['InputDatasets']));
         if (isset($params->extended) and $params->extended) {
             $data['bench_contacts']=[];
             foreach ($data['bench_contact_id'] as $c) {

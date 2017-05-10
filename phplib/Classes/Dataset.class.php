@@ -34,8 +34,8 @@ class Dataset extends DataStore {
         '_id' => "<a href=\"##baseURL##/Dataset/##_id##.html\">##_id##</a>",
     ];
     public $templateArrayLinks = [
-        'dataset_contact_id' => "<a href=\"##baseURL##/Contact/##item##.html\">##item##</a>",
-        'Events' => "<a href=\"##baseURL##/BenchmarkingEvent/##item##.html\">##item##</a>",
+        'dataset_contact_id' => 'API:Contact',
+        'Events' =>             'API:BenchmarkingEvent'
     ];
     
     public $classTemplate = 'file';
