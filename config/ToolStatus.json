@@ -1,0 +1,26 @@
+{
+    "baseXMLTag": "ToolStatus",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",   
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Id",
+            "description": "Description"
+        }
+    },
+    "templateAllFields": {
+        "_id": "Id",
+        "description": "Description"
+    },
+    "templateLinks": {
+        "_id": "<a href=\"##baseURL##/ToolStatus/##_id##.html\">##_id##</a>"
+    },
+    "templateArrayLinks": {
+        "CommunityList": "API:Community/"
+    },
+    "textQueryOn": {
+        "_id": 1,
+        "description": 1
+    }
+}

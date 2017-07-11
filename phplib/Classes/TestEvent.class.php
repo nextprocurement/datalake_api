@@ -10,25 +10,6 @@ class TestEvent extends DataStore {
 
     const StoreDescription = 'Benchmarking Test Events';
 
-    public $baseXMLTag = 'TestEvent';
-    public $defaultOp = 'entry';
-    public $addDefault = true;
-    public $storeData = '';
-    public $templateFieldDefaults = [
-        'search' => [
-            '_id' => 'Id',
-        ],
-    ];
-    public $templateAllFields = [
-        '_id' => 'Id',
-    ];
-    public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/TestEvent/##_id##.html\">##_id##</a>",
-    ];
-    public $templateArrayLinks = [        
-    ];
-    public $classTemplate = 'file';
-
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if ($this->error) 

@@ -10,31 +10,6 @@ class ToolStatus extends DataStore {
     
     const StoreDescription = 'Benchmarking Tool Status';
 
-    public $baseXMLTag = 'ToolStatus';
-    public $defaultOp = 'entry';
-    public $addDefault = true;
-    public $storeData = '';   
-    
-    public $templateFieldDefaults = [
-        'search' => [
-            '_id' => 'Id',
-            'description' =>'Description'
-        ],
-    ];
-    public $templateAllFields = [
-            '_id' => 'Id',
-            'description' =>'Description'
-    ];
-    
-    public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/ToolStatus/##_id##.html\">##_id##</a>",
-    ];
-    public $templateArrayLinks = [
-        'CommunityList' => 'API:Community/'
-    ];
-    
-    public $textQueryOn = ['_id'=>1,'description'=>1];
-    
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if ($this->error) 

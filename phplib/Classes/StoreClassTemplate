@@ -1,0 +1,57 @@
+<?php
+
+/* 
+ * Skeleton for new data type store classes
+ */
+
+class StoreName extends DataStore {
+    
+    const StoreDescription = '';
+
+//    public $baseXMLTag = '';
+//    public $defaultOp = 'entry'; // Default operation 
+//    public $addDefault = true; // Use default operation
+//    public $storeData = '';   // raw files access
+//    
+//    public $templateFieldDefaults = [ // Fileds for tabular output
+//        'search' => [
+//            '_id' => 'Store:Id'
+//        ],
+//    ];
+//    public $templateAllFields = [ // Labels for all fields 
+//            '_id' => 'Store:Id',
+//    ];
+//    
+//    // HTML templates
+//    
+//    public $templateLinks = [ // template for HTML links
+//        '_id' => "<a href=\"##baseURL##/Store/##_id##.html\">##_id##</a>",
+//    ];
+//    public $templateArrayLinks = [        // Links in array fields  ( expansion of foering keys)
+//        'foering keyontact_id' => 'Store:Field'        
+//    ];
+//    
+//    public $classTemplate = 'file'; // Template file for complete HTML class page
+//    
+//    public $textQueryOn=['_id'=>1]; // fields for text query
+   
+    function getData($params, $checkId=true) {
+        $data = parent::getData($params);
+        if ($this->error) {
+            return '';
+            
+        }
+        if (!isset($params->fmt)) {
+            $params->fmt='json';
+        }
+        // Specific code
+        if (preg_match('/htm/',$params->fmt)) {
+            // code specific to HTML output
+        }
+        if (isset($params->extended) and $params->extended) {
+            // get denormalized data
+        }
+        
+        return $data;
+    }
+}

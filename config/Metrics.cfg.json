@@ -1,0 +1,31 @@
+{
+    "baseXMLTag": "Metrics",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",   
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Id",
+            "title": "Title",
+            "description": "Description"
+        }
+    },
+    "templateAllFields": {
+        "_id": "Id",
+        "title": "Title",
+        "description": "Description"
+    },
+    "templateLinks": {
+        "_id": "<a href=\"##baseURL##/Metrics/##_id##.html\">##_id##</a>"
+    },
+    "templateArrayLinks": {
+        "metrics_contact_id": "API:Contact",
+        "referencesList": "API:Reference"
+    },
+    "classTemplate": "file",
+    "textQueryOn": {
+        "_id": 1,
+        "title": 1,
+        "description": 1
+    }
+}

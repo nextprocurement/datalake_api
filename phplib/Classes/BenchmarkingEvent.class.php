@@ -9,48 +9,6 @@
 class BenchmarkingEvent extends DataStore {
     
     const StoreDescription = 'Benchmarking Events';
-
-    public $baseXMLTag = 'BenchmarkingEvent';
-    public $defaultOp = 'entry';
-    public $addDefault = true;
-    public $storeData = '';   
-    
-    public $templateFieldDefaults = [
-        'search' => [
-            '_id' => 'Community:Id',
-            'name' => 'Event',
-            'is_automated' => 'Automated?',
-            'dates.benchmark_start' => 'Start',
-            'dates.benchmark_stop' => 'End',
-            'url' => 'URL',
-            'referencesList' => 'References'
-        ],
-    ];
-    public $templateAllFields = [
-            '_id' => 'Community:Id',
-            'name' => 'Event',
-            'is_automated' => 'Automated?',
-            'dates.benchmark_start' => 'Start',
-            'dates.benchmark_stop' => 'End',
-            'url' => 'URL',
-            'referencesList' => 'References'
-    ];
-    
-    public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/BenchmarkingEvent/##_id##.html\">##_id##</a>",
-    ];
-    public $templateArrayLinks = [        
-        'bench_contact_id' => 'API:Contact',
-        'references' =>       'DOI:doi',
-        'target-list' =>      'API:Dataset',
-        'TestEvent' =>        'API:TestEvent',
-        'InputDatasets' =>    'API:Dataset',
-        'tools' =>            'API:Tool',
-    ];
-    
-    public $classTemplate = 'file';
-    
-    public $textQueryOn=['_id'=>1, 'name'=> 1];
    
     function getData($params, $checkId=true) {
         $data = parent::getData($params);

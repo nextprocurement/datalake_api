@@ -9,36 +9,6 @@
 class Metrics extends DataStore {
     
     const StoreDescription = 'Benchmarking metrics';
-
-    public $baseXMLTag = 'Metrics';
-    public $defaultOp = 'entry';
-    public $addDefault = true;
-    public $storeData = '';   
-    
-    public $templateFieldDefaults = [
-        'search' => [
-            '_id' => 'Id',
-            'title' => 'Title',
-            'description' => 'Description'
-        ],
-    ];
-    public $templateAllFields = [
-            '_id' => 'Id',
-            'title' => 'Title',
-            'description' => 'Description'
-    ];
-    
-    public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/Metrics/##_id##.html\">##_id##</a>",
-    ];
-    public $templateArrayLinks = [
-        'metrics_contact_id' => 'API:Contact',
-        'referencesList' =>     'API:Reference'
-    ];
-    
-    public $classTemplate = 'file';
-
-    public $textQueryOn = ['_id'=>1,'title'=>1,'description'=>1];
     
     function getData($params, $checkId=true) {
         $data = parent::getData($params);

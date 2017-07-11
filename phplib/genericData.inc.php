@@ -1,4 +1,13 @@
 <?php
+/*
+ * Bunch of function to deal with MongoDB
+ * getGenericInfo: Get counts and update time for DataStore
+ * getOneDocupemt: Wrapper to Mongodb findOne
+ * findInDataStore: Wrapper to Mongodb find
+ * findArrayInDataStore: Produces an array of documents from Datastore form an array of ids
+ * getFieldArray: Returns an array of "targetField" values on docs that contain $field:$id
+ * 
+ */
 
 function getGenericInfo($dataStore) {
     $data['Total'] = $GLOBALS['cols'][$dataStore]->count();
@@ -6,7 +15,7 @@ function getGenericInfo($dataStore) {
     return $data;
 }
 
-function searchGeneric($dataStore,$params) {
+function searchGeneric($dataStore,$params, $sortA=[]) {
     $cond = [];
 
     if (isset($params['query'])) {
@@ -33,7 +42,6 @@ function searchGeneric($dataStore,$params) {
 //print json_encode($fcond);
 //print "</pre>";
 
-    $sortA = [];
     foreach ($GLOBALS['cols'][$dataStore]->find($fcond, ['sort' => $sortA]) as $rs) {
         $results[] = $rs;
     }

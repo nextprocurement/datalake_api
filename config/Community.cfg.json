@@ -1,0 +1,42 @@
+{
+    "baseXMLTag": "Commmunity",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Acronym",
+            "name": "Name",
+            "status_id": "Status",
+            "description": "Description",
+            "linkMain": "URL"
+        }
+    },
+    "templateAllFields": {
+        "_id": "Acronym",
+        "name": "Name",
+        "status_id": "Status",
+        "description": "Description",
+        "linkMain": "URL"
+    },
+    "templateLinks": {
+        "_id": "<a href=\"##baseURL##/Community/##_id##.html\">##_id##</a>"
+    },
+    "templateArrayLinks": {
+        "community_contacts": "API:Contact",
+        "BenchmarkingEventsList": "API:BenchmarkingEvent",
+        "DatasetList": "API:Dataset",
+        "DatasetInputList": "API:Dataset",
+        "DatasetOutputList": "API:Dataset",
+        "DatasetOtherList": "API:Dataset",
+        "toolsList": "API:Tool",
+        "metricsList": "API:Metrics"
+    },
+    "classTemplate": "file",
+    "textQueryOn": {
+        "name": 1,
+        "_id": 1,
+        "description": 1,
+        "community_contacts": 1
+    }
+}

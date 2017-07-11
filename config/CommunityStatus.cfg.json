@@ -1,0 +1,25 @@
+{
+    "baseXMLTag": "CommmunityStatus",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Acronym",
+            "description": "Description"
+        }
+    },
+    "templateAllFields": {
+            "_id": "Acronym",
+            "description": "Description"
+    },
+    "templateLinks": {
+        "_id": "<a href=\"##baseURL##/Community/##_id##.html\">##_id##</a>"
+    },
+    "templateArrayLinks": {
+    },
+    "classTemplate": "",
+    "textQueryOn": {
+        "_id": 1
+    }
+}

@@ -147,6 +147,9 @@ class App {
         list ($dataType, $data) = $result->output;
         switch ($dataType) {
             case STRUCT: //structured array data, default json
+                if (!isset($this->params->fmt)) {
+                    $this->params->fmt='';
+                }
                 switch ($this->params->fmt) {
                     case "xml":
                         $outputDataType = XML;
@@ -215,10 +218,12 @@ class App {
             case XML:
                 if (is_array($data)) {
                     $xml = xml_encode([$this->dataStore->baseXMLTag => $data]);
-                    $idatr = $xml->createAttribute('id');
-                    $idatr->value = $data['_id'];
-                    $rootelem = $xml->getElementsByTagName($this->dataStore->baseXMLTag)->item(0);
-                    $rootelem->appendChild($idatr);
+                    if (isset($data['_id'])) {
+                        $idatr = $xml->createAttribute('id');
+                        $idatr->value = $data['_id'];
+                        $rootelem = $xml->getElementsByTagName($this->dataStore->baseXMLTag)->item(0);
+                        $rootelem->appendChild($idatr);
+                    }
                     $this->output = $xml->saveXML();
                 } else {
                     $this->output = "<$this->dataStore->baseXmlTag>\n<![CDATA[" . $data . "]]>\n</$this->dataStore->baseXmlTag>";

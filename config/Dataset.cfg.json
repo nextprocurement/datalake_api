@@ -1,0 +1,34 @@
+{
+    "baseXMLTag": "Dataset",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",   
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Community:Id",
+            "name": "Name",
+            "type": "type",
+            "description": "Description"
+        }
+    },
+    "templateAllFields": {
+        "_id": "Community:Id",
+        "name": "Name",
+        "type": "type",
+        "description": "Description"
+    },
+    "templateLinks": {
+        "_id": "<a href=\"##baseURL##/Dataset/##_id##.html\">##_id##</a>"
+    },
+    "templateArrayLinks": {
+        "dataset_contact_id": "API:Contact",
+        "Events": "API:BenchmarkingEvent",
+        "testEventList": "API:TestEvent"
+    },
+    "classTemplate": "file",
+    "textQueryOn": {
+        "_id": 1,
+        "name": 1,
+        "description": 1
+    }
+}

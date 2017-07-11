@@ -10,38 +10,6 @@ class Dataset extends DataStore {
     
     const StoreDescription = 'Benchmarking Datasets';
 
-    public $baseXMLTag = 'Dataset';
-    public $defaultOp = 'entry';
-    public $addDefault = true;
-    public $storeData = '';   
-    
-    public $templateFieldDefaults = [
-        'search' => [
-            "_id"=> "Community:Id",
-            "name" => "Name",
-            "type" => "type",
-            "description"=> "Description",
-        ]
-    ];
-    public $templateAllFields = [
-            "_id"=> "Community:Id",
-            "name" => "Name",
-            "type" => "type",
-            "description"=> "Description",
-    ];
-    
-    public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/Dataset/##_id##.html\">##_id##</a>",
-    ];
-    public $templateArrayLinks = [
-        'dataset_contact_id' => 'API:Contact',
-        'Events' =>             'API:BenchmarkingEvent',
-        'testEventList'=>          'API:TestEvent'
-    ];
-    
-    public $classTemplate = 'file';
-    public $textQueryOn = ['_id'=>1,'name'=>1,'description'=>1];
-    
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if ($this->error) 

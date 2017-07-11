@@ -1,0 +1,31 @@
+{
+    "baseXMLTag": "Reference",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",   
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Id",
+            "title": "Title",
+            "pubmed_id": "PubMed Id"
+        }
+    },
+    "templateAllFields": {
+        "_id": "Id",
+        "title": "Title",
+        "pubmed_id": "PubMed Id"
+    },
+    "templateLinks": {
+        "_id": "<a href=\"##baseURL##/Reference/##_id##.html\">##_id##</a>",
+        "pubmed_id": "<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/##pubmed_id##\">##pubmed_id##</a>"
+    },
+    "templateArrayLinks": {
+        "CommunityList": "API:Community"
+    },
+    "classTemplate": "file",
+    "textQueryOn": {
+        "_id": 1,
+        "title": 1,
+        "pubmed_id": 1
+    }
+}

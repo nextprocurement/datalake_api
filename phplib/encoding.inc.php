@@ -1,7 +1,10 @@
 <?php
 
 /*
- * 
+ * Several utility funcions
+ * xml_encode: Produces XML from php array structure
+ * setLinks: replace URL like expressions by HTML links
+ * is_assoc: Check if array is associative
  */
 define('STRUCT', 0); //PHP array structure
 define('TEXT',   1);

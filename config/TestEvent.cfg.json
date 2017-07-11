@@ -1,0 +1,20 @@
+{
+    "baseXMLTag": "TestEvent",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Id"
+        }
+    },
+    "templateAllFields": {
+        "_id": "Id"
+    },
+    "templateLinks": {
+        "_id": "<a href=\"##baseURL##/TestEvent/##_id##.html\">##_id##</a>"
+    },
+    "templateArrayLinks": {
+    },
+    "classTemplate": "file"
+}

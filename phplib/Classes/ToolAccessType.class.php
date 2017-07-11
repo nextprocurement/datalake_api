@@ -10,30 +10,6 @@ class ToolAccessType extends DataStore {
     
     const StoreDescription = 'Benchmarking Tools Access types';
 
-    public $baseXMLTag = 'ToolAccessType';
-    public $defaultOp = 'entry';
-    public $addDefault = true;
-    public $storeData = '';   
-    
-    public $templateFieldDefaults = [
-        'search' => [
-            '_id' => 'Id',
-            'description' => 'Description'
-        ],
-    ];
-    public $templateAllFields = [
-            '_id' => 'Id',
-            'description' => 'Description'
-    ];
-    
-    public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/ToolsAccessType/##_id##.html\">##_id##</a>",
-    ];
-    public $templateArrayLinks = [
-    ];
-    
-    public $textQueryOn= ['_id'=>1,'description'=>1];
-    
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if ($this->error) 

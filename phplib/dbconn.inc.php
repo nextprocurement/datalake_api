@@ -1,5 +1,4 @@
 <?php
-
 /*
  * Mongo DB connection 
  */
@@ -18,9 +17,10 @@ $dbConn = new MongoDB\Client($dbconnStr,
             ]
         ]);
 // Database selection
-$db = $dbConn->benchmarkingRepo;
+$db = $dbConn->$MDB_database;
 // Collections handlers
 $collections = $db->listCollections();
-foreach ($dbConn->benchmarkingRepo->listCollections() as $col) {
-    $cols[$col->getName()] = $dbConn->selectCollection('benchmarkingRepo', $col->getName());
-}; 
+$cols=[];
+foreach ($collections as $col) {
+    $cols[$col->getName()] = $dbConn->selectCollection($MDB_database, $col->getName());
+}

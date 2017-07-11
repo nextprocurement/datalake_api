@@ -10,39 +10,6 @@ class Contact extends DataStore {
 
     const StoreDescription = 'Benchmarking community contacts';
 
-    public $baseXMLTag = 'Contact';
-    public $defaultOp = 'entry';
-    public $addDefault = true;
-    public $storeData = '';
-    public $templateFieldDefaults = [
-        'search' => [
-            '_id' => 'Id',
-            'surname' => 'Surname',
-            'givenName' => 'Given Name',
-            'email' => 'Email',
-            'notes' => 'Notes'
-        ],
-    ];
-    public $templateAllFields = [
-        '_id' => 'Id',
-        'surname' => 'Surname',
-        'givenName' => 'Given Name',
-        'email' => 'Email',
-        'notes' => 'Notes',
-    ];
-    public $templateLinks = [
-        '_id' => "<a href=\"##baseURL##/Contact/##_id##.html\">##_id##</a>",
-    ];
-    public $templateArrayLinks = [
-        'Community' =>         'API:Community',
-        'BenchmarkingEvent' => 'API:BenchmarkingEvent',
-        'Dataset' =>           'API:Dataset',
-        'Metrics' =>           'API:Metrics',
-        'Tool' =>              'API:Tool'
-    ];
-    public $classTemplate = 'file';
-    public $textQueryOn = ["givenName", "_id", "surname", "notes"];
-
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if ($this->error) 

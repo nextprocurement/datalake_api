@@ -14,15 +14,30 @@ abstract class DataStore {
     public $baseXMLTag;
     public $storeData;
     public $error = NOERROR;
+    
     public $templateFieldDefaults = [];
     public $templateAllFields = [];
+    public $templateLinks = [];
+    public $templateArrayLinks = [];
     public $classTemplate = '';
+    
     public $textQueryOn=['_id'=>1];
-
+    
     function __construct() {
         $this->id = get_class($this);
+        $this->readConfig();
         return $this;
     }
+
+    function readConfig() {
+        $cfgjson = file_get_contents($GLOBALS['config']."/".$this->id.".cfg.json");
+        $cfg = json_decode($cfgjson, true);
+        foreach (array_keys($cfg) as $ff) {
+            $this->$ff = $cfg[$ff];
+        }        
+        return $this;
+    }
+    
 
     function processId($params) {
         //placeholder for getting specific data from $id;
@@ -175,7 +190,15 @@ abstract class DataStore {
                 $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
                 break;
         }        
-        $dataOut = searchGeneric($this->id,(array) $params);        
+        if (isset($params->sort)) {
+            $sort=[];
+            foreach (explode (",",$params->sort) as $ss) {
+                $sort[$ss]=1;
+            }
+        } else {
+            $sort=['_id'=>1];
+        }
+        $dataOut = searchGeneric($this->id,(array) $params, $sort);        
         if (!isset($params->fmt)) {
             $params->fmt='tsv';
         }
@@ -193,6 +216,10 @@ abstract class DataStore {
     }
 
     function files($params) {
+        if (!$this->storeData) {
+              $this->setError('files', UNAVAILMETHOD);
+             return $this;
+        }
         $fileName = join("/", $this->currentPath);
         $discFn = $this->storeData . "/$fileName";
         if (!file_exists($discFn)) {
@@ -207,7 +234,7 @@ abstract class DataStore {
                     $dirFiles[] = $f;
                 }
             }
-            return [STRUC, ['dir' => $fileName, 'files' => $dirFiles]];
+            return [STRUCT, ['dir' => $fileName, 'files' => $dirFiles]];
         }
     }
 
@@ -253,7 +280,12 @@ abstract class DataStore {
                         $template = $this->_prepLinkTemplate($k);
                         $newArray=[];
                         for ($i=0;$i<count($data[$k]); $i++) {
+                            if (is_array($data[$k][$i])) {
+                                $data[$k][$i]['baseURL']=$GLOBALS['baseURL'];
+                                $newArray[] = parseTemplate($data[$k][$i], $template);
+                            } else {
                             $newArray[] = str_replace('##item##',$data[$k][$i],$template);
+                        }
                         }
                         $data[$k] = $newArray;
                     }
@@ -279,9 +311,15 @@ abstract class DataStore {
         if (!isset($tmpdata[2])) {
             $tmpdata[2] = "item";
         }
+        if (!isset($tmpdata[3])) {
+            $tmpdata[3] = "item";
+        }
         switch ($tmpdata[0]) {
             case 'API' : 
-                return "<a href=\"##baseURL##/$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[2]##</a>";
+                return "<a href=\"##baseURL##/$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]##</a>";
+                break; 
+            case 'APIObj' : 
+                return "<a href=\"##baseURL##/$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]## (##$tmpdata[2]##)</a>";
                 break; 
             case 'DOI' :
                 return "<a href=\"https://dx.doi.org/##item##\" target=\"_blank\">##item##</a>";

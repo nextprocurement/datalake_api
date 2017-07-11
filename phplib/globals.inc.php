@@ -9,12 +9,12 @@ include "../settings.inc.php";
 //
 $phplib = "$baseDir/../phplib";
 $htmlib = "$baseDir/../htmlib";
+$config = "$baseDir/../config";
 $htmlHeader = "$htmlib/templates/header.templ.htm";
 $htmlFooter = "$htmlib/templates/footer.templ.htm";
 $htmlError = "$htmlib/templates/error.templ.html";
 // Loading php libraries
 require_once "$phplib/libraries.inc.php";
-
 // Loading classes
 require_once "$phplib/Classes/DataStore.class.php";
 foreach (scandir("$phplib/Classes") as $cl) {
@@ -29,5 +29,3 @@ foreach (scandir("$phplib/Data") as $cl) {
         require_once ("$phplib/Data/$cl");
     }
 }
-
-

@@ -1,0 +1,34 @@
+{
+    "class_name": "Store", 
+    "baseXMLTag" : "",     
+    "defaultOp" : "entry", "Comment": "Default operation",
+    "addDefault" : true,   "Comment": "Add default operation name when missing and retrieving inner fields",
+    "storeData" : "",      "Comment": "Direct access to raw files",
+    
+    "templateFieldDefaults" : {
+        "search" : {
+            "Comment": "Fields in tsv output",
+            "_id" : "Store:Id"
+        }
+    },
+    "templateAllFields" : {
+        "Comment" : "Labels for all fields",
+        "_id" : "Store:Id"
+    },
+    
+    "Comment": "HTML templates",
+    
+    "templateLinks" : { 
+        "Comment": "template for HTML links",
+        "_id" : "<a href=\"##baseURL##/Store/##_id##.html\">##_id##</a>"
+    },
+    
+    "templateArrayLinks" : {
+        "Comment": "Links in array fields  ( expansion of foering keys)",
+        "foreing key_id" : "Store:Field"        
+    },
+    
+    "classTemplate" : "file", "Comment": "Template file for complete HTML class page",
+    
+    "textQueryOn":{"_id":1}, "Comment": "fields for text query"
+}
