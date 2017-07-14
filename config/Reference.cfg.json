@@ -2,6 +2,7 @@
     "baseXMLTag": "Reference",
     "defaultOp": "entry",
     "addDefault": true,
+    "joinFullPath": true,
     "storeData": "",   
     "templateFieldDefaults": {
         "search": {
@@ -17,7 +18,7 @@
     },
     "templateLinks": {
         "_id": "<a href=\"##baseURL##/Reference/##_id##.html\">##_id##</a>",
-        "pubmed_id": "<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/##pubmed_id##\">##pubmed_id##</a>"
+        "pubmed_id": "<a href=\"##baseURL##/idsolv/PM:##pubmed_id##\">##pubmed_id##</a>"
     },
     "templateArrayLinks": {
         "CommunityList": "API:Community"

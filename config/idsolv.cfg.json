@@ -1,0 +1,33 @@
+{
+    "class_name": "idsolv", 
+    "baseXMLTag" : "ID",     
+    "defaultOp" : "redir",
+    "addDefault" : false,
+    "storeData" : "", 
+    "joinFullPath": true,
+    
+    "templateFieldDefaults" : {
+        "search" : {
+            "_id" : "Prefix",
+            "URL": "URL template",
+            "description": "Description"
+        }
+    },
+    "templateAllFields" : {
+            "_id" : "Id",
+            "URL": "URL template",
+            "description": "Description"
+    },
+    
+    "templateLinks" : { 
+        "Comment": "template for HTML links",
+        "_id" : "<a href=\"##baseURL##/idsolv/##_id##/entry.html\">##_id##</a>"
+    },
+    
+    "templateArrayLinks" : {
+    },
+    
+    "classTemplate" : "file",
+    
+    "textQueryOn":{"_id":1}
+}

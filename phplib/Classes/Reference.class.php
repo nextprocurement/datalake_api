@@ -10,15 +10,15 @@ class Reference extends DataStore {
     
     const StoreDescription = 'Benchmarking references';
 
-    function processId($params) { //fixing doi \/ as part of the id
-#        print_r($this->currentPath);
-        if ($this->currentPath) { // Provisional
-            $params->id .= "/".join("/",$this->currentPath);
-            $this->currentPath=[''];
-        }
-        
-        return $params;
-    }
+//    function processId($params) { //fixing doi \/ as part of the id
+//#        print_r($this->currentPath);
+//        if ($this->currentPath) { // Provisional
+//            $params->id .= "/".join("/",$this->currentPath);
+//            $this->currentPath=[''];
+//        }
+//        
+//        return $params;
+//    }
     
     function getData($params, $checkId=true) {//TODO
         $data = parent::getData($params);

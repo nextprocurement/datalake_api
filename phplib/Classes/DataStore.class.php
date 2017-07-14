@@ -9,7 +9,8 @@ abstract class DataStore {
 
     public $id;
     public $output = [];
-    public $defaultOp;
+    public $defaultOp = '';
+    public $joinFullPath = false;
     public $currentPath;
     public $baseXMLTag;
     public $storeData;
@@ -41,6 +42,12 @@ abstract class DataStore {
 
     function processId($params) {
         //placeholder for getting specific data from $id;
+        if ($this->joinFullPath) {
+            if ($this->currentPath) { 
+                $params->id .= "/".join("/",$this->currentPath);
+                $this->currentPath=[''];
+            }
+        }
         return $params;
     }
 
@@ -322,10 +329,10 @@ abstract class DataStore {
                 return "<a href=\"##baseURL##/$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]## (##$tmpdata[2]##)</a>";
                 break; 
             case 'DOI' :
-                return "<a href=\"https://dx.doi.org/##item##\" target=\"_blank\">##item##</a>";
+                return "<a href=\"##baseURL##/idsolv/DOI:##item##\" target=\"_blank\">##item##</a>";
                 break;
             case 'PM' :
-                return "<a href=\"https://www.ncbi.nlm.nih.gov/pubmed/##item##\" target=\"_blank\">##item##</a>";
+                return "<a href=\"##baseURL##/idsolv/PM:##item##\" target=\"_blank\">##item##</a>";
             default:
                 return $this->templateArrayLinks[$k];
         }
