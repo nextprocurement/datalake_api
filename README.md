@@ -1,4 +1,4 @@
-# ELIXIRBenchmarking API v.0.1
+# ELIXIRBenchmarking API v.0.3
 
 ### Introduction
 RESTful API to access ELIXIR Benchmarking data Store. Include HTML support allowing 
