@@ -265,10 +265,15 @@ abstract class DataStore {
     
 
     protected function _formatHTML($params, $data, $type,$removePrefix=true) {
-        $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlHeader']));
+        $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL'],'title'=>$this->id],file_get_contents($GLOBALS['htmlHeader']));
         switch ($type) {
             case 'tsv': 
-                $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL'], 'title'=>$this->id, 'table_id'=>$this->id, 'params'=>$params->toQueryString()], 
+                $html .= parseTemplate([
+                            'baseURL'=>$GLOBALS['baseURL'], 
+                            'title'=>$this->id, 
+                            'table_id'=>$this->id, 
+                            'params'=>$params->toQueryString()
+                        ], 
                         $this->template->headerTempl);
                 foreach ($data as $lin) {
                     $lin['baseURL'] = $GLOBALS['baseURL'];
