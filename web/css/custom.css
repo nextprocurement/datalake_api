@@ -2,37 +2,9 @@
     Created on : 26-feb-2017, 12:34:58
     Author     : gelpi
 */
-
-.navbar {
-    margin-bottom: 1px;
-}
-
-.bgblank {
-    background-color: #fff;
-}
-
-.nomargin {
-    margin:0;
-}
-
-.footer{
-    background-color: #fff;
-    padding-top: 20px;
-}
-
-.bg-elixir {
-    background-color: #fd7f33;
-    color: #ffffff;
-}
-.quicklinks {
-    border-top: 1px #fd7f33 solid;
-    background-color: #d9edf7;
-}
-
-.paddingbottom20 {
-    padding: 0 0 20px 0;
-}
-
 #content {
-margin-top:50px;
+    padding-top:5px;
+}
+.region-footer {
+    padding-bottom: 0;
 }
