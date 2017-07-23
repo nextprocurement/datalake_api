@@ -76,7 +76,7 @@ class App {
             exit;
         }
         if (preg_match('/(home|about)/', $this->pathList[0])) {
-            $html = parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($GLOBALS['htmlHeader']));
+            $html = parseTemplate(['baseURL' => $GLOBALS['baseURL'],'title'=>$GLOBALS['baseTitle']], getTemplate($GLOBALS['htmlHeader']));
             $html .= parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($this->pathList[0].".templ.htm"));
             $html .= parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($GLOBALS['htmlFooter']));
             print $html;
