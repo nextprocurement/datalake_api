@@ -10,9 +10,9 @@ include "../settings.inc.php";
 $phplib = "$baseDir/../phplib";
 $htmlib = "$baseDir/../htmlib";
 $config = "$baseDir/../config";
-$htmlHeader = "$htmlib/templates/header.templ.htm";
-$htmlFooter = "$htmlib/templates/footer.templ.htm";
-$htmlError = "$htmlib/templates/error.templ.html";
+$htmlHeader = "header.templ.htm";
+$htmlFooter = "footer.templ.htm";
+$htmlError = "error.templ.html";
 // Loading php libraries
 require_once "$phplib/libraries.inc.php";
 // Loading classes

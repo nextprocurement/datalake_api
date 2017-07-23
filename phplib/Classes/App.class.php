@@ -76,7 +76,11 @@ class App {
             exit;
         }
         if (preg_match('/(home|about)/', $this->pathList[0])) {
-            redirect($GLOBALS['baseURL']."/".$this->pathList[0].".htm");
+            $html = parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($GLOBALS['htmlHeader']));
+            $html .= parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($this->pathList[0].".templ.htm"));
+            $html .= parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($GLOBALS['htmlFooter']));
+            print $html;
+//            redirect($GLOBALS['baseURL']."/".$this->pathList[0].".htm");
             exit;
         }
         if ($this->pathList[0] == 'help') {
