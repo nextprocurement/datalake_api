@@ -265,7 +265,10 @@ abstract class DataStore {
     
 
     protected function _formatHTML($params, $data, $type,$removePrefix=true) {
-        $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL'],'title'=>$this->id],file_get_contents($GLOBALS['htmlHeader']));
+        $html = parseTemplate(
+                ['baseURL'=>$GLOBALS['baseURL'],
+                    'title'=>$this->id
+                ],  getTemplate($GLOBALS['htmlHeader']));
         switch ($type) {
             case 'tsv': 
                 $html .= parseTemplate([
@@ -305,7 +308,7 @@ abstract class DataStore {
                 $html .= parseTemplate($data, $this->classTemplate);
                 break;
         }
-        $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlFooter']));
+        $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL']],  getTemplate($GLOBALS['htmlFooter']));
         if ($type == 'tsv') {
             $html .= "\n<script type=\"text/javascript\">\n$(document).ready(function(){\n$('#".$this->id."').DataTable();\n});\n</script>\n";
         }
