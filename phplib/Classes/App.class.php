@@ -268,7 +268,7 @@ class App {
             case 'htm':
                 header ("Content-type: text/html");
                 $error['baseURL'] = $GLOBALS['baseURL'];
-                $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL'], 'title'=>'Error '.$errorId],  getTemplate($GLOBALS['htmlHeader']));
+                $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL'], 'title'=>'Error '.$error['httpCode']],  getTemplate($GLOBALS['htmlHeader']));
                 $html .= parseTemplate($error,  getTemplate($GLOBALS['htmlError']));
                 $html .=  parseTemplate(['baseURL'=>$GLOBALS['baseURL']],  getTemplate($GLOBALS['htmlFooter']));
                 print $html;
