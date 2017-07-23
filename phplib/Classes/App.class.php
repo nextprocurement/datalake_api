@@ -268,9 +268,9 @@ class App {
             case 'htm':
                 header ("Content-type: text/html");
                 $error['baseURL'] = $GLOBALS['baseURL'];
-                $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlHeader']));
-                $html .= parseTemplate($error,file_get_contents($GLOBALS['htmlError']));
-                $html .=  parseTemplate(['baseURL'=>$GLOBALS['baseURL']],file_get_contents($GLOBALS['htmlFooter']));
+                $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL'], 'title'=>'Error '.$errorId],  getTemplate($GLOBALS['htmlHeader']));
+                $html .= parseTemplate($error,  getTemplate($GLOBALS['htmlError']));
+                $html .=  parseTemplate(['baseURL'=>$GLOBALS['baseURL']],  getTemplate($GLOBALS['htmlFooter']));
                 print $html;
                 break;
             case 'json':
