@@ -21,6 +21,9 @@ class Tool extends DataStore {
             }
             $data['description']=  setLinks($data['description']);
         }
+        if (isset($params->simple) and $params->simple) {
+            return $data;
+        }
         if (isset($params->extended) and $params->extended) {
             foreach ([
                 'Community' => 'community_id',

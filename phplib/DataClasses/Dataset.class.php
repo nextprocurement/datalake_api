@@ -14,7 +14,10 @@ class Dataset extends DataStore {
         $data = parent::getData($params);
         if ($this->error) 
             {return '';}
-        if (isset($params->extended) and $params->extended) {
+        if (isset($params->simple) and $params->simple) {
+            return $data;
+        }
+         if (isset($params->extended) and $params->extended) {
             $data['contacts']=  findArrayInDataStore('Contact', $data['dataset_contact_id']);
             $data['references'] = findArrayInDataStore('Reference', $data['references']);
         }        
@@ -45,8 +48,7 @@ class Dataset extends DataStore {
                 $dataMetricsTxt =[];
             }
             $data['metricsTab'] = "<table><tr>".join("</tr><tr>",$dataMetricsTxt)."</tr></table>";
-        }
-        
+        }       
         return $data;
     }
 }

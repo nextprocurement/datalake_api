@@ -1,11 +1,5 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 class Contact extends DataStore {
 
     const StoreDescription = 'Benchmarking community contacts';
@@ -17,6 +11,10 @@ class Contact extends DataStore {
         if (!isset($params->fmt)) {
             $params->fmt='json';
         }
+        if (isset($params->simple) and $params->simple) {
+            return $data;
+        }
+ 
         if (preg_match("/htm/",$params->fmt) or (isset($params->extended) and $params->extended )) {
             foreach (
             [

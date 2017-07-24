@@ -29,7 +29,6 @@ class TestEvent extends DataStore {
                 $data[$col] = getOneDocument($col, $data[$field]);
             }
         }
-
         return $data;
     }
 

@@ -30,6 +30,5 @@ class Reference extends DataStore {
             }
         }
         return $data;
-    }
-    
+    }   
 }
