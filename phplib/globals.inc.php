@@ -16,11 +16,16 @@ $htmlFooter = "footer.templ.htm";
 $htmlError = "error.templ.html";
 // Loading php libraries
 require_once "$phplib/libraries.inc.php";
-// Loading classes
-require_once "$phplib/Classes/DataStore.class.php";
+// Loading generic classes
 foreach (scandir("$phplib/Classes") as $cl) {
    if (preg_match('/class/',$cl) and !preg_match('/swp/',$cl)) { //avoid -swp files from vi       
         require_once ("$phplib/Classes/$cl");
+    }
+}
+// Loading specific store classes
+foreach (scandir("$phplib/DataClasses") as $cl) {
+   if (preg_match('/class/',$cl) and !preg_match('/swp/',$cl)) { //avoid -swp files from vi       
+        require_once ("$phplib/DataClasses/$cl");
         $GLOBALS['loadedClasses'][] = str_replace('.class.php','',$cl);
     }
 }

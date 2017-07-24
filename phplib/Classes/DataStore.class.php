@@ -56,6 +56,7 @@ abstract class DataStore {
     }
     
     function getData($params, $checkId=true) {
+        // Base for getting data from the store. Should be extended in class for specific options
           if ($checkId) {
             return $this->checkData(getOneDocument($this->id, $params->id),$params->id);
         } else {
