@@ -5,14 +5,20 @@
 #content {
     padding-top:5px;
 }
-.region-footer {
-    padding-bottom: 0;
+
+.bgblank {
+    background-color: #fff;
 }
-.aboutlogofooter {
-    margin:5px;
-    vertical-align: middle;
+
+.nomargin {
+    margin:0;
 }
 .aboutlogo {
     margin:5px;
     vertical-align: middle;
+}
+
+.btn-elixir {
+    color:#ffffff!important;
+    background-color: #023452;
 }
