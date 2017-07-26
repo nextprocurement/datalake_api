@@ -1,8 +1,8 @@
 <div class="panel">
     <div class="panel-heading">
         <h1>Benchmarking Event</h1>
-        <span class="label label-primary"><a style="color:#fff" href="##baseURL##/BenchmarkingEvent/##_id##.json?extended=false" target="_blank">JSON</a></span>
-        <span class="label label-warning"><a style="color:#fff" href="##baseURL##/BenchmarkingEvent/##_id##.xml?extended=false" target="_blank">XML</a></span>
+        <span class="label label-primary"><a style="color:#fff" href="BenchmarkingEvent/##_id##.json?extended=false" target="_blank">JSON</a></span>
+        <span class="label label-warning"><a style="color:#fff" href="BenchmarkingEvent/##_id##.xml?extended=false" target="_blank">XML</a></span>
     </div>
     <table class="table">
         <tr>
@@ -11,7 +11,7 @@
         </tr>
         <tr>
             <td>Community</td>
-            <td><a href="##baseURL##/Community/##community_id##.html">##community_id##</a></td>
+            <td><a href="Community/##community_id##.html">##community_id##</a></td>
         </tr>
         <tr>
             <td>Name</td>
@@ -45,18 +45,6 @@
             </td>
         </tr>
         <tr>
-            <td>Input Datasets</td>
-            <td>##InputDatasets##</td>
-        </tr>
-        <tr>
-            <td>TestEvents</td>
-            <td>##TestEvent##</td>
-        </tr>
-        <tr>
-            <td>Tools</td>
-            <td>##tools##</td>
-        </tr>
-        <tr>
             <td>Contacts</td>
             <td>##bench_contact_id##</td>
         </tr>
@@ -68,6 +56,35 @@
             <td>References</td>
             <td>##references##</td>
         </tr>
+        <tr>
+            <td>Input Datasets</td>
+            <td>##InputDatasets##</td>
+        </tr>
+        <tr>
+            <td>TestEvents</td>
+            <td>##TestEvent##</td>
+        </tr>
+        <tr>
+            <td>Tools</td>
+            <td>##tools##</td>
+        </tr>
+%%OutputDatasets%<tr>
+            <td>Output Datasets</td>
+            <td>##OutputDatasets##</td>
+        </tr>%%
+        <tr>
+            <td>Data Links</td>
+            <td><table class="table-condensed">
+                    ##dataLinksHTML##
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>Metrics summary</td>
+            <td><table class="table-condensed">##metricsSummaryHTML##</table></td>
+        </tr>
+        
+
 
 
     </table>
