@@ -1,6 +1,6 @@
 {
     "class_name": "idsolv", 
-    "baseXMLTag" : "ID",     
+    "baseXMLTag" : "Namespaces",     
     "defaultOp" : "redir",
     "addDefault" : false,
     "storeData" : "", 
