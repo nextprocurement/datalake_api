@@ -11,8 +11,7 @@ include "../settings.inc.php";
 $phplib = "$baseDir/../phplib";
 $htmlib = "$baseDir/../htmlib";
 $config = "$baseDir/../config";
-$htmlHeader = "header.templ.htm";
-$htmlFooter = "footer.templ.htm";
+$htmlStdPage = "stdpage.templ.html";
 $htmlError = "error.templ.html";
 // Loading php libraries
 require_once "$phplib/libraries.inc.php";

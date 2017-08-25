@@ -20,7 +20,7 @@
         "notes": "Notes"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/Contact/##_id##.html\">##_id##</a>"
+        "_id": "<a href=\"Contact/##_id##.html\">##_id##</a>"
     },
     "templateArrayLinks": {
         "Community": "API:Community",

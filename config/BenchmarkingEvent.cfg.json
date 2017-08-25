@@ -24,7 +24,7 @@
             "referencesList" : "References"
     },    
      "templateLinks" : {
-        "_id" : "<a href=\"##baseURL##/BenchmarkingEvent/##_id##.html\">##_id##</a>"
+        "_id" : "<a href=\"BenchmarkingEvent/##_id##.html\">##_id##</a>"
      },
      "templateArrayLinks" : {
         "bench_contact_id" : "API:Contact",

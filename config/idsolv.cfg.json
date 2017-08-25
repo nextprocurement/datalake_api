@@ -21,7 +21,7 @@
     
     "templateLinks" : { 
         "Comment": "template for HTML links",
-        "_id" : "<a href=\"##baseURL##/idsolv/##_id##/entry.html\">##_id##</a>"
+        "_id" : "<a href=\"idsolv/##_id##/entry.html\">##_id##</a>"
     },
     
     "templateArrayLinks" : {

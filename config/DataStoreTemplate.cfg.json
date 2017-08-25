@@ -20,7 +20,7 @@
     
     "templateLinks" : { 
         "Comment": "template for HTML links",
-        "_id" : "<a href=\"##baseURL##/Store/##_id##.html\">##_id##</a>"
+        "_id" : "<a href=\"Store/##_id##.html\">##_id##</a>"
     },
     
     "templateArrayLinks" : {

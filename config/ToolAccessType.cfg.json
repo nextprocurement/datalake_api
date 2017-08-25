@@ -14,7 +14,7 @@
         "description": "Description"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/ToolsAccessType/##_id##.html\">##_id##</a>"
+        "_id": "<a href=\"ToolsAccessType/##_id##.html\">##_id##</a>"
     },
     "templateArrayLinks": {
     },

@@ -17,8 +17,8 @@
         "pubmed_id": "PubMed Id"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/Reference/##_id##.html\">##_id##</a>",
-        "pubmed_id": "<a href=\"##baseURL##/idsolv/PM:##pubmed_id##\">##pubmed_id##</a>"
+        "_id": "<a href=\"Reference/##_id##.html\">##_id##</a>",
+        "pubmed_id": "<a href=\"idsolv/PM:##pubmed_id##\">##pubmed_id##</a>"
     },
     "templateArrayLinks": {
         "CommunityList": "API:Community"

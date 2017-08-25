@@ -16,7 +16,7 @@
         "description": "Description"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/Metrics/##_id##.html\">##_id##</a>"
+        "_id": "<a href=\"Metrics/##_id##.html\">##_id##</a>"
     },
     "templateArrayLinks": {
         "metrics_contact_id": "API:Contact",

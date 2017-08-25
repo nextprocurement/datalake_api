@@ -76,11 +76,14 @@ class App {
             exit;
         }
         if (preg_match('/(home|about)/', $this->pathList[0])) {
-            $html = parseTemplate(['baseURL' => $GLOBALS['baseURL'],'title'=>$GLOBALS['baseTitle']], getTemplate($GLOBALS['htmlHeader']));
-            $html .= parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($this->pathList[0].".templ.htm"));
-            $html .= parseTemplate(['baseURL' => $GLOBALS['baseURL']], getTemplate($GLOBALS['htmlFooter']));
-            print $html;
-//            redirect($GLOBALS['baseURL']."/".$this->pathList[0].".htm");
+            print parseTemplate(
+                    [
+                        'baseURL' => $GLOBALS['baseURL'],
+                        'title' => $GLOBALS['baseTitle'],
+                        'pageContents' => parseTemplate(
+                                ['baseURL' => $GLOBALS['baseURL']], getTemplate($this->pathList[0].".templ.htm")
+                        )
+                    ],  getTemplate($GLOBALS['htmlStdPage']));
             exit;
         }
         if ($this->pathList[0] == 'help') {
@@ -267,11 +270,12 @@ class App {
             case 'html':
             case 'htm':
                 header ("Content-type: text/html");
-                $error['baseURL'] = $GLOBALS['baseURL'];
-                $html = parseTemplate(['baseURL'=>$GLOBALS['baseURL'], 'title'=>'Error '.$error['httpCode']],  getTemplate($GLOBALS['htmlHeader']));
-                $html .= parseTemplate($error,  getTemplate($GLOBALS['htmlError']));
-                $html .=  parseTemplate(['baseURL'=>$GLOBALS['baseURL']],  getTemplate($GLOBALS['htmlFooter']));
-                print $html;
+                print parseTemplate(
+                        [
+                            'baseURL'=>$GLOBALS['baseURL'], 
+                            'title'=>'Error '.$error['httpCode'],
+                            'pageContents' => parseTemplate($error,  getTemplate($GLOBALS['htmlError']))
+                        ], getTemplate($GLOBALS['htmlStdPage']));
                 break;
             case 'json':
             default:

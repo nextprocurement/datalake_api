@@ -14,7 +14,7 @@
             "description": "Description"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/Community/##_id##.html\">##_id##</a>"
+        "_id": "<a href=\"Community/##_id##.html\">##_id##</a>"
     },
     "templateArrayLinks": {
     },

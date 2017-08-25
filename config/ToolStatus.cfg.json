@@ -14,7 +14,7 @@
         "description": "Description"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/ToolStatus/##_id##.html\">##_id##</a>"
+        "_id": "<a href=\"ToolStatus/##_id##.html\">##_id##</a>"
     },
     "templateArrayLinks": {
         "CommunityList": "API:Community/"

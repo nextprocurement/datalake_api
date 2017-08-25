@@ -18,7 +18,7 @@
         "description": "Description"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/Dataset/##_id##.html\">##_id##</a>"
+        "_id": "<a href=\"Dataset/##_id##.html\">##_id##</a>"
     },
     "templateArrayLinks": {
         "dataset_contact_id": "API:Contact",

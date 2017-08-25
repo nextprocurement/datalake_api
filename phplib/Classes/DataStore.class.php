@@ -266,21 +266,17 @@ abstract class DataStore {
     
 
     protected function _formatHTML($params, $data, $type,$removePrefix=true) {
-        $html = parseTemplate(
-                ['baseURL'=>$GLOBALS['baseURL'],
-                    'title'=>$this->id
-                ],  getTemplate($GLOBALS['htmlHeader']));
-        switch ($type) {
-            case 'tsv': 
+        $html='';
+        switch ($type) {            
+            case 'tsv':
                 $html .= parseTemplate([
-                            'baseURL'=>$GLOBALS['baseURL'], 
                             'title'=>$this->id, 
                             'table_id'=>$this->id, 
                             'params'=>$params->toQueryString()
                         ], 
                         $this->template->headerTempl);
                 foreach ($data as $lin) {
-                    $lin['baseURL'] = $GLOBALS['baseURL'];
+//                    $lin['baseURL'] = $GLOBALS['baseURL'];
                     $html .= "<tr>\n". setLinks(parseTemplate($lin, $this->template->dataTempl))."</tr>\n";
                 }
                 $html.= parseTemplate([],$this->template->footerTempl);
@@ -309,7 +305,7 @@ abstract class DataStore {
                 $html .= parseTemplate($data, $this->classTemplate);
                 break;
         }
-        $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL']],  getTemplate($GLOBALS['htmlFooter']));
+//        $html .= parseTemplate(['baseURL'=>$GLOBALS['baseURL']],  getTemplate($GLOBALS['htmlFooter']));
         if ($type == 'tsv') {
             $html .= "\n<script type=\"text/javascript\">\n$(document).ready(function(){\n$('#".$this->id."').DataTable();\n});\n</script>\n";
         }
@@ -318,8 +314,14 @@ abstract class DataStore {
             if ($prefix[0]) {
                 $html = str_replace (">$prefix[0]:",">",$html);
             }
-        }
-        return $html;        
+        }        
+        return parseTemplate([
+                            'baseURL'=>$GLOBALS['baseURL'], 
+                            'title'=>$this->id, 
+                            'table_id'=>$this->id, 
+                            'params'=>$params->toQueryString(),
+                            'pageContents' => $html
+                        ], getTemplate($GLOBALS['htmlStdPage']));
     }
     
     function _prepLinkTemplate($k) {
@@ -332,16 +334,16 @@ abstract class DataStore {
         }
         switch ($tmpdata[0]) {
             case 'API' : 
-                return "<a href=\"##baseURL##/$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]##</a>";
+                return "<a href=\"$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]##</a>";
                 break; 
             case 'APIObj' : 
-                return "<a href=\"##baseURL##/$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]## (##$tmpdata[2]##)</a>";
+                return "<a href=\"$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]## (##$tmpdata[2]##)</a>";
                 break; 
             case 'DOI' :
-                return "<a href=\"##baseURL##/idsolv/DOI:##item##\" target=\"_blank\">##item##</a>";
+                return "<a href=\"idsolv/DOI:##item##\" target=\"_blank\">##item##</a>";
                 break;
             case 'PM' :
-                return "<a href=\"##baseURL##/idsolv/PM:##item##\" target=\"_blank\">##item##</a>";
+                return "<a href=\"idsolv/PM:##item##\" target=\"_blank\">##item##</a>";
             default:
                 return $this->templateArrayLinks[$k];
         }

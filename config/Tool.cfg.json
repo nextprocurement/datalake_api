@@ -20,7 +20,7 @@
         "status_id": "Status"
     },
     "templateLinks": {
-        "_id": "<a href=\"##baseURL##/Tool/##_id##.html\">##_id##</a>",
+        "_id": "<a href=\"Tool/##_id##.html\">##_id##</a>",
         "bioTools_id": "<a href=\"https://bio.tools/tool/##bioTools_id##\">##bioTools_id##</a>"
     },
     "templateArrayLinks": {
