@@ -1,163 +1,132 @@
-<!DOCTYPE html>
-<html lang="en">
+    <!DOCTYPE html>
+<html ng-app="elixibilitasApp">
     <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <meta charset="utf-8">
-        <link rel="shortcut icon" href="https://www.elixir-europe.org/sites/all/themes/elixir/images/favicons/favicon.ico" type="image/vnd.microsoft.icon">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-        <meta name="MobileOptimized" content="width">
-        <meta name="HandheldFriendly" content="1">
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <title>##title##</title>
-        <base href="##baseURL##/">
-        <link rel="stylesheet" href="css/bootstrap.min.css">
-        <link type="text/css" rel="stylesheet" href="css/ElixirFonts.css" media="all">
-        <link type="text/css" rel="stylesheet" href="css/Elixir_css1.css" media="all">
-        <link type="text/css" rel="stylesheet" href="css/Elixir_css2.css" media="screen">
-        <link type="text/css" rel="stylesheet" href="css/Elixir_css3.css" media="only screen">
-        <link rel="stylesheet" href="css/custom.css">
-        <!--[if lt IE 9]>
-    <link type="text/css" rel="stylesheet" href="https://www.elixir-europe.org/sites/default/files/css/css_mFoRHeQIPlr-_ZFSXB9lqLR9_ElnvBCRbO8NCfFTvyI.css" media="screen" />
-    <![endif]-->
-    </head>
-    <body class="html front logged-in one-sidebar sidebar-second page-node page-node- page-node-1010 node-type-page site-name-hidden atr-7.x-3.x atv-7.x-3.4 site-name-elixir lightbox-processed responsive-menus-load-processed">
-        <div id="page-wrapper">
-            <div id="page" class="page">
-                <div id="header-wrapper">
-                    <div class="container clearfix">
-                        <header id="header" class="clearfix" role="banner">
-                            <!-- start: Branding -->
-                            <div id="branding" class="branding-elements clearfix">
-                                <div id="logo"> <a href="https://www.elixir-europe.org/" class="active"><img class="site-logo" typeof="foaf:Image" src="images/white-orange-logo.png" alt="ELIXIR"></a> </div>
-                                <!-- start: Site name and Slogan -->
-                                <div class="element-invisible h-group" id="name-and-slogan">
-                                    <h1 class="element-invisible" id="site-name"><a href="https://www.elixir-europe.org/" title="Home page" class="active">ELIXIR</a></h1>
-                                </div>
-                                <!-- /end #name-and-slogan -->
-                            </div>
-                            <!-- /end #branding -->
-                            <div class="region region-header">
-                                <div class="region-inner clearfix">
-                                </div>
-                            </div>
-                            <div data-mediasize="768" class="responsive-menus responsive-menus-0-1 absolute"><span class="toggler">Menu</span>
-                                <div id="nav-wrapper" class="rm-no-class responsive-menus-simple">
-                                    <div class="container clearfix">
-                                        <div id="primary-menu-bar" class="nav clearfix">
-                                            <nav class="primary-menu-wrapper menu-wrapper clearfix" role="navigation" aria-labelledby="primary-menu">
-                                                <h2 class="element-invisible" id="primary-menu">Main menu</h2>
-                                                <ul class="menu primary-menu clearfix" id="rm-no-id-1">
+         
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+        <link href="img/favicon-32x32.png" rel="icon" type="image/x-icon" />
+        <!-- reset css -->
+        <link rel="stylesheet" href="/html/vendors/css/reset.css">
 
-                                                    <li class="menu-9736"><a href="home.html" title="">Home</a></li>
-                                                    <li class="menu-9736"><a href="Community/search.html" title="">Benchmarking</a></li>
-                                                    <li class="menu-4056"><a href="/elixibilitas" title="">Tools Monitoring</a></li>
-                                                    <li class="menu-8242"><a href="help" title="">OpenEBench API</a></li>
-                                                    <li class="menu-6268"><a href="about.html" title="">About</a></li>
-                                                </ul>
-                                            </nav>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </header>
+
+        <!--Jquery  -->
+        <script type="text/javascript" src="/html/node_modules/jquery/dist/jquery.min.js"></script>
+        <!-- d3 v4 need to install d3 vs 4 d3 v3 is installed -->
+        <script type="text/javascript" src="/html/node_modules/d3/build/d3.min.js"></script>
+
+
+
+        <!-- Bootstrap package -->
+        <link rel="stylesheet" href="/html/node_modules/bootstrap/dist/css/bootstrap.min.css">
+        <script type="text/javascript"src="/html/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <!-- angular  -->
+        <script type="text/javascript" src="/html/node_modules/angular/angular.js"></script>
+        <script type="text/javascript" src="/html/node_modules/angular-sanitize/angular-sanitize.js"></script>
+        <script type="text/javascript" src="/html/node_modules/angular-route/angular-route.js"></script>
+        <script type="text/javascript" src="/html/node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+
+
+
+        <!-- css -->
+        <link rel="stylesheet" href="/html/vendors/css/master.css">
+        <link rel="stylesheet" href="/html/vendors/css/timeline.css">
+        <link rel="stylesheet" href="/html/vendors/css/upload.css">
+
+        <!--  Charts -->
+        <script type="text/javascript" src="/html/node_modules/chart.js/dist/Chart.js"></script>
+        <script type="text/javascript" src="/html/node_modules/angular-chart.js/dist/angular-chart.js"></script>
+
+        <!-- angular code -->
+		<script src="/html/js/app.js" type="text/javascript" xml:space="preserve"></script>
+
+        <!-- module -->
+        <script src="/html/js/model/Tool.js" type="text/javascript"></script>
+        <script src="/html/js/model/Instance.js" type="text/javascript"></script>
+        <script src="/html/js/model/Chart.js" type="text/javascript"></script>
+        <script src="/html/js/model/Tooltype.js" type="text/javascript"></script>
+        <script src="/html/js/model/url.js" type="text/javascript"></script>
+
+        <!-- Controllers -->
+		<script src="/html/js/controller/mainController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/homeController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/toolController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/statsController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/benchController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/communityController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/toolDetailsController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/searchController.js" type="text/javascript" xml:space="preserve"></script>
+        <script src="/html/js/controller/profileController.js" type="text/javascript" xml:space="preserve"></script>
+        <!-- config -->
+        <script src="/html/js/config/route.js" type="text/javascript"></script>
+        <!-- factory -->
+        <script src="/html/js/factory/dataService.js" type="text/javascript"></script>
+        <script src="/html/js/factory/errorService.js" type="text/javascript"></script>
+        <!-- directive -->
+        
+        <script src="/html/js/directives/upTimeChartDirective.js" type="text/javascript"></script>
+        <script src="/html/js/directives/errorDirective.js" type="text/javascript"></script>
+        <script src="/html/js/directives/datasetDirective.js" type="text/javascript"></script>
+        <script src="/html/js/directives/badgeDirective.js" type="text/javascript"></script>
+        <!-- external -->
+        <script src="/html/js/external/dirPagination.js" type="text/javascript" xml:space="preserve"></script>
+
+        <!-- file upload  -->
+        <script src="/html/node_modules/ng-file-upload/dist/ng-file-upload.js" charset="utf-8"></script>
+
+        <!-- d3v3 with nvd3 -->
+        <!-- <script src="/html/node_modules/d3/d3.js"></script>
+        <script src="/html/node_modules/nvd3/build/nv.d3.js"></script>
+        <script src="node_modules/angular-nvd3/dist/angular-nvd3.js"></script>
+        <link rel="stylesheet" href="/html/node_modules/nvd3/build/nv.d3.css"> -->
+
+
+        <title>OpenEbench. Scientific Benchmarking</title>
+    </head><body>
+        <div class="content">
+            <nav class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                    <div class="navbar-header">
+                        <a href="#">
+                            <img src="/html/img/opebLogo.gif" class="navbar-brand" alt="">
+                        </a>
+                        <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div id="navbarCollapse" class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class ="underlink"><a href="/">OpenEBench</a></li>
+                            <li class ="underlink"><a href="home.html">Scientific</a></li>
+                            <li class ="underlink"><a href="/tool">Tools monitoring</a></li>
+                            <li class ="underlink"><a href="help.html">OpenEBench API</a></li>
+                        </ul>
                     </div>
                 </div>
-                <div id="content-wrapper">
-                    <div class="container">
-                        <div id="columns">
-                            <div class="columns-inner clearfix">
-                                <div id="content-column">
-                                    <div class="content-inner">
-                                        <section id="main-content">
-                                            <header id="main-content-header" class="clearfix">
-                                            </header>
-                                                ##pageContents##
-                                        </section>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+             </nav>
+                ##pageContents##
+</div>
+        <footer class="footer">
+            <div class="container border-top">
+                <div class="row">
+                    <div class="col-md-12">
+                        <br>
+                        <p>Copyright © <a href="https://www.bsc.es/">BSC-CNS</a> 2017</p>
                     </div>
-                </div>
-                <div id="tertiary-content-wrapper">
-                    <div class="container clearfix">
-                        <div class="region region-tertiary-content">
-                            <div class="region-inner clearfix">
-                                <div id="block-block-69" class="block block-block no-title odd first last block-count-8 block-region-tertiary-content block-69 collapsiblock-processed">
-                                    <div class="block-inner clearfix">
-                                        <div class="block-content content">
-                                            <div class="flexrow">
-                                                <div class="width-40">
-                                                    <nav role="navigation">
-                                                        <h2><a>Benchmarking</a></h2>
-                                                        <ul class="list-unstyled">
-                                                            <li><a href="Community.html">Communities</a></li>
-                                                            <li><a href="BenchmarkingEvent.html">Events</a></li>
-                                                            <li><a href="Dataset.html">Datasets</a></li>
-                                                            <li><a href="Metric.html">Metrics</a></li>
-                                                            <li><a href="info.html">Statistics</a></li>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-                                                <div class="width-40">
-                                                    <nav role="navigation">
-                                                        <h2><a>Tools</a></h2>
-                                                        <ul class="list-unstyled">
-                                                            <li><a href="https://bio.tools">ELIXIR Registry</a></li>
-                                                            <li><a href="/elixibilitas">Tools monitoring</a></li>
-                                                            <li><a href="#">Tools statistics</a></li>
-                                                            <li><a href="#">Web services registry</a></lI>
-                                                        </ul>
-                                                    </nav>
-                                                </div>
-
-                                                <div class="width-40">
-                                                    <h2><a href="about.html">About us</a></h2> 
-                                                    <div class="bgblank">
-                                                        <a href="http://www.bsc.es" target="_blank"><img src="images/logoBSC_es.jpg" class="aboutlogo" style="width:100px"></a>
-                                                        <a href="http://www.sib.swiss" target="_blank"><img src="images/SIB_LogoQ_GBv.png"  class="aboutlogo" style="width:80px"></a>
-                                                        <a href="http://www.crg.cat" target=_blank"><img src="images/logo_CRG.png"  class="aboutlogo" style="width:70px"/></a>
-                                                        <a href="www.irbbarcelona.org" target="_blank"><img src="images/IRBCN_1Vert_ANG_CMYK_10YEARS.png"  class="aboutlogo" style="width:30px"/></a>
-                                                    </div>
-
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="col-md-1">
+                        <img src="img/eu_flag.jpg" alt="" height="50px" width="80px">
                     </div>
-                </div>
-                <div id="footer-wrapper">
-                    <div class="container clearfix">
-                        <footer id="footer" class="clearfix" role="contentinfo">
-                            <div class="region region-footer" >
-                                <div class="region-inner clearfix">
-                                    <div id="block-block-70" class="block block-block no-title odd first last block-count-9 block-region-footer block-70 collapsiblock-processed">
-                                        <div class="block-inner clearfix">
-                                            <div class="block-content content">
-                                                <section>
-                                                    <p class="legal">Copyright © ELIXIR 2017 | <a href="https://www.elixir-europe.org/legal/privacy">Privacy</a> | <a href="https://www.elixir-europe.org/legal/cookies">Cookies</a> | <a href="https://www.elixir-europe.org/legal/terms-of-use">Terms of use</a></p>
-                                                </section>
-                                                <div class="eu"><img alt="EU flag" src="images/eu-flag-bw.jpg"> ELIXIR is partly funded by the European Commission within the Research Infraestructure programme of Horizon 2020.<br>
-                                                    ELIXIR Excelerate is funded by the European Comission, contract no. 676559</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </footer>
+                    <div class="col-md-11">
+                        <p>ELIXIR is partly funded by the European Commission within the Research Infraestructure programme of Horizon 2020.</p>
+                        <p>ELIXIR Excelerate is funded by the European Comission, contract no. 676559 </p>
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     </body>
-</html>
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
-</body>
+    
+    <script src="https://rawgit.com/vsundesha/Widget-Template/master/build/build.js"></script>
+    <script src="https://rawgit.com/vsundesha/citations-widget/master/build/build.js"></script>
 </html>
