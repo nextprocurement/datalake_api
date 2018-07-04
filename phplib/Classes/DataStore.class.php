@@ -334,10 +334,10 @@ abstract class DataStore {
         }
         switch ($tmpdata[0]) {
             case 'API' : 
-                return "<a href=\"$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]##</a>";
+                return "<a href=\"../$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]##</a>";
                 break; 
             case 'APIObj' : 
-                return "<a href=\"$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]## (##$tmpdata[2]##)</a>";
+                return "<a href=\"../$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]## (##$tmpdata[2]##)</a>";
                 break; 
             case 'DOI' :
                 return "<a href=\"idsolv/DOI:##item##\" target=\"_blank\">##item##</a>";

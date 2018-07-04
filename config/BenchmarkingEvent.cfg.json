@@ -24,7 +24,7 @@
             "referencesList" : "References"
     },    
      "templateLinks" : {
-        "_id" : "<a href=\"BenchmarkingEvent/##_id##.html\">##_id##</a>"
+        "_id" : "<a href=\"../BenchmarkingEvent/##_id##.html\">##_id##</a>"
      },
      "templateArrayLinks" : {
         "bench_contact_id" : "API:Contact",
@@ -49,9 +49,9 @@
                 "InnerTable" :
                      "<table class=\"table-condensed\">##MSinnerhtml##</table>\n",
                 "InnerHeader" : 
-                     "<tr><td>&nbsp</td><td><a href=\"Metrics/##metrics_id##.html\">##metrics_id##</a></td></tr>\n",
+                     "<tr><td>&nbsp</td><td><a href=\"../Metrics/##metrics_id##.html\">##metrics_id##</a></td></tr>\n",
                 "InnerLine" : 
-                     "<tr><td><a href=\"Tool/##tool_id##.html\">##tool_id##</a></td><td>##MSresult##</td></tr>\n"
+                     "<tr><td><a href=\"../Tool/##tool_id##.html\">##tool_id##</a></td><td>##MSresult##</td></tr>\n"
             }
          }
      }
