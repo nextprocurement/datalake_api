@@ -1054,7 +1054,7 @@
         "ToolAccessType": {
             "$ref": "https://elixir.bsc.es/benchmarking/APIDocs/json-schemas/toolAccessType.json"
         },
-        "Tool:": {
+        "Tool": {
             "$ref": "https://elixir.bsc.es/benchmarking/APIDocs/json-schemas/tool.json"
         },
         "ToolStatus": {
