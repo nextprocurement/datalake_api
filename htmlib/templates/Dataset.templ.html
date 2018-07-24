@@ -26,12 +26,8 @@
             <td>##description##</td>
         </tr>
         <tr>
-            <td>References</td>
-            <td>##references##</td>
-        </tr>
-        <tr>
-            <td>Data Link</td>
-            <td><a href="##datalink##" target="_blank">##datalink##</a></td>
+            <td>Challenge</td>
+            <td>##challenges##</td>
         </tr>
         <tr>
             <td>Dates</td>
@@ -50,18 +46,31 @@
         </tr>
         <tr>
             <td>Contacts</td>
-            <td>##dataset_contact_id##</td>
+            <td>##dataset_contact_ids##</td>
         </tr>
+        %%datalink%
         <tr>
-            <td>Benchmarking Events</td>
-            <td>##Events##</td>
+            <td>Data Link</td>
+            <td><a href="##datalink##">##datalink##</a></td>
         </tr>
-        <tr><td>TestEvents</td>
-            <td>##testEventList##</tr>
+        %%
+        %%data%
         <tr>
-            <td>Applied Metrics</td>
-            <td>##metricsTab##</td>
+            <td>Data</td>
+            <td>##data##</td>
         </tr>
+        %%
+        %%depends_on%
+        <tr><td>Metrics</td>
+            <td>##depends_on.metrics_id##</td>
+        </tr>
+        <tr><td>Tool</td>
+            <td>##depends_on.tool_id##</td>
+        </tr>
+        <tr><td>Related datasets</td>
+            <td>##relDatasetList##</td>
+        </tr>
+        %%
     </table>
 
 </div>

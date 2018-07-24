@@ -6,43 +6,29 @@
  * and open the template in the editor.
  */
 
-class BenchmarkingEvent extends DataStore {
+class Challenge extends DataStore {
 
-    const StoreDescription = 'Benchmarking Events';
+    const StoreDescription = 'Benchmarking Challenges';
 
     function getData($params, $checkId = true) {
         $data = parent::getData($params);
         if ($this->error) {
             return '';
         };
-        $data['InputDatasets']=[];
-        $data['OutputDatasets']=[];
-        foreach (iterator_to_array(findInDataStore('TestEvent', ['benchmarking_event_id' => $data['_id']], [])) as $te) {
-            $data['TestEvent'][] = $te['_id'];
-            $data['tools'][] = $te['tool_id'];
-            $data['InputDatasets'][] = $te['input_dataset_id'];
-            if (isset($te['output_dataset_id'])) {
-                $data['OutputDatasets'][] = $te['output_dataset_id'];
-            }
-            if (isset($te['output_dataset_id'])) {
-                $data['OutputDatasets'][] = $te['output_dataset_id'];
-            }
+        foreach (getFieldArray('TestAction', "challenge_id", $data['_id']) as $taid) {
+            $ta = getOneDocument('TestAction', $taid);
+            $data['TestActions'][$ta['action_type']][]=$taid;
         }
-        $data['tools'] = array_values(array_unique($data['tools']));
-        $data['InputDatasets'] = array_values(array_unique($data['InputDatasets']));
-        $data['OutputDatasets'] = array_values(array_unique($data['OutputDatasets']));
-        $data['dataLinks']=[];
-        foreach (array_merge($data['InputDatasets'],$data['OutputDatasets']) as $od) {
-            $dts = getOneDocument('Dataset', $od);
-            $data['dataLinks'][]=['id'=>$od,'link' => $dts['datalink']];
+        
+        foreach ($data['dataset_ids'] as $dts) {
+            $data['Datasets'][$dts['role']][]=$dts['dataset_id'];
         }
-        $data['metricsSummary'] = sumMetrics($data);
         if (isset($params->extended) and $params->extended) {
-            $data['bench_contacts'] = [];
-            foreach ($data['bench_contact_id'] as $c) {
-                $data['bench_contacts'][] = getOneDocument('Contact', $c);
+            $data['challenge_contacts'] = [];
+            foreach ($data['challenge_contact_ids'] as $c) {
+                $data['challenge_contacts'][] = getOneDocument('Contact', $c);
             }
-            unset($data['bench_contact_id']);
+            unset($data['challenge_contact_ids']);
             $data['referencesList'] = [];
             foreach ($data['references'] as $r) {
                 $data['referencesList'][] = getOneDocument('Reference', $r);
@@ -50,11 +36,6 @@ class BenchmarkingEvent extends DataStore {
             unset($data['references']);
         }
         if (isset($params->fmt) and preg_match("/htm/",$params->fmt)) {
-            $data['dataLinksHTML'] = '';
-            foreach ($data['dataLinks'] as $dk) {
-                $data['dataLinksHTML'] .= setLinks(parseTemplate($dk,$this->otherTemplates['datalink']));
-            }
-            $data['metricsSummaryHTML'] = prepMetricsHTML($data, $this->otherTemplates['MS']);
         }
         return $data;
     }

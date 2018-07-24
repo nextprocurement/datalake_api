@@ -29,7 +29,21 @@ class Community extends DataStore {
             if (count($data1)) {
                 $data[$colname] = $data1;
             }
+
         }
+        $datasetList = [];            
+        foreach ($data['Dataset'] as $dts) {
+            $dtsData=getOneDocument('Dataset',$dts['_id']);
+            $datasetList[$dtsData['type']][] = $dts['_id'];
+        }
+        $data['Dataset']=$datasetList;
+        $testActionList = [];            
+        foreach ($data['TestAction'] as $dts) {
+            $dtsData=getOneDocument('TestAction',$dts['_id']);
+            $testActionList[$dtsData['action_type']][] = $dts['_id'];
+        }
+        $data['TestAction']=$testActionList;
+        unset($data['Contact']);
         if (preg_match('/htm/', $params->fmt)) {
             foreach ($data['BenchmarkingEvent'] as $be) {
                 $data['BenchmarkingEventsList'][] = $be['_id'];
@@ -39,24 +53,6 @@ class Community extends DataStore {
                 $data['linksList'][] = $lk['label'] . ": " . setLinks($lk['uri']);
             }
             unset($data['links']);
-            $data['DatasetList'] = [];
-            $data['DatasetInputList']=[];
-            $data['DatasetOutputList']=[];
-            $data['DatasetOtherList']=[];
-            foreach ($data['Dataset'] as $dts) {
-                $dtsData=getOneDocument('Dataset',$dts['_id']);
-                switch ($dtsData['type']) {
-                    case 'Input': 
-                        $data['DatasetInputList'][] = $dts['_id'];
-                        break;
-                    case 'Output':
-                        $data['DatasetOutputList'][] = $dts['_id'];
-                        break;
-                    default:
-                        $data['DatasetOtherList'][] = $dts['_id'];
-                }
-            }
-            $data['DatasetList'] = [$data['DatasetInputList'], $data['DatasetOutputList'], $data['DatasetOtherList']];
             $data['toolsList'] = [];
             foreach ($data['Tool'] as $dts) {
                 $data['toolsList'][] = $dts['_id'];
@@ -67,11 +63,6 @@ class Community extends DataStore {
             }
         }
         if (isset ($params->extended) and $params->extended) {
-            $data['community_contacts'] = findArrayInDataStore('Contact', $data['community_contacts']);
-            $data['status'] = getOneDocument('CommunityStatus', $data['status']);
-            if ($data['status']) {
-                unset($data['status_id']);
-            }
         }
         return $data;
     }

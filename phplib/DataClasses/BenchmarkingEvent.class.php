@@ -15,28 +15,8 @@ class BenchmarkingEvent extends DataStore {
         if ($this->error) {
             return '';
         };
-        $data['InputDatasets']=[];
-        $data['OutputDatasets']=[];
-        foreach (iterator_to_array(findInDataStore('TestEvent', ['benchmarking_event_id' => $data['_id']], [])) as $te) {
-            $data['TestEvent'][] = $te['_id'];
-            $data['tools'][] = $te['tool_id'];
-            $data['InputDatasets'][] = $te['input_dataset_id'];
-            if (isset($te['output_dataset_id'])) {
-                $data['OutputDatasets'][] = $te['output_dataset_id'];
-            }
-            if (isset($te['output_dataset_id'])) {
-                $data['OutputDatasets'][] = $te['output_dataset_id'];
-            }
-        }
-        $data['tools'] = array_values(array_unique($data['tools']));
-        $data['InputDatasets'] = array_values(array_unique($data['InputDatasets']));
-        $data['OutputDatasets'] = array_values(array_unique($data['OutputDatasets']));
-        $data['dataLinks']=[];
-        foreach (array_merge($data['InputDatasets'],$data['OutputDatasets']) as $od) {
-            $dts = getOneDocument('Dataset', $od);
-            $data['dataLinks'][]=['id'=>$od,'link' => $dts['datalink']];
-        }
-        $data['metricsSummary'] = sumMetrics($data);
+        $data['Challenges']= getFieldArray('Challenge', 'benchmarking_event_id', $data['_id']);
+
         if (isset($params->extended) and $params->extended) {
             $data['bench_contacts'] = [];
             foreach ($data['bench_contact_id'] as $c) {
@@ -50,11 +30,6 @@ class BenchmarkingEvent extends DataStore {
             unset($data['references']);
         }
         if (isset($params->fmt) and preg_match("/htm/",$params->fmt)) {
-            $data['dataLinksHTML'] = '';
-            foreach ($data['dataLinks'] as $dk) {
-                $data['dataLinksHTML'] .= setLinks(parseTemplate($dk,$this->otherTemplates['datalink']));
-            }
-            $data['metricsSummaryHTML'] = prepMetricsHTML($data, $this->otherTemplates['MS']);
         }
         return $data;
     }

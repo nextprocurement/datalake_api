@@ -21,9 +21,10 @@
         "_id": "<a href=\"Dataset/##_id##.html\">##_id##</a>"
     },
     "templateArrayLinks": {
-        "dataset_contact_id": "API:Contact",
-        "Events": "API:BenchmarkingEvent",
-        "testEventList": "API:TestEvent"
+        "dataset_contact_ids": "API:Contact",
+        "Challenges": "API:Challenge",
+        "TestActionList": "API:TestAction",
+        "relDatasetList": "API:Dataset"
     },
     "classTemplate": "file",
     "textQueryOn": {

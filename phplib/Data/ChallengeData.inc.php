@@ -7,7 +7,7 @@
 function sumMetrics($data) {
     $metrData['community_id'] = $data['community_id'];
     switch ($data['community_id']) {
-        case 'CAMEO-3D':
+        case 'CAMEO':
             foreach (array_values($data['InputDatasets']) as $dts) {
                 $dtsdata = getOneDocument("Dataset", $dts);
                 $metrData['MSresults'][] = ['dataset_id' => $dtsdata['_id'], 'metrics' => $dtsdata['metrics']];

@@ -15,7 +15,7 @@
     "templateAllFields": {
         "_id": "Acronym",
         "name": "Name",
-        "status_id": "Status",
+        "status": "Status",
         "description": "Description",
         "linkMain": "URL"
     },
@@ -25,10 +25,6 @@
     "templateArrayLinks": {
         "community_contacts": "API:Contact",
         "BenchmarkingEventsList": "API:BenchmarkingEvent",
-        "DatasetList": "API:Dataset",
-        "DatasetInputList": "API:Dataset",
-        "DatasetOutputList": "API:Dataset",
-        "DatasetOtherList": "API:Dataset",
         "toolsList": "API:Tool",
         "metricsList": "API:Metrics"
     },

@@ -1,5 +1,5 @@
 {
-    "baseXMLTag": "TestEvent",
+    "baseXMLTag": "TestAction",
     "defaultOp": "entry",
     "addDefault": true,
     "storeData": "",

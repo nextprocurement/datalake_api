@@ -1,5 +1,5 @@
 {
-     "baseXMLTag" : "BenchmarkingEvent",
+     "baseXMLTag" : "Challenge",
      "defaultOp" : "entry",
      "addDefault" : true,
      "storeData" : "",      
@@ -24,16 +24,11 @@
             "referencesList" : "References"
     },    
      "templateLinks" : {
-        "_id" : "<a href=\"../BenchmarkingEvent/##_id##.html\">##_id##</a>"
+        "_id" : "<a href=\"../Challenge/##_id##.html\">##_id##</a>"
      },
      "templateArrayLinks" : {
-        "bench_contact_id" : "API:Contact",
-        "references" :       "DOI:doi",
-        "target-list" :      "API:Dataset",
-        "TestEvent" :        "API:TestEvent",
-        "InputDatasets" :    "API:Dataset",
-        "OutputDatasets" :    "API:Dataset",
-        "tools" :            "API:Tool"
+        "challenge_contact_ids" : "API:Contact",
+        "references" :       "DOI:doi"
      },
     
      "classTemplate" : "file",
@@ -41,18 +36,5 @@
      "textQueryOn": {"_id":1, "name": 1},
      
      "otherTemplates" : {
-         "datalink": "<tr><td>##id##</td><td>##link##</td></tr>\n",
-         "MS": {
-             "CAMEO-3D" : {
-                "Line": 
-                     "<tr><td>##dataset_id##</td><td>##MSLines##</td></tr>",
-                "InnerTable" :
-                     "<table class=\"table-condensed\">##MSinnerhtml##</table>\n",
-                "InnerHeader" : 
-                     "<tr><td>&nbsp</td><td><a href=\"../Metrics/##metrics_id##.html\">##metrics_id##</a></td></tr>\n",
-                "InnerLine" : 
-                     "<tr><td><a href=\"../Tool/##tool_id##.html\">##tool_id##</a></td><td>##MSresult##</td></tr>\n"
-            }
-         }
      }
 }
