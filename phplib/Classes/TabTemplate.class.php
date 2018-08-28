@@ -55,9 +55,9 @@ class htmlTabTemplate extends TabTemplate {
     public function __construct($fieldList = [], $custom = []) {
         $this->headerTempl = "<div class=\"panel\">".
                 "<h1>##title##</h1>".
-                "<span class=\"label label-default\"><a style=\"color:#fff\" href=\"##table_id##.tsv?##params##\" target=\"_blank\">TSV</a></span>\n".
-                "<span class=\"label label-primary\"><a style=\"color:#fff\" href=\"##table_id##.json?##params##\" target=\"_blank\">JSON</a></span>\n".
-                "<span class=\"label label-warning\"><a style=\"color:#fff\" href=\"##table_id##.xml?##params##\" target=\"_blank\">XML</a></span>\n".
+                "<span class=\"btn btn-secondary\"><a style=\"color:#fff\" href=\"##table_id##.tsv?##params##\" target=\"_blank\">TSV</a></span>\n".
+                "<span class=\"btn btn-primary\"><a style=\"color:#fff\" href=\"##table_id##.json?##params##\" target=\"_blank\">JSON</a></span>\n".
+                "<span class=\"btn btn-warning\"><a style=\"color:#fff\" href=\"##table_id##.xml?##params##\" target=\"_blank\">XML</a></span>\n".
                 "<table class=\"table bgblank\" id=\"##table_id##\">\n<tr>\n";
         $this->footerTempl="</tr>\n</table>\n</div>";
         return $this->setListFields($fieldList, $custom);
