@@ -13,6 +13,9 @@ class idsolv extends DataStore {
         if ($params->id) {
             list($params->id,$params->bdid) = explode(':',$params->id);
         }
+        if (isset($params->fmt)) { # Recover original extension
+  	    $params->bdid .= ".".$params->fmt;
+        }
         return $params;
     }
 

@@ -58,8 +58,9 @@ class App {
             };
         }
         $ext = pathinfo($this->URI, PATHINFO_EXTENSION);
+        $this->orig_ext=$ext;
         if (!preg_match('/\/files\//', $this->URI) and preg_match('/(gz|json|xml|html|htm|tsv)/', $ext)) { // Hack to avoid get dotted ids (Enzyme) as extensions
-            $this->URI = str_replace('.'.$ext,'',$this->URI);
+	    $this->URI = str_replace('.'.$ext,'',$this->URI);
         } else {
 	    $ext = '';
         }

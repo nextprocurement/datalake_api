@@ -31,8 +31,17 @@ class Dataset extends DataStore {
             $data['references'] = findArrayInDataStore('Reference', $data['references']);
         }        
         if (preg_match("/htm/",$params->fmt)) {
-            $data['datalink']=$data['datalink']['uri'];
-            $data['data']=$data['data']['score'];
+            switch ($data['datalink']['attrs']){
+                case "curie":
+                  $data['datalink']="../idsolv/".$data['datalink']['uri'];
+                  break;
+                case "inline":
+		  $data['data'] = $data['datalink']['uri'];
+ 	          unset($data['datalink']);
+                  break;
+                default:
+                  $data['datalink']=$data['datalink']['uri'];
+            }
             $data['relDatasetList']=[];
             foreach ($data['depends_on']['rel_dataset_ids'] as $rdts) {
                 print_r($rdts['dataset_id']);

@@ -344,6 +344,10 @@ abstract class DataStore {
                 break;
             case 'PM' :
                 return "<a href=\"idsolv/PM:##item##\" target=\"_blank\">##item##</a>";
+                break;
+            case 'OPEB' :
+                return "<a href=\"idsolv/OPEB:##item##\" target=\"_blank\">##item##</a>";
+                break;
             default:
                 return $this->templateArrayLinks[$k];
         }
