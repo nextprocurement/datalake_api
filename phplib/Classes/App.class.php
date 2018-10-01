@@ -76,6 +76,14 @@ class App {
             redirect($GLOBALS['baseURL']."/home.html");
             exit;
         }
+        if (preg_match('/home/', $this->pathList[0]) and isset($GLOBALS['homeURL']))  {
+	    redirect($GLOBALS['homeURL']);
+            exit;
+        }
+        if (preg_match('/about/', $this->pathList[0]) and isset($GLOBALS['aboutURL'])) {
+	    redirect($GLOBALS['aboutURL']);
+            exit;
+        }
         if (preg_match('/(home|about)/', $this->pathList[0])) {
             print parseTemplate(
                     [
