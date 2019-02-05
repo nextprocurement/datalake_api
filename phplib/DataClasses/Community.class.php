@@ -19,13 +19,13 @@ class Community extends DataStore {
             if ($colname == 'Community') {
                 continue;
             }   
-            $rex = new MongoDB\BSON\Regex($params->id, "i");
+            #$rex = new MongoDB\BSON\Regex($params->id, "i");
             if (isset($params->extended) and $params->extended) {
                 $proj = [];
             } else {
                 $proj = ['_id'];
             }
-            $data1 = iterator_to_array($GLOBALS['cols'][$colname]->find(['_id' => $rex], ['projection' => $proj]));
+            $data1 = iterator_to_array($GLOBALS['cols'][$colname]->find(['community_id' => $params->id], ['projection' => $proj]));
             if (count($data1)) {
                 $data[$colname] = $data1;
             }
@@ -44,6 +44,11 @@ class Community extends DataStore {
         }
         $data['TestAction']=$testActionList;
         unset($data['Contact']);
+        foreach ($data['links'] as $lk) {
+	   if ($lk['label'] == 'MainSite') {
+		$data['MainSite'] = $lk['uri'];
+	   }
+        }
         if (preg_match('/htm/', $params->fmt)) {
             foreach ($data['BenchmarkingEvent'] as $be) {
                 $data['BenchmarkingEventsList'][] = $be['_id'];

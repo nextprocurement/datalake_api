@@ -5,11 +5,11 @@
     "storeData": "",
     "templateFieldDefaults": {
         "search": {
-            "_id": "Acronym",
+            "_id": "OEB Id",
+            "acronym": "Acronym",
             "name": "Name",
-            "status_id": "Status",
-            "description": "Description",
-            "linkMain": "URL"
+            "status": "Status",
+            "description": "Description"
         }
     },
     "templateAllFields": {
