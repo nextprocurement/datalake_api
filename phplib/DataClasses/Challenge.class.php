@@ -15,14 +15,16 @@ class Challenge extends DataStore {
         if ($this->error) {
             return '';
         };
+
         foreach (getFieldArray('TestAction', "challenge_id", $data['_id']) as $taid) {
             $ta = getOneDocument('TestAction', $taid);
             $data['TestActions'][$ta['action_type']][]=$taid;
         }
-        
-        foreach ($data['dataset_ids'] as $dts) {
-            $data['Datasets'][$dts['role']][]=$dts['dataset_id'];
+        foreach (getFieldArray('Dataset', "challenge_id", $data['_id']) as $dsid) {
+            $ds = getOneDocument('Dataset', $dsid);
+            $data['Datasets'][$ds['type']][]=$dsid;
         }
+      
         if (isset($params->extended) and $params->extended) {
             $data['challenge_contacts'] = [];
             foreach ($data['challenge_contact_ids'] as $c) {
@@ -36,6 +38,12 @@ class Challenge extends DataStore {
             unset($data['references']);
         }
         if (isset($params->fmt) and preg_match("/htm/",$params->fmt)) {
+            foreach ($data['Datasets'] as $ty) {
+                $data['Datasets_'.$ty] = $data['Datasets'][$ty];
+            }
+            foreach ($data['TestActions'] as $ty) {
+                $data['TestActions_'.$ty] = $data['TestActions'][$ty];
+            }
         }
         return $data;
     }

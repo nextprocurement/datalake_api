@@ -28,7 +28,9 @@
      },
      "templateArrayLinks" : {
         "challenge_contact_ids" : "API:Contact",
-        "references" :       "DOI:doi"
+        "references" :       "DOI:doi",
+        "Datasets_participant": "API:Dataset",
+        "Datasets_assessment": "API:Dataset"
      },
     
      "classTemplate" : "file",
