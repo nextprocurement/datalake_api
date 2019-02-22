@@ -9,13 +9,13 @@
     "templateFieldDefaults" : {
         "search" : {
             "_id" : "Prefix",
-            "URL": "URL template",
+            "endpoints": "URL template",
             "description": "Description"
         }
     },
     "templateAllFields" : {
             "_id" : "Id",
-            "URL": "URL template",
+            "endpoints": "URL template",
             "description": "Description"
     },
     
@@ -31,3 +31,4 @@
     
     "textQueryOn":{"_id":1}
 }
+

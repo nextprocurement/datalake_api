@@ -40,7 +40,7 @@ class idsolv extends DataStore {
     
     function redir ($params) {
         $data = $this->getData($params);
-        $URL = preg_replace('/{id}/',$params->bdid,$data['URL']);
+        $URL = preg_replace('/{id}/',$params->bdid,$data['endpoints']);
         redirect($URL);
     }
 }
