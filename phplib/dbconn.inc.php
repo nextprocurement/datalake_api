@@ -1,6 +1,6 @@
 <?php
 /*
- * Mongo DB connection 
+ * Mongo DB connection
  */
 if (isset($MDB_userName)) {
     $dbconnStr = "mongodb://${MDB_userName}:${MDB_password}@${MDB_hostname}";
@@ -24,3 +24,4 @@ $cols=[];
 foreach ($collections as $col) {
     $cols[$col->getName()] = $dbConn->selectCollection($MDB_database, $col->getName());
 }
+

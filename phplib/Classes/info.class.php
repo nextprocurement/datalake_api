@@ -7,7 +7,7 @@
  */
 class info extends DataStore {
 
-    const software = 'ELIXIR Benchmarking Data Store';
+    const software = 'NextProcurement Data Store';
     const version = '0.1';
 
     function search($params) { //api/info/
@@ -25,5 +25,4 @@ class info extends DataStore {
         }
         return [STRUCT, $data];
     }
-
 }

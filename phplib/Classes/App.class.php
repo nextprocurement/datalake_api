@@ -39,7 +39,7 @@ class App {
 
     function __construct() {
         $this->errorData[NOSTORE]['msg'] = str_replace("##cols##", join(", ",array_keys($GLOBALS['cols'])),$this->errorData[NOSTORE]['msg']);
-        $this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);        
+        $this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);
         $this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
         // Format from HTTP
         if (isset($_SERVER['HTTP_ACCEPT'])) {
@@ -47,7 +47,7 @@ class App {
                 case 'application/json' :
                     $fmtHTTP = 'json';
                     break;
-                case 'text/xml': 
+                case 'text/xml':
                     $fmtHTTP = 'xml';
                     break;
                 case 'text/html':
@@ -66,7 +66,7 @@ class App {
         }
         // Escape colon after prefixes on ids that look like ports :NN
         $this->URI = str_replace(":","__", $this->URI);
-	if ($this->baseURL == '/') {	
+	if ($this->baseURL == '/') {
 	        $this->pathList = explode('/', parse_url($this->URI, PHP_URL_PATH));
         } else {
         	$this->pathList = explode('/', str_replace($this->baseURL, '', parse_url($this->URI, PHP_URL_PATH)));
@@ -122,10 +122,10 @@ class App {
 //            $this->currentPath[2] = 'sequence';
 //        }
         // Set Store from URI
-        $this->setDataStore(array_shift($this->currentPath)); 
+        $this->setDataStore(array_shift($this->currentPath));
         return $this;
     }
-    
+
     function help() {
 //        $html = parseTemplate(['baseURL'=> $GLOBALS['baseURL']], file_get_contents($GLOBALS['htmlib']. "/API.inc.htm"));
 //        $html .= parseTemplate(['baseURL'=> $GLOBALS['baseURL']], file_get_contents($GLOBALS['htmlib']. "/templates/footer.templ.htm"));
@@ -136,6 +136,7 @@ class App {
 
     function setDataStore($dataStore) {
         $this->dataStoreId = $dataStore;
+
         if (!class_exists($dataStore)) {
             $this->sendError([$dataStore, NOSTORE]);
         }
@@ -153,13 +154,13 @@ class App {
         // Error state
         if ($result->error) {
             $this->sendError($result->error,$this->params->fmt);
-        } 
+        }
         // Redirect state
         if (isset($result->redirect)) {
             $this->redirectCall($result->redirect);
         }
         // Normal output
-        // $dataType defined shape for $data 
+        // $dataType defined shape for $data
         list ($dataType, $data) = $result->output;
         switch ($dataType) {
             case STRUCT: //structured array data, default json
@@ -186,7 +187,7 @@ class App {
                 } else {
                     $outputDataType = TEXT;
                 }
-                
+
                 break;
             case HTML: // Simple text (like PDB file)
                 $this->headerSet = ['Content-type: text/html'];
@@ -261,12 +262,12 @@ class App {
             return $this;
         }
     }
-    
+
     function redirectCall($newUri) {
         http_response_code(303);
         header ('Location: '. $GLOBALS['baseURL']."/".$this->dataStore->id."/".$this->params->id.$newUri);
     }
-    
+
     function sendError($error, $fmt='json') {
         list ($str, $errorId) = $error;
         http_response_code($this->errorData[$errorId]['httpCode']);
@@ -274,14 +275,14 @@ class App {
             'errorId' => $errorId,
             'httpCode' => $this->errorData[$errorId]['httpCode'],
             'msg' => $this->errorData[$errorId]['msg']. " (" . $str . ")"
-        ];        
+        ];
         switch ($fmt) {
             case 'html':
             case 'htm':
                 header ("Content-type: text/html");
                 print parseTemplate(
                         [
-                            'baseURL'=>$GLOBALS['baseURL'], 
+                            'baseURL'=>$GLOBALS['baseURL'],
                             'title'=>'Error '.$error['httpCode'],
                             'pageContents' => parseTemplate($error,  getTemplate($GLOBALS['htmlError']))
                         ], getTemplate($GLOBALS['htmlStdPage']));
@@ -301,7 +302,7 @@ class App {
         }
         print $this->output;
     }
-    
+
     function sendThroughData($file) {
 	header ('Access-Control-Allow-Origin: *');
         foreach ($this->headerSet as $h) {

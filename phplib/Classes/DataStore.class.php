@@ -15,15 +15,15 @@ abstract class DataStore {
     public $baseXMLTag;
     public $storeData;
     public $error = NOERROR;
-    
+
     public $templateFieldDefaults = [];
     public $templateAllFields = [];
     public $templateLinks = [];
     public $templateArrayLinks = [];
     public $classTemplate = '';
-    
+
     public $textQueryOn=['_id'=>1];
-    
+
     function __construct() {
         $this->id = get_class($this);
         $this->readConfig();
@@ -35,15 +35,14 @@ abstract class DataStore {
         $cfg = json_decode($cfgjson, true);
         foreach (array_keys($cfg) as $ff) {
             $this->$ff = $cfg[$ff];
-        }        
+        }
         return $this;
     }
-    
 
     function processId($params) {
         //placeholder for getting specific data from $id;
         if ($this->joinFullPath) {
-            if ($this->currentPath) { 
+            if ($this->currentPath) {
                 $params->id .= "/".join("/",$this->currentPath);
                 $this->currentPath=[''];
             }
@@ -54,7 +53,7 @@ abstract class DataStore {
     function setStoreData($dir) {
         $this->storeData = $dir;
     }
-    
+
     function getData($params, $checkId=true) {
         // Base for getting data from the store. Should be extended in class for specific options
           if ($checkId) {
@@ -69,13 +68,13 @@ abstract class DataStore {
         return $data;
     }
 
-    static function info($store='',$params='') {
+    function info($store='',$params='') {
         if (!isset($params->fmt)) {
             $params->fmt="json";
          //   $params->compact= false;
         }
-        $data['Description'] = $store::StoreDescription;        
-        $data['Data'] = getGenericInfo('BenchmarkingEvent');
+        $data['Description'] = $store::StoreDescription;
+        $data['Data'] = getGenericInfo($store);
         return [STRUCT, $data];
     }
 
@@ -113,7 +112,7 @@ abstract class DataStore {
             case 'search': // Equivalent to empty id
                 $params->id='';
             default:
-                $params = $this->processId($params); // any processing required once id is known 
+                $params = $this->processId($params); // any processing required once id is known
                 if (!$params->id) { //api/{store}/ Search
                     $this->output = $this->search($params);
                 } else { //api/{store}/{id}/op/
@@ -153,7 +152,7 @@ abstract class DataStore {
             switch ($params->fmt) {
                 case 'htm':
                 case 'html':
-                    return [HTML, $this->_formatHTML($params, $data,'object')]; 
+                    return [HTML, $this->_formatHTML($params, $data,'object')];
                     break;
                 default:
                     return [STRUCT, $data];
@@ -183,7 +182,7 @@ abstract class DataStore {
             $this->template = new htmlTabTemplate();
         } else {
             $this->template = new TabTemplate();
-        }        
+        }
         switch ($params->fields) {
             case 'ids':
                 $params->fields = '_id';
@@ -197,7 +196,7 @@ abstract class DataStore {
                 $params->fields = join (",",array_keys($this->templateFieldDefaults['search']));
                 $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
                 break;
-        }        
+        }
         if (isset($params->sort)) {
             $sort=[];
             foreach (explode (",",$params->sort) as $ss) {
@@ -206,7 +205,7 @@ abstract class DataStore {
         } else {
             $sort=['_id'=>1];
         }
-        $dataOut = searchGeneric($this->id,(array) $params, $sort);        
+        $dataOut = searchGeneric($this->id,(array) $params, $sort);
         if (!isset($params->fmt)) {
             $params->fmt='tsv';
         }
@@ -263,17 +262,17 @@ abstract class DataStore {
         $dataTab .= parseTemplate([], $this->template->footerTempl);
         return $dataTab;
     }
-    
+
 
     protected function _formatHTML($params, $data, $type,$removePrefix=true) {
         $html='';
-        switch ($type) {            
+        switch ($type) {
             case 'tsv':
                 $html .= parseTemplate([
-                            'title'=>$this->id, 
-                            'table_id'=>$this->id, 
+                            'title'=>$this->id,
+                            'table_id'=>$this->id,
                             'params'=>$params->toQueryString()
-                        ], 
+                        ],
                         $this->template->headerTempl);
                 foreach ($data as $lin) {
 //                    $lin['baseURL'] = $GLOBALS['baseURL'];
@@ -314,16 +313,16 @@ abstract class DataStore {
             if ($prefix[0]) {
                 $html = str_replace (">$prefix[0]:",">",$html);
             }
-        }        
+        }
         return parseTemplate([
-                            'baseURL'=>$GLOBALS['baseURL'], 
-                            'title'=>$this->id, 
-                            'table_id'=>$this->id, 
+                            'baseURL'=>$GLOBALS['baseURL'],
+                            'title'=>$this->id,
+                            'table_id'=>$this->id,
                             'params'=>$params->toQueryString(),
                             'pageContents' => $html
                         ], getTemplate($GLOBALS['htmlStdPage']));
     }
-    
+
     function _prepLinkTemplate($k) {
         $tmpdata = explode (":",$this->templateArrayLinks[$k]);
         if (!isset($tmpdata[2])) {
@@ -333,12 +332,12 @@ abstract class DataStore {
             $tmpdata[3] = "item";
         }
         switch ($tmpdata[0]) {
-            case 'API' : 
+            case 'API' :
                 return "<a href=\"../$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]##</a>";
-                break; 
-            case 'APIObj' : 
+                break;
+            case 'APIObj' :
                 return "<a href=\"../$tmpdata[1]/##$tmpdata[2]##.html\">##$tmpdata[3]## (##$tmpdata[2]##)</a>";
-                break; 
+                break;
             case 'DOI' :
                 return "<a href=\"idsolv/DOI:##item##\" target=\"_blank\">##item##</a>";
                 break;

@@ -1,17 +1,17 @@
 <?php
 
-/* 
- * OpenEBanch raw data repository
+/*
+ * Skeleton for new data type store classes
  */
 
-class opeb_repo extends DataStore {
-    
-    const StoreDescription = 'OpenEBench raw data repository';
-  
+class ted2place extends DataStore {
+
+    const StoreDescription = 'TED European ';
+
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
         if ($this->error) {
-            return '';         
+            return '';
         }
         if (!isset($params->fmt)) {
             $params->fmt='json';
@@ -27,7 +27,7 @@ class opeb_repo extends DataStore {
          if (isset($params->extended) and $params->extended) {
             // get denormalized data
         }
-        
+
         return $data;
     }
 }
