@@ -11,12 +11,14 @@
     "templateFieldDefaults": {
         "search": {
             "Comment": "Fields in tsv output",
-            "_id": "Store:Id"
+            "_id": "Store:Id",
+	    "Objeto_Contrato": "Store:Objeto_Contrato"
         }
     },
     "templateAllFields": {
         "Comment": "Labels for all fields",
-        "_id": "Store:Id"
+        "_id": "Store:Id",
+	"Objeto_Contrato": "Objeto_Contrato"
     },
 
     "Comment": "HTML templates",
@@ -34,6 +36,6 @@
     "classTemplate": "file",
     "Comment": "Template file for complete HTML class page",
 
-    "textQueryOn": { "_id": 1 },
+    "textQueryOn": { "_id": 1 , "Objeto_Contrato":1},
     "Comment": "fields for text query"
 }

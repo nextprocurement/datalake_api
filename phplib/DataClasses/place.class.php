@@ -9,7 +9,7 @@ class place extends DataStore {
     const StoreDescription = 'PLACE';
 
     function getData($params, $checkId=true) {
-        $data = parent::getData($params);
+	    $data = parent::getData($params);
         if ($this->error) {
             return '';
         }
@@ -26,7 +26,7 @@ class place extends DataStore {
         // Code for additional data, usually FKs
          if (isset($params->extended) and $params->extended) {
             // get denormalized data
-        }
+	 }
 
         return $data;
     }

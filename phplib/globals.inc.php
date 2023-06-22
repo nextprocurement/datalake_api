@@ -1,7 +1,6 @@
 <?php
 #
 $baseDir = pathinfo($_SERVER['SCRIPT_FILENAME'],PATHINFO_DIRNAME);
-$baseDir = "/data/DEVEL/NEXTP/basicAPI/nextprocurement";
 $baseURL = pathinfo($_SERVER['SCRIPT_NAME'],PATHINFO_DIRNAME);
 $baseTitle = "NextProcurement";
 $APIDocsURL = "$baseURL/APIDocs.php";
@@ -10,8 +9,7 @@ require_once "../vendor/autoload.php";
 include "../settings.inc.php";
 //
 $phplib = "$baseDir/../phplib";
-#$htmlib = "$baseDir/../htmlib";
-$htmlib = "/data/DEVEL/NEXTP/basicAPI/htmlib";
+$htmlib = "$baseDir/../htmlib";
 $config = "$baseDir/../config";
 $htmlStdPage = "stdpage.templ.html";
 $htmlError = "error.templ.html";

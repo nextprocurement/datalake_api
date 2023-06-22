@@ -39,8 +39,8 @@ class App {
 
     function __construct() {
         $this->errorData[NOSTORE]['msg'] = str_replace("##cols##", join(", ",array_keys($GLOBALS['cols'])),$this->errorData[NOSTORE]['msg']);
-        $this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);
-        $this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
+	$this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);
+	$this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
         // Format from HTTP
         if (isset($_SERVER['HTTP_ACCEPT'])) {
             switch ($_SERVER['HTTP_ACCEPT']) {
@@ -150,7 +150,7 @@ class App {
 
     function run($send = True) {
         // Process query through DataStore
-        $result = $this->dataStore->processData($this->params);
+	    $result = $this->dataStore->processData($this->params);
         // Error state
         if ($result->error) {
             $this->sendError($result->error,$this->params->fmt);
@@ -161,7 +161,7 @@ class App {
         }
         // Normal output
         // $dataType defined shape for $data
-        list ($dataType, $data) = $result->output;
+	list ($dataType, $data) = $result->output;
         switch ($dataType) {
             case STRUCT: //structured array data, default json
                 if (!isset($this->params->fmt)) {
@@ -204,8 +204,8 @@ class App {
             default:
                 print "ERROR $dataType";
         }
-        //
-        switch ($outputDataType) {
+	//
+	switch ($outputDataType) {
             case CURSOR: // Mongo Cursor for long outputs like in searches, to revise
                 if (!$this->params->fmt) {
                     $this->params->fmt == 'tab';
@@ -224,12 +224,16 @@ class App {
                     $this->headerSet = ['Content-type:text/xml'];
                 }
                 break;
-            case JSON:
+	    case JSON:
                 if (isset($this->params->compact)) {
-                    $dataout = json_encode($data);
+                    $dataout = json_encode($data, $flags=JSON_PARTIAL_OUTPUT_ON_ERROR);
                 } else {
-                    $dataout = json_encode($data, JSON_PRETTY_PRINT);
-                }
+                    $dataout = json_encode($data, $flags=JSON_PRETTY_PRINT | JSON_PARTIAL_OUTPUT_ON_ERROR);
+		}
+		if (!$dataout) {
+			print("JSON ERROR");
+			print json_last_error();
+		}
                 $this->output = str_replace('_"','"', $dataout); // _ char to avoid expand lists for tags ending 's' (xml encode issue)
                 break;
             case XML:
