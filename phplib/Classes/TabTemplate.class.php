@@ -10,12 +10,12 @@ class TabTemplate {
     public $headerTempl;
     public $dataTempl;
     public $footerTempl;
-    
+
     public function __construct ($fieldList = []) {
         $this->headerTempl = "#";
         return $this->setListFields($fieldList);
     }
-    
+
     public function setListFields ($fieldList=[]) {
        if ($fieldList) {
             foreach ($fieldList as $f => $v) {
@@ -25,7 +25,7 @@ class TabTemplate {
         }
         return $this;
     }
-        
+
     public function addField ($field, $label='') {
         if (!$label) {
             $label = $field;
@@ -34,19 +34,19 @@ class TabTemplate {
         $this->dataTempl .= "##$field##\t";
         return $this;
     }
-    
+
     public function close() {
         $this->headerTempl .= "\n";
         $this->dataTempl .= "\n";
     }
-       
+
 }
 
 class fastaTemplate extends TabTemplate {
     public function __construct() {
         parent::__construct();
         $this->headerTempl='<table><tr><th>';
-        $this->dataTempl=">##_id## ##header##\n##sequence##\n";        
+        $this->dataTempl=">##_id## ##header##\n##sequence##\n";
         return $this;
     }
 }
@@ -62,7 +62,7 @@ class htmlTabTemplate extends TabTemplate {
         $this->footerTempl="</tr>\n</table>\n</div>";
         return $this->setListFields($fieldList, $custom);
     }
-    
+
     public function setListFields ($fieldList=[], $custom=[]) {
        if ($fieldList) {
             foreach ($fieldList as $f => $v) {

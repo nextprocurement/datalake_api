@@ -2,40 +2,30 @@
     "class_name": "place",
     "baseXMLTag": "PLACE",
     "defaultOp": "entry",
-    "Comment": "Default operation",
     "addDefault": true,
-    "Comment": "Add default operation name when missing and retrieving inner fields",
     "storeData": "",
-    "Comment": "Direct access to raw files",
 
     "templateFieldDefaults": {
         "search": {
-            "Comment": "Fields in tsv output",
             "_id": "Store:Id",
-	    "Objeto_Contrato": "Store:Objeto_Contrato"
+    	    "Objeto_Contrato": "Store:Objeto_Contrato"
         }
     },
     "templateAllFields": {
-        "Comment": "Labels for all fields",
         "_id": "Store:Id",
-	"Objeto_Contrato": "Objeto_Contrato"
+    	"Objeto_Contrato": "Objeto_Contrato"
     },
-
-    "Comment": "HTML templates",
-
     "templateLinks": {
-        "Comment": "template for HTML links",
         "_id": "<a href=\"Store/##_id##.html\">##_id##</a>"
     },
 
     "templateArrayLinks": {
-        "Comment": "Links in array fields  ( expansion of foering keys)",
         "foreing key_id": "Store:Field"
     },
 
     "classTemplate": "file",
-    "Comment": "Template file for complete HTML class page",
 
-    "textQueryOn": { "_id": 1 , "Objeto_Contrato":1},
-    "Comment": "fields for text query"
+    "textQueryOn": {"_id": 1, "Objeto_Contrato":1},
+    "numQueryOn" : {"Clasificacion_CPV": 1}
 }
+

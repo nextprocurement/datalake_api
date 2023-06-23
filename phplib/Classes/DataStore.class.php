@@ -194,6 +194,10 @@ abstract class DataStore {
                 break;
             default:
                 $params->fields = join (",",array_keys($this->templateFieldDefaults['search']));
+                foreach (array_keys($params->queryOn) as $fld) {
+                    $this->template->addField($fld);
+                    $params->fields .= ",".$fld;
+                }
                 $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
                 break;
         }
@@ -205,7 +209,20 @@ abstract class DataStore {
         } else {
             $sort=['_id'=>1];
         }
-        $dataOut = searchGeneric($this->id,(array) $params, $sort);
+        $params->searchType = [];
+        foreach (array_keys($params->queryOn) as $fld) {
+            if ($this->numQueryOn[$fld]) {
+                $params->searchType[$fld] = "N";
+            } else {
+                $params->searchType[$fld] = "T";
+            }
+        }
+
+        $dataOut = searchGeneric(
+            $this->id,
+            (array) $params,
+            $sort,
+        );
         if (!isset($params->fmt)) {
             $params->fmt='tsv';
         }

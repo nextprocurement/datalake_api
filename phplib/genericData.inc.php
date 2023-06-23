@@ -6,7 +6,7 @@
  * findInDataStore: Wrapper to Mongodb find
  * findArrayInDataStore: Produces an array of documents from Datastore form an array of ids
  * getFieldArray: Returns an array of "targetField" values on docs that contain $field:$id
- * 
+ *
  */
 
 function getGenericInfo($dataStore) {
@@ -15,21 +15,29 @@ function getGenericInfo($dataStore) {
     return $data;
 }
 
-function searchGeneric($dataStore,$params, $sortA=[]) {
+function searchGeneric($dataStore, $params, $sortA=[]) {
     $cond = [];
 
     if (isset($params['query'])) {
-// Text index pendents versio Mongodb
-        foreach (explode(' ', $params['query']) as $wd) {
-            $cl2 = [];
-            foreach (array_keys($params['queryOn']) as $fld) {
-                $rex = new MongoDB\BSON\Regex($wd, "i");
-                $cl2[] = [$fld => $rex];
+        foreach (array_keys($params['queryOn']) as $fld) {
+            if ($params['searchType'][$fld] == 'N') {
+                $cond[] = [$fld => (int)$params['query']];
+                unset($params['queryOn'][$fld]);
             }
-            if (count($cl2) > 1) {
-                $cond[] = ['$or' => $cl2];
-            } else {
-                $cond[] = $cl2[0];
+        }
+// Text index pendents versio Mongodb
+        if ($params['queryOn']) {
+            foreach (explode(' ', $params['query']) as $wd) {
+                $cl2 = [];
+                foreach (array_keys($params['queryOn']) as $fld) {
+                    $rex = new MongoDB\BSON\Regex($wd, "i");
+                    $cl2[] = [$fld => $rex];
+                }
+                if (count($cl2) > 1) {
+                    $cond[] = ['$or' => $cl2];
+                } else {
+                    $cond[] = $cl2[0];
+                }
             }
         }
     }
@@ -38,9 +46,9 @@ function searchGeneric($dataStore,$params, $sortA=[]) {
     } else {
         $fcond = [];
     }
-//print "<pre>";
-//print json_encode($fcond);
-//print "</pre>";
+// print "<pre>";
+// print json_encode($fcond);
+// print "</pre>";
 
     foreach ($GLOBALS['cols'][$dataStore]->find($fcond, ['sort' => $sortA]) as $rs) {
         $results[] = $rs;
@@ -60,7 +68,7 @@ function findInDataStore($dataStore,$query, $options) {
     return $GLOBALS['cols'][$dataStore]->find($query,$options);
 }
 
-// returns an array of MongoDB documents from an array of _id's 
+// returns an array of MongoDB documents from an array of _id's
 function findArrayInDataStore($dataStore,$idsArray) {
    $data=[];
    if (isset($idsArray)) {
