@@ -29,9 +29,9 @@ class TabTemplate {
     public function addField ($field, $label='') {
         if (!$label) {
             $label = $field;
-        }
-        $this->headerTempl .= "$label\t";
-        $this->dataTempl .= "##$field##\t";
+	}
+	$this->headerTempl .= "$label\t";
+	$this->dataTempl .= "##$field##\t";
         return $this;
     }
 

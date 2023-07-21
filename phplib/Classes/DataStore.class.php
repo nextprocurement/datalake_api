@@ -194,10 +194,6 @@ abstract class DataStore {
                 break;
             default:
                 $params->fields = join (",",array_keys($this->templateFieldDefaults['search']));
-                foreach (array_keys($params->queryOn) as $fld) {
-                    $this->template->addField($fld);
-                    $params->fields .= ",".$fld;
-                }
                 $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
                 break;
         }

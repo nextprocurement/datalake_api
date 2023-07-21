@@ -1,0 +1,33 @@
+{
+    "class_name": "cpv", 
+    "baseXMLTag" : "CPV",     
+    "defaultOp" : "entry", 
+    "addDefault" : true, 
+    "storeData" : "",
+    
+    "templateFieldDefaults" : {
+        "search" : {
+            "_id" : "cpv",
+	    "descripcion": "descripcion"
+        }
+    },
+    "templateAllFields" : {
+        "_id" : "Store:Id",
+	"descripcion": "Descripción"
+    },
+    
+    
+    "templateLinks" : { 
+        "Comment": "template for HTML links",
+        "_id" : "<a href=\"Store/##_id##.html\">##_id##</a>"
+    },
+    
+    "templateArrayLinks" : {
+        "Comment": "Links in array fields  ( expansion of foering keys)",
+        "foreing key_id" : "Store:Field"        
+    },
+    
+    "classTemplate" : "file",
+    
+    "textQueryOn":{"descripcion":1}
+}

@@ -30,7 +30,7 @@ foreach (scandir("$phplib/DataClasses") as $cl) {
 }
 // Loading Stores' specific code
 foreach (scandir("$phplib/Data") as $cl) {
-    if (preg_match('/Data/',$cl)) {
+	if (preg_match('/data/',$cl) and !preg_match('/swp/',$cl)) {
         require_once ("$phplib/Data/$cl");
     }
 }
