@@ -10,8 +10,12 @@
  */
 
 function getGenericInfo($dataStore) {
-    $data['Total'] = $GLOBALS['cols'][$dataStore]->count();
-    $data['lastUpdate'] = getUpdateDate($GLOBALS['cols'][$dataStore]);
+    if ($GLOBALS['cols'][$dataStore]) {
+        $data['Total'] = $GLOBALS['cols'][$dataStore]->estimatedDocumentCount();
+        $data['lastUpdate'] = getUpdateDate($GLOBALS['cols'][$dataStore]);
+    } else {
+        $data = ['Total' => 0];
+    }
     return $data;
 }
 

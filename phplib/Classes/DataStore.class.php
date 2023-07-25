@@ -68,7 +68,7 @@ abstract class DataStore {
         return $data;
     }
 
-    function info($store='',$params='') {
+    static function info($store='',$params='') {
         if (!isset($params->fmt)) {
             $params->fmt="json";
          //   $params->compact= false;

@@ -1,0 +1,36 @@
+{
+    "class_name": "adjudicatarios",
+    "baseXMLTag" : "ADJ",
+    "defaultOp" : "entry",
+    "addDefault" : true,
+    "storeData" : "",
+
+    "templateFieldDefaults" : {
+        "search" : {
+            "_id" : "cif/nif"
+        }
+    },
+    "templateAllFields" : {
+        "_id" : "cif/nif",
+        "Nombre": "Nombre"
+    },
+
+    "Comment": "HTML templates",
+
+    "templateLinks" : {
+        "Comment": "template for HTML links",
+        "_id" : "<a href=\"Store/##_id##.html\">##_id##</a>"
+    },
+
+    "templateArrayLinks" : {
+        "Comment": "Links in array fields  ( expansion of foering keys)",
+        "foreing key_id" : "Store:Field"
+    },
+
+    "classTemplate" : "file",
+
+    "textQueryOn": {
+        "_id":1,
+        "Nombre":1
+    }
+}
