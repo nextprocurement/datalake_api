@@ -10,6 +10,7 @@ class place extends DataStore {
 
     function getData($params, $checkId=true) {
 	    $data = parent::getData($params);
+        $data = extendPlaceData($data, 'place', (array)$params);
         if ($this->error) {
             return '';
         }

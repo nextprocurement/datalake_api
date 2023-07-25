@@ -94,3 +94,11 @@ function getFieldArray($dataStore,$field,$id,$targetField='_id') {
     }
     return $data;
 }
+// Fix MongoDB Date object to Readable format
+function fixDateFields($data, $dateFields) {
+    foreach ($dateFields as $f) {
+        $tmp = $data[$f]->toDateTime()->format(DATE_ATOM);
+        $data[$f] = $tmp;
+    }
+    return $data;
+}
