@@ -10,6 +10,7 @@ class place_menores extends DataStore {
 
     function getData($params, $checkId=true) {
 	    $data = parent::getData($params);
+        $data = extendPlaceData($data, 'place_menores', (array)$params);
         if ($this->error) {
             return '';
         }
