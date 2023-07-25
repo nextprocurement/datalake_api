@@ -62,7 +62,7 @@ function searchGeneric($dataStore, $params, $sortA=[]) {
 // MongoDB wrappers
 
 //MongoDB findOne wrapper
-function getOneDocument($dataStore,$id) {
+function getOneDocument($dataStore, $id) {
     $data = $GLOBALS['cols'][$dataStore]->findOne(['_id' => $id]);
     return $data;
 }

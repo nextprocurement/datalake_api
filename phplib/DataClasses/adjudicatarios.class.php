@@ -10,6 +10,7 @@ class adjudicatarios extends DataStore {
 
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        $data = extendAdjData($data, array($params));
         if ($this->error) {
             return '';
         }

@@ -10,6 +10,7 @@ class contractingParties extends DataStore {
 
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
+        $data = extendCPartiesData($data, (array)$params);
         if ($this->error) {
             return '';
         }
