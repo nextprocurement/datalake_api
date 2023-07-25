@@ -2,6 +2,20 @@
 // functions for place and place_menores store
 
 
+function getDataFromPlaceId($store, $params) {
+    global $PLACEIdPrefixes;
+    $data = findInDataStore(
+        $store,
+        ['$or' =>
+            [
+                ['id' => $PLACEIdPrefixes['agregados'].$params['id']],
+                ['id' => $PLACEIdPrefixes['perfiles'].$params['id']]
+            ]
+        ],
+        ['sort' => ['updated' => -1]]
+    )->toArray()[0];
+    return $data;
+}
 
 function extendPlaceData($data, $store, $params) {
     $dateFields = [
@@ -10,7 +24,7 @@ function extendPlaceData($data, $store, $params) {
     ];
     $data['versions'] = getPlaceVersions($data, $store);
     if ($params['final']) {
-        $data['original_equested_id'] = $data['_id'];
+        $data['original_requested_id'] = $data['_id'];
         $data = getFinalAtom($data, $store);
     }
     $data = fixDateFields($data, $dateFields);
