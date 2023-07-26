@@ -55,6 +55,7 @@ function searchGeneric($dataStore, $params, $sortA=[]) {
 // print "<pre>";
 // print json_encode($fcond);
 // print "</pre>";
+// exit;
 
     foreach ($GLOBALS['cols'][$dataStore]->find($fcond, ['sort' => $sortA]) as $rs) {
         $results[] = $rs;
@@ -63,9 +64,21 @@ function searchGeneric($dataStore, $params, $sortA=[]) {
 }
 function textSearch($dataStore, $params, $sortA) {
 	// search against text index
-	foreach ($GLOBALS['cols'][$dataStore]->find(['$text'=>['$search'=>$params['query']]]) as $rs) {
-		$results[] = $rs;
+	if (!$params['language']) {
+		$params['language'] = 'spanish';
 	}
+	$results= $GLOBALS['cols'][$dataStore]->find(
+		['$text'=>
+			[
+				'$search'=>$params['query'],
+				'$language' => $params['language']
+			]
+		],
+		[
+			'sort'=>['score'=>['$meta'=>'textScore']],
+			'allowDiskUse' => True
+		]
+	)->toArray();
 	return $results;
 }
 // MongoDB wrappers
