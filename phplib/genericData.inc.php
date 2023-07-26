@@ -20,7 +20,10 @@ function getGenericInfo($dataStore) {
 }
 
 function searchGeneric($dataStore, $params, $sortA=[]) {
-    $cond = [];
+	$cond = [];
+    if (isset($params['text'])) {
+	    return textSearch($dataStore, $params, $sortA=$sortA);
+    }
 
     if (isset($params['query'])) {
         foreach (array_keys($params['queryOn']) as $fld) {
@@ -29,7 +32,6 @@ function searchGeneric($dataStore, $params, $sortA=[]) {
                 unset($params['queryOn'][$fld]);
             }
         }
-// Text index pendents versio Mongodb
         if ($params['queryOn']) {
             foreach (explode(' ', $params['query']) as $wd) {
                 $cl2 = [];
@@ -58,6 +60,13 @@ function searchGeneric($dataStore, $params, $sortA=[]) {
         $results[] = $rs;
     }
     return $results;
+}
+function textSearch($dataStore, $params, $sortA) {
+	// search against text index
+	foreach ($GLOBALS['cols'][$dataStore]->find(['$text'=>['$search'=>$params['query']]]) as $rs) {
+		$results[] = $rs;
+	}
+	return $results;
 }
 // MongoDB wrappers
 

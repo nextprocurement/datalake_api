@@ -217,7 +217,7 @@ abstract class DataStore {
         $dataOut = searchGeneric(
             $this->id,
             (array) $params,
-            $sort,
+	    $sort,
         );
         if (!isset($params->fmt)) {
             $params->fmt='tsv';

@@ -9,8 +9,8 @@ class place extends DataStore {
     const StoreDescription = 'PLACE';
 
     function getData($params, $checkId=true) {
-        if (preg_match('/^ntp/', $this->id)) {
-	        $data = parent::getData($params);
+        if (preg_match('/^ntp/', $params->id)) {
+		$data = parent::getData($params);
         } else {
             $data = getDataFromPlaceId($this->id, (array)$params);
         }
