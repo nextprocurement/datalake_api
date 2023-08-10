@@ -19,10 +19,10 @@ function getGenericInfo($dataStore) {
     return $data;
 }
 
-function searchGeneric($dataStore, $params, $sortA=[]) {
+function searchGeneric($dataStore, $params, $toArray=True, $sortA=[], $projection=[]) {
 	$cond = [];
     if (isset($params['text'])) {
-	    return textSearch($dataStore, $params, $sortA=$sortA);
+	    return textSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection);
     }
 
     if (isset($params['query'])) {
@@ -56,18 +56,29 @@ function searchGeneric($dataStore, $params, $sortA=[]) {
 // print json_encode($fcond);
 // print "</pre>";
 // exit;
-
-    foreach ($GLOBALS['cols'][$dataStore]->find($fcond, ['sort' => $sortA]) as $rs) {
-        $results[] = $rs;
+    $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
+	    $fcond,
+	    [
+            'projection' => $projection,
+		    'sort' => $sortA,
+                    'allowDiskUse' => True,
+                    'maxTimeMS' => 0,
+                    'allowPartialResults' => True,
+                    'noCursorTimeout' => True
+	    ]
+    );
+    if ($toArray) {
+        return $resultsCursor->toArray();
     }
-    return $results;
+    return $resultsCursor;
 }
-function textSearch($dataStore, $params, $sortA) {
+
+function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[]) {
 	// search against text index
-	if (!$params['language']) {
+	if (!isset($params['language'])) {
 		$params['language'] = 'spanish';
 	}
-	$results= $GLOBALS['cols'][$dataStore]->find(
+    $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
 		['$text'=>
 			[
 				'$search'=>$params['query'],
@@ -75,11 +86,18 @@ function textSearch($dataStore, $params, $sortA) {
 			]
 		],
 		[
+            'projection'=> $projection,
 			'sort'=>['score'=>['$meta'=>'textScore']],
-			'allowDiskUse' => True
+			'allowDiskUse' => True,
+			'maxTimeMS' => 0,
+			'allowPartialResults' => True,
+			'noCursorTimeout' => True
 		]
-	)->toArray();
-	return $results;
+        );
+        if ($toArray) {
+            return $resultsCursor->toArray();
+        }
+	return $resultsCursor;
 }
 // MongoDB wrappers
 
@@ -125,4 +143,15 @@ function fixDateFields($data, $dateFields) {
         }
     }
     return $data;
+}
+
+function getProjectionArray($fieldsStr, $keep_id=True) {
+    $projection = [];
+    foreach (explode(',',$fieldsStr) as $field) {
+        $projection[$field] = 1;
+    }
+    if (!$keep_id) {
+        $projection['_id'] = 0;
+    }
+    return $projection;
 }

@@ -206,17 +206,15 @@ class App {
         }
 	//
 	switch ($outputDataType) {
-            case CURSOR: // Mongo Cursor for long outputs like in searches, to revise
+            case CURSOR: // Mongo Cursor for long outputs like in searches
                 if (!$this->params->fmt) {
-                    $this->params->fmt == 'tab';
+                    $this->params->fmt == 'tsv';
                 }
                 if (!isset($this->params->noheaders)) {
                     $dataTab = parseTemplate(['query' => urlencode($_SERVER['QUERY_STRING'])], $result->template->headerTempl);
                 }
-                if ($data->count()) {
-                    while ($d = $data->getNext()) {
-                        $dataTab .= parseTemplate($result->prepDataOutput($d), $result->template->dataTempl);
-                    }
+                foreach ($data as $d) {
+                    $dataTab .= parseTemplate($result->prepDataOutput($d), $result->template->dataTempl);
                 }
                 $dataTab .= parseTemplate([], $result->template->footerTempl);
                 $this->output = $dataTab;

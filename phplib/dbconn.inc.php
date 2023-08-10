@@ -14,7 +14,8 @@ $dbConn = new MongoDB\Client($dbconnStr,
                 'array' => 'array',
                 'document' =>'array',
                 'root' => 'array'
-            ]
+	    ],
+	    'connectTimeoutMS' => 50000
         ]);
 // Database selection
 $db = $dbConn->$MDB_database;

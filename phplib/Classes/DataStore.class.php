@@ -190,18 +190,23 @@ abstract class DataStore {
                 break;
             case 'all':
                 $params->fields = join (",",array_keys($this->templateAllFields));
-                $this->template->setListFields($this->templateAllFields,$this->templateLinks);
+                $this->template->setListFields($this->templateAllFields, $this->templateLinks);
+                break;
+            case 'query':
+                $params->fields = join(",",array_keys($params->queryOn));
+                $this->template->setListFields($this->templateAllFields, $this->templateLinks);
                 break;
             default:
-                $params->fields = join (",",array_keys($this->templateFieldDefaults['search']));
-                $this->template->setListFields($this->templateFieldDefaults['search'],$this->templateLinks);
+                if (!$params->fields) {
+                    $params->fields = join (",",array_keys($this->templateFieldDefaults['search']));
+                    $this->template->setListFields($this->templateFieldDefaults['search'], $this->templateLinks);
+                } else {
+                    $this->template->setListFields($this->templateAllFields, $this->templateLinks);
+                }
                 break;
         }
         if (isset($params->sort)) {
-            $sort=[];
-            foreach (explode (",",$params->sort) as $ss) {
-                $sort[$ss]=1;
-            }
+            $sort = getProjectionArray($params->sort);
         } else {
             $sort=['_id'=>1];
         }
@@ -213,15 +218,22 @@ abstract class DataStore {
                 $params->searchType[$fld] = "T";
             }
         }
-
         $dataOut = searchGeneric(
             $this->id,
             (array) $params,
-	    $sort,
+            (!$this->searchStream),
+	        $sort,
+            getProjectionArray($params->fields)
         );
+
         if (!isset($params->fmt)) {
             $params->fmt='tsv';
         }
+
+        if ($this->searchStream) {
+            return [CURSOR, $dataOut];
+        }
+
         switch ($params->fmt) {
             case 'tsv':
                 return [TEXT, $this->_formatTArray($params, $dataOut)];
@@ -231,7 +243,7 @@ abstract class DataStore {
                 return [HTML, $this->_formatHTML($params, $dataOut,'tsv')];
                 break;
             default:
-                return [STRUCT, [$this->baseXMLTag => $dataOut]];
+            return [STRUCT, [$this->baseXMLTag => $dataOut]];
         }
     }
 
