@@ -206,55 +206,84 @@ class App {
         }
 	//
 	switch ($outputDataType) {
-            case CURSOR: // Mongo Cursor for long outputs like in searches
-                if (!$this->params->fmt) {
-                    $this->params->fmt == 'tsv';
-                }
-                if (!isset($this->params->noheaders)) {
-                    $dataTab = parseTemplate(['query' => urlencode($_SERVER['QUERY_STRING'])], $result->template->headerTempl);
-                }
-                foreach ($data as $d) {
-                    $dataTab .= parseTemplate($result->prepDataOutput($d), $result->template->dataTempl);
-                }
-                $dataTab .= parseTemplate([], $result->template->footerTempl);
-                $this->output = $dataTab;
-                if ($this->params->fmt == 'xml') {
-                    $this->headerSet = ['Content-type:text/xml'];
-                }
-                break;
-	    case JSON:
-                if (isset($this->params->compact)) {
-                    $dataout = json_encode($data, $flags=JSON_PARTIAL_OUTPUT_ON_ERROR);
-                } else {
-                    $dataout = json_encode($data, $flags=JSON_PRETTY_PRINT | JSON_PARTIAL_OUTPUT_ON_ERROR);
-		}
-		if (!$dataout) {
-			print("JSON ERROR");
-			print json_last_error();
-		}
-                $this->output = str_replace('_"','"', $dataout); // _ char to avoid expand lists for tags ending 's' (xml encode issue)
-                break;
-            case XML:
-                if (is_array($data)) {
-                    $xml = xml_encode([$this->dataStore->baseXMLTag => $data]);
-                    if (isset($data['_id'])) {
-                        $idatr = $xml->createAttribute('id');
-                        $idatr->value = $data['_id'];
-                        $rootelem = $xml->getElementsByTagName($this->dataStore->baseXMLTag)->item(0);
-                        $rootelem->appendChild($idatr);
+        case CURSOR: // Mongo Cursor for long outputs like in searches
+            if (!$this->params->fmt) {
+                $this->params->fmt == 'json';
+            }
+            switch ($this->params->fmt) {
+                case 'tsv':
+                    if (!isset($this->params->noheaders)) {
+                        $dataTab = parseTemplate(
+                            ['query' => urlencode($_SERVER['QUERY_STRING'])], 
+                            $result->template->headerTempl
+                        );
                     }
-                    $this->output = $xml->saveXML();
-                } else {
-                    $this->output = "<$this->dataStore->baseXmlTag>\n<![CDATA[" . $data . "]]>\n</$this->dataStore->baseXmlTag>";
+                    foreach ($data as $d) {
+                        $dataTab .= parseTemplate(
+                            $result->prepDataOutput($d), 
+                            $result->template->dataTempl
+                        );
+                    }
+                    $dataTab .= parseTemplate(
+                        [], 
+                        $result->template->footerTempl
+                    );
+                    $this->output = $dataTab;
+                    break;
+                case 'json':
+                    $dataJson = parseTemplate(
+                        ['query' => $_SERVER['QUERY_STRING']], 
+                        '{"searchQuery": "##query##", "searchResults":['                        
+                    );
+                    foreach ($data as $d) {
+                        if (isset($this->params->compact)) {
+                            $dataJson .= json_encode($d, $flags=JSON_PARTIAL_OUTPUT_ON_ERROR);
+                        } else {
+                            $dataJson .= json_encode($d, $flags=JSON_PRETTY_PRINT | JSON_PARTIAL_OUTPUT_ON_ERROR);
+                        }
+                        $dataJson .= ",";
+                    }
+
+                    $this->output = preg_replace('/,$/',']}', $dataJson);
+                    $this->headerSet = ['Content-type:application/json'];
+                    break;
+                case 'xml':
+                    break;
+            }
+            break;
+        case JSON:
+            if (isset($this->params->compact)) {
+                $dataout = json_encode($data, $flags=JSON_PARTIAL_OUTPUT_ON_ERROR);
+            } else {
+                $dataout = json_encode($data, $flags=JSON_PRETTY_PRINT | JSON_PARTIAL_OUTPUT_ON_ERROR);
+		    }
+		    if (!$dataout) {
+			    print("JSON ERROR");
+			    print json_last_error();
+		    }
+            $this->output = str_replace('_"','"', $dataout); // _ char to avoid expand lists for tags ending 's' (xml encode issue)
+            break;
+        case XML:
+            if (is_array($data)) {
+                $xml = xml_encode([$this->dataStore->baseXMLTag => $data]);
+                if (isset($data['_id'])) {
+                    $idatr = $xml->createAttribute('id');
+                    $idatr->value = $data['_id'];
+                    $rootelem = $xml->getElementsByTagName($this->dataStore->baseXMLTag)->item(0);
+                    $rootelem->appendChild($idatr);
                 }
-                break;
-            case GZIP:
-                $this->output = gzip($data);
-                break;
-            case RAW;
-                break;
-            default:
-                $this->output = $data;
+                $this->output = $xml->saveXML();
+            } else {
+                $this->output = "<$this->dataStore->baseXmlTag>\n<![CDATA[" . $data . "]]>\n</$this->dataStore->baseXmlTag>";
+            }
+            break;
+        case GZIP:
+            $this->output = gzip($data);
+            break;
+        case RAW;
+            break;
+        default:
+            $this->output = $data;
         }
         if (($outputDataType == RAW) and $send) {
             $this->sendThroughData($result->storeData."/".$data['file']);

@@ -227,7 +227,7 @@ abstract class DataStore {
         );
 
         if (!isset($params->fmt)) {
-            $params->fmt='tsv';
+            $params->fmt='json';
         }
 
         if ($this->searchStream) {

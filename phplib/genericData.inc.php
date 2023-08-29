@@ -20,11 +20,15 @@ function getGenericInfo($dataStore) {
 }
 
 function searchGeneric($dataStore, $params, $toArray=True, $sortA=[], $projection=[]) {
-	$cond = [];
-    if (isset($params['text'])) {
-	    return textSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection);
+    $cond = [];
+    if (!$params['queryOn'] or isset($params['text']) ) {
+        return textSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection);
+    } else {
+        return keyWordSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection);
     }
+}
 
+function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[]) {
     if (isset($params['query'])) {
         foreach (array_keys($params['queryOn']) as $fld) {
             if ($params['searchType'][$fld] == 'N') {
@@ -46,26 +50,29 @@ function searchGeneric($dataStore, $params, $toArray=True, $sortA=[], $projectio
                 }
             }
         }
+    } else {
+        return false;
     }
+
     if (count($cond)) {
         $fcond = ['$and' => $cond];
     } else {
         $fcond = [];
     }
-// print "<pre>";
-// print json_encode($fcond);
-// print "</pre>";
-// exit;
+    // print "<pre>";
+    // print json_encode($fcond);
+    // print "</pre>";
+    // exit;
     $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
-	    $fcond,
-	    [
+        $fcond,
+        [
             'projection' => $projection,
-		    'sort' => $sortA,
+            'sort' => $sortA,
                     'allowDiskUse' => True,
                     'maxTimeMS' => 0,
                     'allowPartialResults' => True,
                     'noCursorTimeout' => True
-	    ]
+        ]
     );
     if ($toArray) {
         return $resultsCursor->toArray();
@@ -78,6 +85,9 @@ function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[
 	if (!isset($params['language'])) {
 		$params['language'] = 'spanish';
 	}
+    if (!$params['query']) {
+        return false;
+    }
     $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
 		['$text'=>
 			[
