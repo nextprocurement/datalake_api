@@ -19,16 +19,17 @@ function getGenericInfo($dataStore) {
     return $data;
 }
 
-function searchGeneric($dataStore, $params, $toArray=True, $sortA=[], $projection=[]) {
+function searchGeneric($dataStore, $params, $toArray=True, $sortA=[], $projection=[], $noEmptyQuery=False) {
     $cond = [];
     if (!$params['queryOn'] or isset($params['text']) ) {
-        return textSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection);
+        return textSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection, $noEmptyQuery=$noEmptyQuery);
     } else {
-        return keyWordSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection);
+        return keyWordSearch($dataStore, $params, $toArray=$toArray, $sortA=$sortA, $projection=$projection, $noEmptyQuery=$noEmptyQuery);
     }
 }
 
-function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[]) {
+function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[], $noEmptyQuery=False) {
+    $cond=[];
     if (isset($params['query'])) {
         foreach (array_keys($params['queryOn']) as $fld) {
             if ($params['searchType'][$fld] == 'N') {
@@ -50,8 +51,8 @@ function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projectio
                 }
             }
         }
-    } else {
-        return false;
+    } elseif ($noEmptyQuery) {
+	return False;
     }
 
     if (count($cond)) {
@@ -80,12 +81,12 @@ function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projectio
     return $resultsCursor;
 }
 
-function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[]) {
+function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[], $noEmptyQuery=False) {
 	// search against text index
 	if (!isset($params['language'])) {
 		$params['language'] = 'spanish';
 	}
-    if (!$params['query']) {
+    if (!$params['query'] and $noEmptyQuery) {
         return false;
     }
     $resultsCursor = $GLOBALS['cols'][$dataStore]->find(

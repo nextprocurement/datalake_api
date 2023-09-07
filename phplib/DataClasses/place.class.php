@@ -10,7 +10,7 @@ class place extends DataStore {
 
     function getData($params, $checkId=true) {
         if (preg_match('/^ntp/', $params->id)) {
-		$data = parent::getData($params);
+	        $data = parent::getData($params);
         } else {
             $data = getDataFromPlaceId($this->id, (array)$params);
         }

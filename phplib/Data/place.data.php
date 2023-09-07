@@ -9,7 +9,8 @@ function getDataFromPlaceId($store, $params) {
         ['$or' =>
             [
                 ['id' => $PLACEIdPrefixes['agregados'].$params['id']],
-                ['id' => $PLACEIdPrefixes['perfiles'].$params['id']]
+                ['id' => $PLACEIdPrefixes['perfiles'].$params['id']],
+                ['id' => $PLACEIdPrefixes['menores'].$params['id']]
             ]
         ],
         ['sort' => ['updated' => -1]]

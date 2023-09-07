@@ -8,6 +8,7 @@
     "templateFieldDefaults": {
         "search": {
             "_id": "Id",
+            "id": "PLACE_id",
     	    "Objeto_Contrato": "Objeto_Contrato"
         }
     },
@@ -33,6 +34,7 @@
 
     "numQueryOn" : {"Clasificacion_CPV": 1},
 
-    "searchStream": false
+    "searchStream": false,
+    "noEmptyQuery": true
 }
 

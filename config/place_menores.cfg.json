@@ -7,14 +7,18 @@
 
     "templateFieldDefaults": {
         "search": {
-            "_id": "Store:Id",
-    	    "Objeto_Contrato": "Store:Objeto_Contrato"
-
+            "_id": "Id",
+            "id": "place_id",
+    	    "Objeto_Contrato": "Objeto_Contrato"
         }
     },
     "templateAllFields": {
-        "_id": "Store:Id",
-    	"Objeto_Contrato": "Objeto_Contrato"
+        "_id": "Id",
+        "id": "place_id",
+    	"Objeto_Contrato": "Objeto",
+        "ID": "ID Ajudicatario",
+        "Nombre_Adjudicatario": "Adjudicatario",
+        "Clasificacion_CPV": "CPV"
     },
     "templateLinks": {
         "_id": "<a href=\"Store/##_id##.html\">##_id##</a>"
@@ -24,10 +28,11 @@
         "foreing key_id": "Store:Field"
     },
 
-    "classTemplate": "file",
+    "textQueryOn": {"_id": 1, "Objeto_Contrato":1, "Nombre_Adjudicatario":1},
 
-    "textQueryOn": {"_id": 1, "Objeto_Contrato":1},
+    "numQueryOn" : {"Clasificacion_CPV": 1},
 
-    "numQueryOn" : {"Clasificacion_CPV": 1}
+    "searchStream": false,
+    "noEmptyQuery": true
 }
 

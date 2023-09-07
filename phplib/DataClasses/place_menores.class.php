@@ -9,8 +9,12 @@ class place_menores extends DataStore {
     const StoreDescription = 'PLACE (MENORES)';
 
     function getData($params, $checkId=true) {
-	    $data = parent::getData($params);
-        $data = extendPlaceData($data, 'place_menores', (array)$params);
+        if (preg_match('/^ntp/', $params->id)) {
+            $data = parent::getData($params);
+        } else {
+            $data = getDataFromPlaceId($this->id, (array)$params);
+        }
+        $data = extendPlaceData($data, $this->id, (array)$params);
         if ($this->error) {
             return '';
         }

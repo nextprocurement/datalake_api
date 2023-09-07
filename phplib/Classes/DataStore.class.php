@@ -223,7 +223,8 @@ abstract class DataStore {
             (array) $params,
             (!$this->searchStream),
 	        $sort,
-            getProjectionArray($params->fields)
+		getProjectionArray($params->fields),
+		$this->noEmptyQuery
         );
 
         if (!isset($params->fmt)) {

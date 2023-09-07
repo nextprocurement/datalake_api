@@ -1,6 +1,6 @@
 {
     "class_name": "adjudicatarios",
-    "baseXMLTag" : "ADJ",
+    "baseXMLTag" : "ADJUDICATARIOS",
     "defaultOp" : "entry",
     "addDefault" : true,
     "storeData" : "",
@@ -32,5 +32,6 @@
     "textQueryOn": {
         "_id":1,
         "Nombre":1
-    }
+    },
+    "noEmptyQuery":true
 }
