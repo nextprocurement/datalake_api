@@ -12,7 +12,7 @@
 function getGenericInfo($dataStore) {
     if ($GLOBALS['cols'][$dataStore]) {
         $data['Total'] = $GLOBALS['cols'][$dataStore]->estimatedDocumentCount();
-        $data['lastUpdate'] = getUpdateDate($GLOBALS['cols'][$dataStore]);
+        //$data['lastUpdate'] = getUpdateDate($GLOBALS['cols'][$dataStore]);
     } else {
         $data = ['Total' => 0];
     }
@@ -33,21 +33,25 @@ function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projectio
     if (isset($params['query'])) {
         foreach (array_keys($params['queryOn']) as $fld) {
             if ($params['searchType'][$fld] == 'N') {
-                $cond[] = [$fld => (int)$params['query']];
+                $orCond = [];
+                foreach(explode(',', $params['query']) as $q) {
+                    $orCond[]=[$fld => (int)$q];
+                }
+                $cond[] = ['$or' => $orCond];
                 unset($params['queryOn'][$fld]);
             }
         }
         if ($params['queryOn']) {
             foreach (explode(' ', $params['query']) as $wd) {
-                $cl2 = [];
+                $orCond = [];
                 foreach (array_keys($params['queryOn']) as $fld) {
                     $rex = new MongoDB\BSON\Regex($wd, "i");
-                    $cl2[] = [$fld => $rex];
+                    $orCond[] = [$fld => $rex];
                 }
-                if (count($cl2) > 1) {
-                    $cond[] = ['$or' => $cl2];
+                if (count($orCond) > 1) {
+                    $cond[] = ['$or' => $orCond];
                 } else {
-                    $cond[] = $cl2[0];
+                    $cond[] = $orCond[0];
                 }
             }
         }
@@ -60,9 +64,9 @@ function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projectio
     } else {
         $fcond = [];
     }
-    // print "<pre>";
-    // print json_encode($fcond);
-    // print "</pre>";
+    //print "<pre>";
+    //print json_encode($fcond);
+    //print "</pre>";
     // exit;
     $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
         $fcond,

@@ -29,6 +29,10 @@ function extendPlaceData($data, $store, $params) {
         $data = getFinalAtom($data, $store);
     }
     $data = fixDateFields($data, $dateFields);
+    foreach ($data['Clasificacion_CPV'] as $cpv) {
+        $cpv_text = getOneDocument('cpv', "".$cpv);
+        $data['Definicion_CPV'][] = $cpv_text;
+    }
     return $data;
 }
 

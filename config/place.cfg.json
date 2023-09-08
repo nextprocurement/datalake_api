@@ -9,15 +9,19 @@
         "search": {
             "_id": "Id",
             "id": "PLACE_id",
-    	    "Objeto_Contrato": "Objeto_Contrato"
+    	    "Objeto_Contrato": "Objeto_Contrato",
+            "summary": "Resumen"
         }
     },
     "templateAllFields": {
         "_id": "Id",
         "id": "place_id",
     	"Objeto_Contrato": "Objeto",
+        "summary": "Resumen",
+        "Clasificacion_CPV": "CPV",
+        "ID": "ID Ajudicatario",
         "Nombre_Adjudicatario": "Adjudicatario",
-        "Clasificacion_CPV": "CPV"
+        "Nombre":"Contratante"
     },
 
     "templateLinks": {

@@ -34,6 +34,7 @@ foreach (scandir("$phplib/Data") as $cl) {
         require_once ("$phplib/Data/$cl");
     }
 }
+
 // PLACE specifics
 $PLACEIdPrefixes = [
     "perfiles" => "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/",
