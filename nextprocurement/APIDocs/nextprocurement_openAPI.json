@@ -1,0 +1,1721 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Nextprocurement API",
+    "description": "NextProcurement API",
+    "contact": {
+      "email": "gelpi@ub.edu"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://nextprocurement.bsc.es/api",
+      "description": "Nextprocurement API"
+    }
+  ],
+  "tags": [
+    {
+      "name": "public",
+      "description": "Operations openly available to public"
+    }
+  ],
+  "paths": {
+    "/companies": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "searches companies inventory",
+        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId": "searchCompanies",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "pass an optional search string for looking up inventory",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/CompanyList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/companies/{id}": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "extract company information",
+        "description": "Company information",
+        "operationId": "getCompany",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Company ID (NIF/CIF)",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CompanyItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
+          }
+        }
+      }
+    },
+    "/place": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "searches place tenders (ousiders, insiders) inventory",
+        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId": "searchPLACE",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "pass an optional search string for looking up inventory",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "queryOn",
+            "in": "query",
+            "description": "Define fields to search",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Define fields to add to output",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/placeList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/place/{id}": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "extract tender information",
+        "description": "Tender full information",
+        "operationId": "getPLACETender",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Tender ID (ntp's of PLACE id)",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tree",
+            "in": "query",
+            "description": "Structured Output",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "tenders matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
+          }
+        }
+      }
+    },
+    "/place/info": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "Summary data",
+        "description": "Collection of summary data describing the contents of the store",
+        "operationId": "infoPlace",
+        "responses": {
+          "200": {
+            "description": "Store summary data",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/placeSummary"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Store note found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CompanyList": {
+        "type": "object",
+        "properties": {
+          "COMPANIES": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanyList_COMPANIES"
+            }
+          }
+        }
+      },
+      "CompanyItem": {
+        "required": [
+          "NIF",
+          "Name",
+          "_id"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Primary key"
+          },
+          "NIF": {
+            "type": "string",
+            "description": "Identifiers (NIF/CIF)"
+          },
+          "FullName": {
+            "type": "string",
+            "description": "Full company name"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Short company name"
+          },
+          "Province": {
+            "type": "string",
+            "description": "Province (for Spain based companies)"
+          },
+          "NIFType": {
+            "type": "string",
+            "description": "Type of identifier (CIF/NIF)"
+          },
+          "CompanyType": {
+            "type": "string",
+            "description": "Type of company (SL, SA, ...)"
+          },
+          "CompanyDescription": {
+            "type": "string",
+            "description": "Company description and activities"
+          },
+          "id_tender": {
+            "type": "array",
+            "description": "List of tenders",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "placeList": {
+        "type": "object",
+        "properties": {
+          "PLACE": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/placeList_PLACE"
+            }
+          }
+        }
+      },
+      "placeFlat": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "pattern": "/^ntp.{8]/",
+            "type": "string"
+          },
+          "id": {
+            "pattern": "/^http.:\\/\\/.*/",
+            "type": "string"
+          },
+          "data_model": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "array",
+            "items": {
+              "pattern": "/^20[1,2]\\d{2}-\\d{2}-\\d{2] \\d{2]:\\d{2]:\\d{2][0 +.]*/",
+              "type": "string"
+            }
+          },
+          "deleted_on": {
+            "pattern": "/^20[1,2]\\d{2}-\\d{2}-\\d{2] \\d{2]:\\d{2]:\\d{2][0 +.]*/",
+            "type": "string"
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/placeFlat_versions"
+            }
+          },
+          "Adjudicatario/Identificador": {
+            "type": "string"
+          },
+          "Adjudicatario/IDschemeName": {
+            "type": "string"
+          },
+          "Adjudicatario/Nombre_del_adjudicatario": {
+            "type": "string"
+          },
+          "Adjudicatario/El_adjudicatario_es_una_PYME": {
+            "type": "string"
+          },
+          "Condiciones_de_Licitacion/Especificar_personal_y_cualificacion_Profesional/CCVV": {
+            "type": "boolean"
+          },
+          "Condiciones_de_Licitacion/Admision_de_Variantes": {
+            "type": "string"
+          },
+          "Condiciones_de_Licitacion/Formula_de_Revision_de_Precios": {
+            "type": "string"
+          },
+          "Condiciones_de_Licitacion/Descripcion_de_Programas_de_Financiacion": {
+            "type": "string"
+          },
+          "Condiciones_de_Licitacion/Programas_de_Financiacion": {
+            "type": "string"
+          },
+          "Criterio_de_Adjudicacion/Descripcion": {
+            "type": "string"
+          },
+          "Criterio_de_Adjudicacion/Ponderacion": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Numero_de_Expediente": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Objeto_del_Contrato": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Tipo_de_Contrato": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Subtipo": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Valor_estimado_del_contrato": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Presupuesto_base_con_impuestos": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Presupuesto_base_sin_impuestos": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Clasificacion_CPV": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente/Plazo_de_Ejecucion/Duracion": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Pliego_de_clausulas_administrativas/Archivo": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Pliego_de_clausulas_administrativas/URI": {
+            "pattern": "/^http.:\\/\\/.*/",
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Pliego_de_clausulas_administrativas/Hash": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Pliego_de_Prescripciones_tecnicas/Archivo": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Pliego_de_Prescripciones_tecnicas/URI": {
+            "pattern": "/^http.:\\/\\/.*/",
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Pliego_de_Prescripciones_tecnicas/Hash": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Anexos_a_los_pliegos/Archivo": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente/Anexos_a_los_pliegos/URI": {
+            "type": "array",
+            "items": {
+              "pattern": "/^http.:\\/\\/.*/",
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente/Anexos_a_los_pliegos/Hash": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente/Plazo_de_Ejecucion/Comienzo": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente/Plazo_de_Ejecucion/Fin": {
+            "type": "string"
+          },
+          "Datos_Generales_del_Expediente_del_Lote/ID_del_Lote": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente_del_Lote/Objeto_del_Lote": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente_del_Lote/Presupuesto_base_con_impuestos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente_del_Lote/Presupuesto_base_sin_impuestos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente_del_Lote/Clasificacion_CPV": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Datos_Generales_del_Expediente/Estado": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Entidad_Adjudicadora/Tipo_de_Administracion": {
+            "type": "number"
+          },
+          "Entidad_Adjudicadora/Sitio_Web": {
+            "pattern": "/^http.:\\/\\/.*/",
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/ID": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Entidad_Adjudicadora/IDschemeName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Entidad_Adjudicadora/Nombre": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/Poblacion": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/Codigo_Postal": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/Calle": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/Nombre_para_contacto": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/Pais": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/Telefono": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora/Fax": {
+            "type": "number"
+          },
+          "Entidad_Adjudicadora/Telefax": {
+            "type": "number"
+          },
+          "Entidad_Adjudicadora/Correo_Electronico": {
+            "type": "string"
+          },
+          "Entidad_Adjudicadora_Jerarquia/Ubicacion_organica": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Extension_de_Contrato/Periodo_de_validez_de_las_opciones": {
+            "type": "string"
+          },
+          "Extension_de_Contrato/Opciones": {
+            "type": "string"
+          },
+          "Garantia_Requerida_Provisional/Tipo_de_Garantia": {
+            "type": "string"
+          },
+          "Garantia_Requerida_Provisional/Porcentaje_de_la_garantia": {
+            "type": "string"
+          },
+          "Garantia_Requerida_Provisional/Importe": {
+            "type": "string"
+          },
+          "Informacion_sobre_el_Contrato/Numero_de_Contrato": {
+            "type": "string"
+          },
+          "Informacion_sobre_el_Contrato/Fecha_de_Formalizacion": {
+            "type": "string"
+          },
+          "Informacion_sobre_el_Contrato/Fecha_de_entrada_en_Vigor_del_Contrato": {
+            "type": "string"
+          },
+          "Importes_de_Adjudicacion/Importe_total_ofertado_sin_impuestos": {
+            "type": "string"
+          },
+          "Importes_de_Adjudicacion/Importe_total_ofertado_con_impuestos": {
+            "type": "string"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/Numero_de_lotes_a_los_que_se_debe_ofertar": {
+            "type": "number"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/Numero_de_lotes_a_los_que_se_puede_ofertar": {
+            "type": "number"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/Numero_maximo_de_lotes_que_se_puede_adjudicar_a_un_licitador": {
+            "type": "number"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/El_poder_adjudicador_se_reserva_el_derecho_de_adjudicar_contratos_que_combinen_lotes": {
+            "type": "string"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/Criterios_objetivos_para_la_seleccion_del_numero_limitado_de_candidatos": {
+            "type": "string"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/Cantidad_Minima": {
+            "type": "string"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/Numero_previsto_de_operadores": {
+            "type": "number"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara/Cantidad_Maxima": {
+            "type": "number"
+          },
+          "Lugar_de_ejecucion/Subentidad_Territorial": {
+            "type": "string"
+          },
+          "Lugar_de_ejecucion/Codigo_de_Subentidad_Territorial": {
+            "type": "string"
+          },
+          "Lugar_de_ejecucion/Codigo_de_Pais": {
+            "type": "string"
+          },
+          "Lugar_de_ejecucion/Pais": {
+            "type": "string"
+          },
+          "Lugar_de_ejecucion/Poblacion": {
+            "type": "string"
+          },
+          "Lugar_de_ejecucion/Codigo_Postal": {
+            "type": "string"
+          },
+          "Lugar_de_ejecucion_del_Lote/Subentidad_Territorial": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Lugar_de_ejecucion_del_Lote/Codigo_de_Subentidad_Territorial": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Lugar_de_ejecucion_del_Lote/Codigo_de_Pais": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Lugar_de_ejecucion_del_Lote/Pais": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Lugar_de_ejecucion_del_Lote/Poblacion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Lugar_de_ejecucion_del_Lote/Codigo_Postal": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Modificaciones_de_contrato/Numero_de_la_modificacion": {
+            "type": "string"
+          },
+          "Modificaciones_de_contrato/Observaciones": {
+            "type": "string"
+          },
+          "Modificaciones_de_contrato/Plazo_de_la_Modificacion": {
+            "type": "string"
+          },
+          "Modificaciones_de_contrato/Plazo_total_tras_la_modificacion": {
+            "type": "string"
+          },
+          "Modificaciones_de_contrato/Numero_de_Contrato": {
+            "type": "string"
+          },
+          "Modificaciones_de_contrato/Importe_sin_impuestos_de_la_modificacion": {
+            "type": "string"
+          },
+          "Modificaciones_de_contrato/Importe_sin_impuestos_del_contrato_tras_la_modificacion": {
+            "type": "string"
+          },
+          "Otros_documentos_publicados/Documento_publicado/ID": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Otros_documentos_publicados/Documento_publicado/URI": {
+            "type": "array",
+            "items": {
+              "pattern": "/^http.:\\/\\/.*/",
+              "type": "string"
+            }
+          },
+          "Otros_documentos_publicados/Documento_publicado/FileName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Plazo_de_Obtencion_de_Pliegos/Fecha": {
+            "type": "string"
+          },
+          "Plazo_de_Obtencion_de_Pliegos/Hora": {
+            "type": "string"
+          },
+          "Plazo_de_presentacion_de_Oferta/Fecha": {
+            "type": "string"
+          },
+          "Plazo_de_presentacion_de_Oferta/Hora": {
+            "type": "string"
+          },
+          "Plazo_de_presentacion_de_Oferta/Observaciones": {
+            "type": "string"
+          },
+          "Plazo_de_presentacion_de_Oferta/Plazo_de_presentacion_de_Oferta": {
+            "type": "string"
+          },
+          "Proceso_de_licitacion/Directiva_europea_de_aplicacion": {
+            "type": "string"
+          },
+          "Proceso_de_licitacion/Idioma_de_Presentacion_de_Oferta": {
+            "type": "string"
+          },
+          "Proceso_de_licitacion/Tipo_de_procedimiento": {
+            "type": "number"
+          },
+          "Proceso_de_licitacion/Tipo_de_tramitacion": {
+            "type": "number"
+          },
+          "Proceso_de_licitacion/Presentacion_de_la_oferta/Numero": {
+            "type": "number"
+          },
+          "Proceso_de_licitacion/Sistema_de_contratacion": {
+            "type": "string"
+          },
+          "Proceso_de_licitacion/La_licitacion_hace_uso_de_subasta_electronica": {
+            "type": "string"
+          },
+          "ProcurementProjectLot_IDschemeName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales/Tipo_de_Anuncio": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales/Medio_de_Publicacion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales/Fecha_de_Publicacion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales/Tipo_de_documento_publicado": {
+            "type": "string"
+          },
+          "Publicaciones_oficiales/Documento_publicado/URI": {
+            "type": "array",
+            "items": {
+              "pattern": "/^http.:\\/\\/.*/",
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales/Documento_publicado/FileName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales/Agencia": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales/Fecha_de_envio_de_anuncio_al_diario_oficial": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Requisitos_de_Participacion/Criterio_de_evaluacion_tecnica/codigo": {
+            "type": "string"
+          },
+          "Requisitos_de_Participacion/Criterio_de_evaluacion_tecnica/Descripcion": {
+            "type": "string"
+          },
+          "Requisitos_de_Participacion/Criterio_de_evaluacion_economica-financiera/codigo": {
+            "type": "string"
+          },
+          "Requisitos_de_Participacion/Criterio_de_evaluacion_economica-financiera/Descripcion": {
+            "type": "string"
+          },
+          "Requisitos_de_Participacion/Condiciones_de_admision_codigo": {
+            "type": "string"
+          },
+          "Requisitos_de_Participacion/Titulo_habilitante": {
+            "type": "string"
+          },
+          "Requisitos_de_Participacion/Solvencia_Requerida": {
+            "type": "string"
+          },
+          "Requisitos_de_participacion/Calificacion_empresarial_solicitada/ID": {
+            "type": "string"
+          },
+          "Requisitos_de_Participacion/Calificacion_empresarial_solicitada/Codigo": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Resultado": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Motivacion": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Fecha_del_acuerdo": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Ofertas_recibidas": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Precio_de_la_oferta_mas_baja": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Precio_de_la_oferta_mas_alta": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Se_han_excluido_ofertas_por_ser_anormalmente_bajas": {
+            "type": "string"
+          },
+          "Resultado_del_procedimiento/Lote": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Subcontratacion_permitida/Porcentaje": {
+            "type": "string"
+          },
+          "Subcontratacion_permitida/Descripcion": {
+            "type": "string"
+          }
+        }
+      },
+      "place": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "pattern": "/^ntp.{8]/",
+            "type": "string"
+          },
+          "id": {
+            "pattern": "/^http.:\\/\\/.*/",
+            "type": "string"
+          },
+          "data_model": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "updated": {
+            "type": "array",
+            "items": {
+              "pattern": "/^20[1,2]\\d{2}-\\d{2}-\\d{2] \\d{2]:\\d{2]:\\d{2][0 +.]*/",
+              "type": "string"
+            }
+          },
+          "deleted_on": {
+            "pattern": "/^20[1,2]\\d{2}-\\d{2}-\\d{2] \\d{2]:\\d{2]:\\d{2][0 +.]*/",
+            "type": "string"
+          },
+          "versions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/placeFlat_versions"
+            }
+          },
+          "Adjudicatario": {
+            "$ref": "#/components/schemas/place_Adjudicatario"
+          },
+          "Condiciones_de_Licitacion": {
+            "$ref": "#/components/schemas/place_Condiciones_de_Licitacion"
+          },
+          "Criterio_de_Adjudicacion": {
+            "$ref": "#/components/schemas/place_Criterio_de_Adjudicacion"
+          },
+          "Datos_Generales_del_Expediente": {
+            "$ref": "#/components/schemas/place_Datos_Generales_del_Expediente"
+          },
+          "Datos_Generales_del_Expediente_del_Lote": {
+            "$ref": "#/components/schemas/place_Datos_Generales_del_Expediente_del_Lote"
+          },
+          "Entidad_Adjudicadora": {
+            "$ref": "#/components/schemas/place_Entidad_Adjudicadora"
+          },
+          "Entidad_Adjudicadora_Jerarquia": {
+            "$ref": "#/components/schemas/place_Entidad_Adjudicadora_Jerarquia"
+          },
+          "Extension_de_Contrato": {
+            "$ref": "#/components/schemas/place_Extension_de_Contrato"
+          },
+          "Garantia_Requerida_Provisional": {
+            "$ref": "#/components/schemas/place_Garantia_Requerida_Provisional"
+          },
+          "Informacion_sobre_el_Contrato": {
+            "$ref": "#/components/schemas/place_Informacion_sobre_el_Contrato"
+          },
+          "Importes_de_Adjudicacion": {
+            "$ref": "#/components/schemas/place_Importes_de_Adjudicacion"
+          },
+          "Limitacion_del_numero_de_licitadores_a_los_que_se_invitara": {
+            "$ref": "#/components/schemas/place_Limitacion_del_numero_de_licitadores_a_los_que_se_invitara"
+          },
+          "Lugar_de_ejecucion": {
+            "$ref": "#/components/schemas/place_Lugar_de_ejecucion"
+          },
+          "Lugar_de_ejecucion_del_Lote": {
+            "$ref": "#/components/schemas/place_Lugar_de_ejecucion_del_Lote"
+          },
+          "Modificaciones_de_contrato": {
+            "$ref": "#/components/schemas/place_Modificaciones_de_contrato"
+          },
+          "Otros_documentos_publicados": {
+            "$ref": "#/components/schemas/place_Otros_documentos_publicados"
+          },
+          "Plazo_de_Obtencion_de_Pliegos": {
+            "$ref": "#/components/schemas/place_Plazo_de_Obtencion_de_Pliegos"
+          },
+          "Plazo_de_presentacion_de_Oferta": {
+            "$ref": "#/components/schemas/place_Plazo_de_presentacion_de_Oferta"
+          },
+          "Proceso_de_licitacion": {
+            "$ref": "#/components/schemas/place_Proceso_de_licitacion"
+          },
+          "ProcurementProjectLot_IDschemeName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Publicaciones_oficiales": {
+            "$ref": "#/components/schemas/place_Publicaciones_oficiales"
+          },
+          "Requisitos_de_Participacion": {
+            "$ref": "#/components/schemas/place_Requisitos_de_Participacion"
+          },
+          "Resultado_del_procedimiento": {
+            "$ref": "#/components/schemas/place_Resultado_del_procedimiento"
+          },
+          "Subcontratacion_permitida": {
+            "$ref": "#/components/schemas/place_Subcontratacion_permitida"
+          },
+          "Subcontratacion_permitida/Descripcion": {
+            "type": "string"
+          }
+        }
+      },
+      "placeInfo": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "total_documents": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Tipo_Contrato":	{
+            "$ref": "#components/schemas/countSummary"
+          },
+          "Proceso_de_licitacion/Sistema_de_contratacion": {
+            "$ref": "#components/schemas/countSummary"
+          },
+          "Proceso_de_licitacion/Idioma_de_Presentacion_de_Oferta": {
+            "$ref": "#components/schemas/countSummary"
+          },
+          "Entidad_Adjudicadora/Tipo_de_Administracion": {
+            "$ref": "#components/schemas/countSummary"
+          },
+          "Entidad_Adjudicadora/Pais": {
+            "$ref": "#components/schemas/countSummary"
+          },
+          "Lugar_de_ejecucion/Pais": {
+            "$ref": "#components/schemas/countSummary"
+          }
+        }
+      },
+      "countSummary": {
+        "type": "array",
+        "items": {
+          "type": object,
+          "properties": {
+            "_id": {
+              "type": "string"
+            },
+            "count": {
+              "type": "number"
+            }
+          }
+        }
+      },
+      "inline_response_200": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/placeFlat"
+          },
+          {
+            "$ref": "#/components/schemas/place"
+          }
+        ]
+      },
+      "CompanyList_COMPANIES": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "Name": {
+            "type": "string"
+          }
+        }
+      },
+      "placeList_PLACE": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "objecto_contrato": {
+            "type": "string"
+          }
+        }
+      },
+      "placeFlat_versions": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "pattern": "/^ntp.{8}$/",
+            "type": "string"
+          },
+          "updated": {
+            "pattern": "/^20[1,2]\\d{2}-\\d{2}-\\d{2] \\d{2]:\\d{2]:\\d{2][0 +.]*/",
+            "type": "string"
+          }
+        }
+      },
+      "place_Adjudicatario": {
+        "type": "object",
+        "properties": {
+          "Identificador": {
+            "type": "string"
+          },
+          "IDschemeName": {
+            "type": "string"
+          },
+          "Nombre_del_adjudicatario": {
+            "type": "string"
+          },
+          "El_adjudicatario_es_una_PYME": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Condiciones_de_Licitacion": {
+        "type": "object",
+        "properties": {
+          "Especificar_personal_y_cualificacion_Profesional/CCVV": {
+            "type": "boolean"
+          },
+          "Admision_de_Variantes": {
+            "type": "string"
+          },
+          "Formula_de_Revision_de_Precios": {
+            "type": "string"
+          },
+          "Descripcion_de_Programas_de_Financiacion": {
+            "type": "string"
+          },
+          "Programas_de_Financiacion": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Criterio_de_Adjudicacion": {
+        "type": "object",
+        "properties": {
+          "Descripcion": {
+            "type": "string"
+          },
+          "Ponderacion": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Datos_Generales_del_Expediente_Pliego_de_clausulas_administrativas": {
+        "type": "object",
+        "properties": {
+          "Archivo": {
+            "type": "string"
+          },
+          "URI": {
+            "pattern": "/^http.:\\/\\/.*/",
+            "type": "string"
+          },
+          "Hash": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Datos_Generales_del_Expediente_Anexos_a_los_pliegos": {
+        "type": "object",
+        "properties": {
+          "Archivo": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "URI": {
+            "type": "array",
+            "items": {
+              "pattern": "/^http.:\\/\\/.*/",
+              "type": "string"
+            }
+          },
+          "Hash": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Datos_Generales_del_Expediente_Plazo_de_Ejecucion": {
+        "type": "object",
+        "properties": {
+          "Comienzo": {
+            "type": "string"
+          },
+          "Fin": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Datos_Generales_del_Expediente": {
+        "type": "object",
+        "properties": {
+          "Numero_de_Expediente": {
+            "type": "string"
+          },
+          "Objeto_del_Contrato": {
+            "type": "string"
+          },
+          "Tipo_de_Contrato": {
+            "type": "number"
+          },
+          "Subtipo": {
+            "type": "number"
+          },
+          "Valor_estimado_del_contrato": {
+            "type": "number"
+          },
+          "Presupuesto_base_con_impuestos": {
+            "type": "number"
+          },
+          "Presupuesto_base_sin_impuestos": {
+            "type": "number"
+          },
+          "Clasificacion_CPV": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Plazo_de_Ejecucion/Duracion": {
+            "type": "number"
+          },
+          "Pliego_de_clausulas_administrativas": {
+            "$ref": "#/components/schemas/place_Datos_Generales_del_Expediente_Pliego_de_clausulas_administrativas"
+          },
+          "Pliego_de_Prescripciones_tecnicas": {
+            "$ref": "#/components/schemas/place_Datos_Generales_del_Expediente_Pliego_de_clausulas_administrativas"
+          },
+          "Anexos_a_los_pliegos": {
+            "$ref": "#/components/schemas/place_Datos_Generales_del_Expediente_Anexos_a_los_pliegos"
+          },
+          "Plazo_de_Ejecucion": {
+            "$ref": "#/components/schemas/place_Datos_Generales_del_Expediente_Plazo_de_Ejecucion"
+          },
+          "Estado": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Datos_Generales_del_Expediente_del_Lote": {
+        "type": "object",
+        "properties": {
+          "ID_del_Lote": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Objeto_del_Lote": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Presupuesto_base_con_impuestos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Presupuesto_base_sin_impuestos": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Clasificacion_CPV": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Entidad_Adjudicadora": {
+        "type": "object",
+        "properties": {
+          "Tipo_de_Administracion": {
+            "type": "number"
+          },
+          "Sitio_Web": {
+            "pattern": "/^http.:\\/\\/.*/",
+            "type": "string"
+          },
+          "ID": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "IDschemeName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Nombre": {
+            "type": "string"
+          },
+          "Poblacion": {
+            "type": "string"
+          },
+          "Codigo_Postal": {
+            "type": "string"
+          },
+          "Calle": {
+            "type": "string"
+          },
+          "Nombre_para_contacto": {
+            "type": "string"
+          },
+          "Pais": {
+            "type": "string"
+          },
+          "Telefono": {
+            "type": "string"
+          },
+          "Fax": {
+            "type": "number"
+          },
+          "Telefax": {
+            "type": "number"
+          },
+          "Correo_Electronico": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Entidad_Adjudicadora_Jerarquia": {
+        "type": "object",
+        "properties": {
+          "Ubicacion_organica": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Extension_de_Contrato": {
+        "type": "object",
+        "properties": {
+          "Periodo_de_validez_de_las_opciones": {
+            "type": "string"
+          },
+          "Opciones": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Garantia_Requerida_Provisional": {
+        "type": "object",
+        "properties": {
+          "Tipo_de_Garantia": {
+            "type": "string"
+          },
+          "Porcentaje_de_la_garantia": {
+            "type": "string"
+          },
+          "Importe": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Informacion_sobre_el_Contrato": {
+        "type": "object",
+        "properties": {
+          "Numero_de_Contrato": {
+            "type": "string"
+          },
+          "Fecha_de_Formalizacion": {
+            "type": "string"
+          },
+          "Fecha_de_entrada_en_Vigor_del_Contrato": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Importes_de_Adjudicacion": {
+        "type": "object",
+        "properties": {
+          "Importe_total_ofertado_sin_impuestos": {
+            "type": "string"
+          },
+          "Importe_total_ofertado_con_impuestos": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Limitacion_del_numero_de_licitadores_a_los_que_se_invitara": {
+        "type": "object",
+        "properties": {
+          "Numero_de_lotes_a_los_que_se_debe_ofertar": {
+            "type": "number"
+          },
+          "Numero_de_lotes_a_los_que_se_puede_ofertar": {
+            "type": "number"
+          },
+          "Numero_maximo_de_lotes_que_se_puede_adjudicar_a_un_licitador": {
+            "type": "number"
+          },
+          "El_poder_adjudicador_se_reserva_el_derecho_de_adjudicar_contratos_que_combinen_lotes": {
+            "type": "string"
+          },
+          "Criterios_objetivos_para_la_seleccion_del_numero_limitado_de_candidatos": {
+            "type": "string"
+          },
+          "Cantidad_Minima": {
+            "type": "number"
+          },
+          "Numero_previsto_de_operadores": {
+            "type": "number"
+          },
+          "Cantidad_Maxima": {
+            "type": "number"
+          }
+        }
+      },
+      "place_Lugar_de_ejecucion": {
+        "type": "object",
+        "properties": {
+          "Subentidad_Territorial": {
+            "type": "string"
+          },
+          "Codigo_de_Subentidad_Territorial": {
+            "type": "string"
+          },
+          "Codigo_de_Pais": {
+            "type": "string"
+          },
+          "Pais": {
+            "type": "string"
+          },
+          "Poblacion": {
+            "type": "string"
+          },
+          "Codigo_Postal": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Lugar_de_ejecucion_del_Lote": {
+        "type": "object",
+        "properties": {
+          "Subentidad_Territorial": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Codigo_de_Subentidad_Territorial": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Codigo_de_Pais": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Pais": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Poblacion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Codigo_Postal": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Modificaciones_de_contrato": {
+        "type": "object",
+        "properties": {
+          "Numero_de_la_modificacion": {
+            "type": "string"
+          },
+          "Observaciones": {
+            "type": "string"
+          },
+          "Plazo_de_la_Modificacion": {
+            "type": "string"
+          },
+          "Plazo_total_tras_la_modificacion": {
+            "type": "string"
+          },
+          "Numero_de_Contrato": {
+            "type": "string"
+          },
+          "Importe_sin_impuestos_de_la_modificacion": {
+            "type": "string"
+          },
+          "Importe_sin_impuestos_del_contrato_tras_la_modificacion": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Otros_documentos_publicados": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "URI": {
+            "type": "array",
+            "items": {
+              "pattern": "/^http.:\\/\\/.*/",
+              "type": "string"
+            }
+          },
+          "FileName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Plazo_de_Obtencion_de_Pliegos": {
+        "type": "object",
+        "properties": {
+          "Fecha": {
+            "type": "string"
+          },
+          "Hora": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Plazo_de_presentacion_de_Oferta": {
+        "type": "object",
+        "properties": {
+          "Fecha": {
+            "type": "string"
+          },
+          "Hora": {
+            "type": "string"
+          },
+          "Observaciones": {
+            "type": "string"
+          },
+          "Plazo_de_presentacion_de_Oferta": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Proceso_de_licitacion_Presentacion_de_la_oferta": {
+        "type": "object",
+        "properties": {
+          "Numero": {
+            "type": "number"
+          }
+        }
+      },
+      "place_Proceso_de_licitacion": {
+        "type": "object",
+        "properties": {
+          "Directiva_europea_de_aplicacion": {
+            "type": "string"
+          },
+          "Idioma_de_Presentacion_de_Oferta": {
+            "type": "string"
+          },
+          "Tipo_de_procedimiento": {
+            "type": "number"
+          },
+          "Tipo_de_tramitacion": {
+            "type": "number"
+          },
+          "Presentacion_de_la_oferta": {
+            "$ref": "#/components/schemas/place_Proceso_de_licitacion_Presentacion_de_la_oferta"
+          },
+          "Sistema_de_contratacion": {
+            "type": "string"
+          },
+          "La_licitacion_hace_uso_de_subasta_electronica": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Publicaciones_oficiales_Documento_publicado": {
+        "type": "object",
+        "properties": {
+          "URI": {
+            "type": "array",
+            "items": {
+              "pattern": "/^http.:\\/\\/.*/",
+              "type": "string"
+            }
+          },
+          "FileName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Publicaciones_oficiales": {
+        "type": "object",
+        "properties": {
+          "Tipo_de_Anuncio": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Medio_de_Publicacion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Fecha_de_Publicacion": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Tipo_de_documento_publicado": {
+            "type": "string"
+          },
+          "Documento_publicado": {
+            "$ref": "#/components/schemas/place_Publicaciones_oficiales_Documento_publicado"
+          },
+          "Agencia": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "Fecha_de_envio_de_anuncio_al_diario_oficial": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Requisitos_de_Participacion_Criterio_de_evaluacion_tecnica": {
+        "type": "object",
+        "properties": {
+          "codigo": {
+            "type": "string"
+          },
+          "Descripcion": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Requisitos_de_Participacion_Calificacion_empresarial_solicitada": {
+        "type": "object",
+        "properties": {
+          "ID": {
+            "type": "string"
+          },
+          "Codigo": {
+            "type": "string"
+          }
+        }
+      },
+      "place_Requisitos_de_Participacion": {
+        "type": "object",
+        "properties": {
+          "Criterio_de_evaluacion_tecnica": {
+            "$ref": "#/components/schemas/place_Requisitos_de_Participacion_Criterio_de_evaluacion_tecnica"
+          },
+          "Criterio_de_evaluacion_economica-financiera": {
+            "$ref": "#/components/schemas/place_Requisitos_de_Participacion_Criterio_de_evaluacion_tecnica"
+          },
+          "Condiciones_de_admision_codigo": {
+            "type": "string"
+          },
+          "Titulo_habilitante": {
+            "type": "string"
+          },
+          "Solvencia_Requerida": {
+            "type": "string"
+          },
+          "Calificacion_empresarial_solicitada": {
+            "$ref": "#/components/schemas/place_Requisitos_de_Participacion_Calificacion_empresarial_solicitada"
+          }
+        }
+      },
+      "place_Resultado_del_procedimiento": {
+        "type": "object",
+        "properties": {
+          "Resultado": {
+            "type": "string"
+          },
+          "Motivacion": {
+            "type": "string"
+          },
+          "Fecha_del_acuerdo": {
+            "type": "string"
+          },
+          "Ofertas_recibidas": {
+            "type": "string"
+          },
+          "Precio_de_la_oferta_mas_baja": {
+            "type": "string"
+          },
+          "Precio_de_la_oferta_mas_alta": {
+            "type": "string"
+          },
+          "Se_han_excluido_ofertas_por_ser_anormalmente_bajas": {
+            "type": "string"
+          },
+          "Lote": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "place_Subcontratacion_permitida": {
+        "type": "object",
+        "properties": {
+          "Porcentaje": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}
