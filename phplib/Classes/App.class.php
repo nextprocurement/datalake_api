@@ -73,7 +73,8 @@ class App {
 	}
         array_shift($this->pathList);
         if (!$this->pathList[0]) {
-            redirect($GLOBALS['baseURL']."/home.html");
+//            redirect($GLOBALS['baseURL']."/home.html");
+              redirect($GLOBALS['APIDocsURL']);
             exit;
         }
         if (preg_match('/home/', $this->pathList[0]) and isset($GLOBALS['homeURL']))  {

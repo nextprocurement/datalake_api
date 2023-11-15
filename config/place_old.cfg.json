@@ -1,0 +1,44 @@
+{
+    "class_name": "place_old",
+    "baseXMLTag": "PLACE",
+    "defaultOp": "entry",
+    "addDefault": true,
+    "storeData": "",
+
+    "templateFieldDefaults": {
+        "search": {
+            "_id": "Id",
+            "id": "PLACE_id",
+    	    "Objeto_Contrato": "Objeto_Contrato",
+            "summary": "Resumen"
+        }
+    },
+    "templateAllFields": {
+        "_id": "Id",
+        "id": "place_id",
+    	"Objeto_Contrato": "Objeto",
+        "summary": "Resumen",
+        "Clasificacion_CPV": "CPV",
+        "ID": "ID Ajudicatario",
+        "Nombre_Adjudicatario": "Adjudicatario",
+        "Nombre":"Contratante"
+    },
+
+    "templateLinks": {
+        "_id": "<a href=\"Store/##_id##.html\">##_id##</a>"
+    },
+
+    "templateArrayLinks": {
+        "foreing key_id": "Store:Field"
+    },
+
+    "classTemplate": "file",
+
+    "textQueryOn": {"_id": 1, "Objeto_Contrato":1, "Nombre_Adjudicatario":1},
+
+    "numQueryOn" : {"Clasificacion_CPV": 1},
+
+    "searchStream": false,
+    "noEmptyQuery": true
+}
+

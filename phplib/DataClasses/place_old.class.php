@@ -4,7 +4,7 @@
  * Skeleton for new data type store classes
  */
 
-class place extends DataStore {
+class place_old extends DataStore {
 
     const StoreDescription = 'PLACE';
 
@@ -16,7 +16,6 @@ class place extends DataStore {
         }
 
         $data = extendPlaceData($data, $this->id, (array)$params);
-
         if ($this->error) {
             return '';
         }
@@ -33,11 +32,7 @@ class place extends DataStore {
         // Code for additional data, usually FKs
          if (isset($params->extended) and $params->extended) {
             // get denormalized data
-	    }
-        // move from flat format (with agregated fields) to json tree
-        if (isset($params->tree)) {
-            $data = makeJsonTree($data, $sep="/");
-        }
+	 }
 
         return $data;
     }

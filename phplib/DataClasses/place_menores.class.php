@@ -29,13 +29,17 @@ class place_menores extends DataStore {
             return $data;
         }
         // Code for additional data, usually FKs
-         if (isset($params->extended) and $params->extended) {
+        if (isset($params->extended) and $params->extended) {
             // get denormalized data
-	 }
+	    }
+        if (isset($params->tree)) {
+            $data = makeJsonTree($data);
+        }
 
         return $data;
     }
-    // function info($store='place',$params='') {
-    //     return super::info($store, $params);
-    // }
+
+    function info($store='place_menores',$params='') {
+        return [STRUCT, getSummaryData($store, $params)];
+    }
 }

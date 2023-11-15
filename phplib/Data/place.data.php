@@ -10,7 +10,10 @@ function getDataFromPlaceId($store, $params) {
             [
                 ['id' => $PLACEIdPrefixes['agregados'].$params['id']],
                 ['id' => $PLACEIdPrefixes['perfiles'].$params['id']],
-                ['id' => $PLACEIdPrefixes['menores'].$params['id']]
+                ['id' => $PLACEIdPrefixes['menores'].$params['id']],
+                ['id' => $PLACEIdPrefixes['outsiders'].$params['id']],
+                ['id' => $PLACEIdPrefixes['insiders'].$params['id']],
+                ['id' => $PLACEIdPrefixes['minors'].$params['id']]
             ]
         ],
         ['sort' => ['updated' => -1]]
@@ -19,19 +22,31 @@ function getDataFromPlaceId($store, $params) {
 }
 
 function extendPlaceData($data, $store, $params) {
-    $dateFields = [
-        'updated',
-        'Presentacion_Oferta'
-    ];
-    $data['versions'] = getPlaceVersions($data, $store);
-    if ($params['final']) {
-        $data['original_requested_id'] = $data['_id'];
-        $data = getFinalAtom($data, $store);
+    if ($data['date_mode'] == 'v2023') {
+        $dateFields = [];
+        $CPVFields = [
+            'Datos_Generales_del_Expediente/Clasificacion_CPV',
+            'Datos_Generales_del_Expediente_del_Lote/Clasificacion_CPV'
+        ];
+    } else {
+        $dateFields = [
+            'updated',
+            'Presentacion_Oferta'
+        ];
+        $CPVFields = ['Clasificacion_CPV'];
+        $data['versions'] = getPlaceVersions($data, $store);
+        if ($params['final']) {
+            $data['original_requested_id'] = $data['_id'];
+            $data = getFinalAtom($data, $store);
+        }
     }
     $data = fixDateFields($data, $dateFields);
-    foreach ($data['Clasificacion_CPV'] as $cpv) {
-        $cpv_text = getOneDocument('cpv', "".$cpv);
-        $data['Definicion_CPV'][] = $cpv_text;
+
+    foreach ($CPVFields as $cpvF) {
+        foreach ($data[$cpvF] as $cpv) {
+            $cpv_text = getOneDocument('cpv', "".$cpv);
+            $data['Definicion_CPV'][] = $cpv_text;
+        }
     }
     return $data;
 }
@@ -64,4 +79,9 @@ function getFinalAtom($data, $store) {
     $new_data['versions'] = $data['versions'];
     $new_data['requested_id'] = $data['_id'];
     return $new_data;
+}
+
+function getSummaryData($store, $params) {
+    $data = getOneDocument($store, 'summary_data');
+    return $data;
 }

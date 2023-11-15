@@ -170,3 +170,15 @@ function getProjectionArray($fieldsStr, $keep_id=True) {
     }
     return $projection;
 }
+
+// Build json tree from flat array (json levels coded on labels)
+function makeJsonTree($data, $sep='/') {
+    foreach ($data as $k => $v) {
+        if (str_contains($k, $sep)) {
+            $levels = explode($sep, $k);
+            eval ('$data["'.join('"]["', $levels).'"] = $v;');
+            unset($data[$k]);
+        }
+    }
+    return $data;
+}

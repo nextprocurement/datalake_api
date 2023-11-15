@@ -9,19 +9,19 @@
         "search": {
             "_id": "Id",
             "id": "PLACE_id",
-    	    "Objeto_Contrato": "Objeto_Contrato",
+    	    "Datos_Generales_del_Expediente/Objeto_del_Contrato": "Objeto_Contrato",
             "summary": "Resumen"
         }
     },
     "templateAllFields": {
         "_id": "Id",
         "id": "place_id",
-    	"Objeto_Contrato": "Objeto",
+    	"Datos_Generales_del_Expediente/Objeto_del_Contrato": "Objeto",
         "summary": "Resumen",
-        "Clasificacion_CPV": "CPV",
-        "ID": "ID Ajudicatario",
-        "Nombre_Adjudicatario": "Adjudicatario",
-        "Nombre":"Contratante"
+        "Datos_Generales_del_Expediente_del_Lote/Clasificacion_CPV": "CPV",
+        "Adjudicatario/Identificador": "ID Ajudicatario",
+        "Adjudicatario/Nombre_del_Adjudicatario": "Adjudicatario",
+        "Entidad_Adjudicadora/Nombre": "Contratante"
     },
 
     "templateLinks": {
@@ -34,9 +34,16 @@
 
     "classTemplate": "file",
 
-    "textQueryOn": {"_id": 1, "Objeto_Contrato":1, "Nombre_Adjudicatario":1},
+    "textQueryOn": {
+        "_id": 1,
+        "Datos_Generales_del_Expediente/Objeto_del_Contrato":1,
+        "Adjudicatario/Nombre_del_Adjudicatario":1
+    },
 
-    "numQueryOn" : {"Clasificacion_CPV": 1},
+    "numQueryOn" : {
+        "Datos_Generales_del_Expediente_del_Lote/Clasificacion_CPV": 1,
+        "Datos_Generales_del_Expediente/Clasificacion_CPV": 1
+    },
 
     "searchStream": false,
     "noEmptyQuery": true

@@ -68,7 +68,7 @@ abstract class DataStore {
         return $data;
     }
 
-    static function info($store='',$params='') {
+    function info($store='',$params='') {
         if (!isset($params->fmt)) {
             $params->fmt="json";
          //   $params->compact= false;
@@ -171,7 +171,8 @@ abstract class DataStore {
 
    function search($params) {
         if (!isset($params->queryOn)) {
-            $params->queryOn = $this->textQueryOn;
+            //$params->queryOn = $this->textQueryOn;
+            $params->queryOn = [];
         } else {
             $params->expand('queryOn', 'queryOn');
         }
@@ -223,8 +224,8 @@ abstract class DataStore {
             (array) $params,
             (!$this->searchStream),
 	        $sort,
-		getProjectionArray($params->fields),
-		$this->noEmptyQuery
+		    getProjectionArray($params->fields),
+		    $this->noEmptyQuery
         );
 
         if (!isset($params->fmt)) {

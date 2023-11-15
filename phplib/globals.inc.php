@@ -3,7 +3,8 @@
 $baseDir = pathinfo($_SERVER['SCRIPT_FILENAME'],PATHINFO_DIRNAME);
 $baseURL = pathinfo($_SERVER['SCRIPT_NAME'],PATHINFO_DIRNAME);
 $baseTitle = "NextProcurement";
-$APIDocsURL = "$baseURL/APIDocs.php";
+$APIDocsURL = "https://nextprocurement.bsc.es/api/APIDocs/index.html";
+$APIPrefix = "https://nextprocurement.bsc.es/api/";
 //
 require_once "../vendor/autoload.php";
 include "../settings.inc.php";
@@ -39,5 +40,8 @@ foreach (scandir("$phplib/Data") as $cl) {
 $PLACEIdPrefixes = [
     "perfiles" => "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/",
     "agregados" =>"https://contrataciondelestado.es/sindicacion/PlataformasAgregadasSinMenores/",
-    "menores" => "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/"
+    "menores" => "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/",
+    "insiders" => "https://contrataciondelestado.es/sindicacion/licitacionesPerfilContratante/",
+    "outsiders" =>"https://contrataciondelestado.es/sindicacion/PlataformasAgregadasSinMenores/",
+    "minors" => "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/"
 ];

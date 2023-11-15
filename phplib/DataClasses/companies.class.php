@@ -4,18 +4,13 @@
  * Skeleton for new data type store classes
  */
 
-class place extends DataStore {
+class companies extends DataStore {
 
-    const StoreDescription = 'PLACE';
+    const StoreDescription = 'Companies';
 
     function getData($params, $checkId=true) {
-        if (preg_match('/^ntp/', $params->id)) {
-	        $data = parent::getData($params);
-        } else {
-            $data = getDataFromPlaceId($this->id, (array)$params);
-        }
-
-        $data = extendPlaceData($data, $this->id, (array)$params);
+        $params->id = strtolower($params->id);
+        $data = parent::getData($params);
 
         if ($this->error) {
             return '';
@@ -33,16 +28,8 @@ class place extends DataStore {
         // Code for additional data, usually FKs
          if (isset($params->extended) and $params->extended) {
             // get denormalized data
-	    }
-        // move from flat format (with agregated fields) to json tree
-        if (isset($params->tree)) {
-            $data = makeJsonTree($data, $sep="/");
         }
 
         return $data;
-    }
-
-    function info($store='place',$params='') {
-         return [STRUCT, getSummaryData($store, $params)];
     }
 }

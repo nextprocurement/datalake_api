@@ -1,0 +1,38 @@
+{
+    "class_name": "companies",
+    "baseXMLTag" : "COMPANIES",
+    "defaultOp" : "entry",
+    "addDefault" : true,
+    "storeData" : "",
+
+    "templateFieldDefaults" : {
+        "search" : {
+            "_id" : "cif/nif",
+            "Name": "Name"
+        }
+    },
+    "templateAllFields" : {
+        "_id" : "cif/nif",
+        "Name": "Name"
+    },
+
+    "Comment": "HTML templates",
+
+    "templateLinks" : {
+        "Comment": "template for HTML links",
+        "_id" : "<a href=\"Store/##_id##.html\">##_id##</a>"
+    },
+
+    "templateArrayLinks" : {
+        "Comment": "Links in array fields  ( expansion of foering keys)",
+        "foreing key_id" : "Store:Field"
+    },
+
+    "classTemplate" : "file",
+
+    "textQueryOn": {
+        "_id":1,
+        "Name":1
+    },
+    "noEmptyQuery":true
+}
