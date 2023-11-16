@@ -1,7 +1,7 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Nextprocurement API",
+    "title": "Nexprocurement API",
     "description": "NextProcurement API",
     "contact": {
       "email": "gelpi@ub.edu"
@@ -138,12 +138,23 @@
           {
             "name": "fields",
             "in": "query",
-            "description": "Define fields to add to output",
+            "description": "Define fields to output",
             "required": false,
             "style": "form",
             "explode": true,
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Force text query on all fields",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number"
             }
           }
         ],
@@ -221,25 +232,170 @@
         "tags": [
           "public"
         ],
-        "summary": "Summary data",
-        "description": "Collection of summary data describing the contents of the store",
-        "operationId": "infoPlace",
+        "summary": "extract PLACE summary data",
+        "description": "Reports several grouped summary data",
+        "operationId": "getPLACESummary",
         "responses": {
           "200": {
-            "description": "Store summary data",
+            "description": "Grouped counters fro selected fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
+          }
+        }
+      }
+    },
+    "/place_menores": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "searches place tenders (minors) inventory",
+        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId": "searchPLACEMinors",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "pass an optional search string for looking up inventory",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "queryOn",
+            "in": "query",
+            "description": "Define fields to search",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "fields",
+            "in": "query",
+            "description": "Define fields to output",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "text",
+            "in": "query",
+            "description": "Force text query on all fields",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
             "content": {
               "application/json": {
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/placeSummary"
+                    "$ref": "#/components/schemas/placeList"
                   }
                 }
               }
             }
           },
           "400": {
-            "description": "Store note found"
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/place_menores/{id}": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "extract tender information (minors))",
+        "description": "Tender full information",
+        "operationId": "getPLACETenderMinors",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Tender ID (ntp's of PLACE id)",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tree",
+            "in": "query",
+            "description": "Structured Output",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "tenders matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
+          }
+        }
+      }
+    },
+    "/place_menores/info": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "extract PLACE (minors) summary data",
+        "description": "Reports several grouped summary data",
+        "operationId": "getPLACESummaryMinors",
+        "responses": {
+          "200": {
+            "description": "Grouped counters fro selected fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_1"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
           }
         }
       }
@@ -316,6 +472,41 @@
               "$ref": "#/components/schemas/placeList_PLACE"
             }
           }
+        }
+      },
+      "placeSummary": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "total_documents": {
+            "type": "number"
+          },
+          "Datos_Generales_del_Expediente/Tipo_Contrato": {
+            "$ref": "#/components/schemas/placeSummaryItem"
+          },
+          "Proceso_de_licitacion/Sistema_de_contratacion": {
+            "$ref": "#/components/schemas/placeSummaryItem"
+          },
+          "Proceso_de_licitacion/Idioma_de_Presentacion_de_Oferta": {
+            "$ref": "#/components/schemas/placeSummaryItem"
+          },
+          "Entidad_Adjudicadora/Tipo_de_Administracion": {
+            "$ref": "#/components/schemas/placeSummaryItem"
+          },
+          "Entidad_Adjudicadora/Pais": {
+            "$ref": "#/components/schemas/placeSummaryItem"
+          },
+          "Lugar_de_ejecucion/Pais": {
+            "$ref": "#/components/schemas/placeSummaryItem"
+          }
+        }
+      },
+      "placeSummaryItem": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/placeSummaryItem_inner"
         }
       },
       "placeFlat": {
@@ -972,49 +1163,6 @@
           }
         }
       },
-      "placeInfo": {
-        "type": "object",
-        "properties": {
-          "_id": {
-            "type": "string"
-          },
-          "total_documents": {
-            "type": "number"
-          },
-          "Datos_Generales_del_Expediente/Tipo_Contrato":	{
-            "$ref": "#components/schemas/countSummary"
-          },
-          "Proceso_de_licitacion/Sistema_de_contratacion": {
-            "$ref": "#components/schemas/countSummary"
-          },
-          "Proceso_de_licitacion/Idioma_de_Presentacion_de_Oferta": {
-            "$ref": "#components/schemas/countSummary"
-          },
-          "Entidad_Adjudicadora/Tipo_de_Administracion": {
-            "$ref": "#components/schemas/countSummary"
-          },
-          "Entidad_Adjudicadora/Pais": {
-            "$ref": "#components/schemas/countSummary"
-          },
-          "Lugar_de_ejecucion/Pais": {
-            "$ref": "#components/schemas/countSummary"
-          }
-        }
-      },
-      "countSummary": {
-        "type": "array",
-        "items": {
-          "type": object,
-          "properties": {
-            "_id": {
-              "type": "string"
-            },
-            "count": {
-              "type": "number"
-            }
-          }
-        }
-      },
       "inline_response_200": {
         "oneOf": [
           {
@@ -1022,6 +1170,13 @@
           },
           {
             "$ref": "#/components/schemas/place"
+          }
+        ]
+      },
+      "inline_response_200_1": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/placeSummary"
           }
         ]
       },
@@ -1050,6 +1205,17 @@
           },
           "objecto_contrato": {
             "type": "string"
+          }
+        }
+      },
+      "placeSummaryItem_inner": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "count": {
+            "type": "number"
           }
         }
       },
