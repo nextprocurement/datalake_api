@@ -26,7 +26,7 @@ function getParents($data, $base, $getData=True) {
         while ($base and substr($base, -2) == '00') {
                 $base = substr($base, 0, -2);
         }
-        while ($base and $base = substr($base, 0, -2)) {
+        while ($base and $base = substr($base, 0, -1)) {
                 $parent_id = str_pad($base, 8, "0");
 		if ($getData) {
 			$parents[] = getOneDocument('cpv', $parent_id);

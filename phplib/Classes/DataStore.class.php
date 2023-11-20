@@ -171,8 +171,11 @@ abstract class DataStore {
 
    function search($params) {
         if (!isset($params->queryOn)) {
-            //$params->queryOn = $this->textQueryOn;
-            $params->queryOn = [];
+            if ($this->textSearchDefault) {
+                $params->queryOn = [];
+            } else {
+                $params->queryOn = $this->textQueryOn;
+            }
         } else {
             $params->expand('queryOn', 'queryOn');
         }

@@ -8,12 +8,12 @@
     "templateFieldDefaults" : {
         "search" : {
             "_id" : "cpv",
-	    "descripcion": "descripcion"
+	        "descripcion": "descripcion"
         }
     },
     "templateAllFields" : {
-        "_id" : "Store:Id",
-	"descripcion": "Descripción"
+        "_id" : "cpv",
+        "descripcion": "descripcion"
     },
     
     
@@ -29,5 +29,15 @@
     
     "classTemplate" : "file",
     
-    "textQueryOn":{"descripcion":1}
+    "textQueryOn": {
+        "_id": 1,
+        "descripcion":1
+
+    },
+
+    "numQueryOn" : {},
+
+    "searchStream": false,
+    "noEmptyQuery": false,
+    "textSearchDefault": false
 }

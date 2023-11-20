@@ -14,6 +14,10 @@
   },
   "servers": [
     {
+      "url": "https://virtserver.swaggerhub.com/jlgelpi/NextProcurement/1.0.0",
+      "description": "SwaggerHub API Auto Mocking"
+    },
+    {
       "url": "https://nextprocurement.bsc.es/api",
       "description": "Nextprocurement API"
     }
@@ -399,6 +403,121 @@
           }
         }
       }
+    },
+    "/cpv": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "searches CPV ids and descriptions",
+        "description": "By passing in the appropriate options, you can search for available inventory in the system\n",
+        "operationId": "searchCPV",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "pass an optional search string for looking up inventory",
+            "required": true,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/cpvList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/cpv/{id}": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "extract CPV information",
+        "description": "CPV full information",
+        "operationId": "getCPV",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "CPV ID",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "extended",
+            "in": "query",
+            "description": "Include hierarchy Output",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "CPVs matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_2"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
+          }
+        }
+      }
+    },
+    "/cpv/info": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "extract CPV",
+        "description": "Reports several grouped summary data",
+        "operationId": "getCPVSummary",
+        "responses": {
+          "200": {
+            "description": "Grouped counters from selected fields",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/inline_response_200_3"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -460,6 +579,54 @@
             "items": {
               "type": "string"
             }
+          }
+        }
+      },
+      "cpvList": {
+        "type": "object",
+        "properties": {
+          "CPV": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/cpvList_CPV"
+            }
+          }
+        }
+      },
+      "cpv": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "control": {
+            "type": "number"
+          },
+          "descripcion": {
+            "type": "string"
+          },
+          "parents": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/cpv_parents"
+            }
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/cpv_parents"
+            }
+          }
+        }
+      },
+      "cpvSummary": {
+        "type": "object",
+        "properties": {
+          "Description": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/cpvSummary_data"
           }
         }
       },
@@ -1180,6 +1347,20 @@
           }
         ]
       },
+      "inline_response_200_2": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/cpv"
+          }
+        ]
+      },
+      "inline_response_200_3": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/cpvSummary"
+          }
+        ]
+      },
       "CompanyList_COMPANIES": {
         "type": "object",
         "properties": {
@@ -1187,6 +1368,39 @@
             "type": "string"
           },
           "Name": {
+            "type": "string"
+          }
+        }
+      },
+      "cpvList_CPV": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "cpv_parents": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "control": {
+            "type": "number"
+          },
+          "descripcion": {
+            "type": "string"
+          }
+        }
+      },
+      "cpvSummary_data": {
+        "type": "object",
+        "properties": {
+          "Total": {
             "type": "string"
           }
         }
