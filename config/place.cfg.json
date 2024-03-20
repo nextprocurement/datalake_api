@@ -46,6 +46,7 @@
     },
 
     "searchStream": false,
-    "noEmptyQuery": true
+    "noEmptyQuery": true,
+    "textSearchDefault": true
 }
 

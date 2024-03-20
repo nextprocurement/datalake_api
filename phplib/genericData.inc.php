@@ -96,7 +96,7 @@ function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[
     $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
 		['$text'=>
 			[
-				'$search'=>$params['query'],
+				'$search'=>addslashes($params['query']),
 				'$language' => $params['language']
 			]
 		],
