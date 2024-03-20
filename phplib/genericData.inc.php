@@ -68,16 +68,21 @@ function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projectio
     //print json_encode($fcond);
     //print "</pre>";
     // exit;
+    $options = [
+        'projection' => $projection,
+        'sort' => $sortA,
+        'allowDiskUse' => True,
+        'maxTimeMS' => 0,
+        'allowPartialResults' => True,
+        'noCursorTimeout' => True
+    ];
+
+    if ($params['limit']) {
+        $options['limit'] = intval($params['limit']);
+    }
+
     $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
-        $fcond,
-        [
-            'projection' => $projection,
-            'sort' => $sortA,
-                    'allowDiskUse' => True,
-                    'maxTimeMS' => 0,
-                    'allowPartialResults' => True,
-                    'noCursorTimeout' => True
-        ]
+        $fcond, $options
     );
     if ($toArray) {
         return $resultsCursor->toArray();

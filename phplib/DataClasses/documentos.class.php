@@ -25,7 +25,7 @@ class documentos extends DataStore {
          if (isset($params->extended) and $params->extended) {
             // get denormalized data
 	    }
-        return $data;
+        return [RAW, $data];
     }
 
     function info($store='place',$params='') {

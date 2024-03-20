@@ -286,7 +286,11 @@ class App {
             $this->output = $data;
         }
         if (($outputDataType == RAW) and $send) {
-            $this->sendThroughData($result->storeData."/".$data['file']);
+        //    if (!$data['contents']) {
+        //        $this->sendThroughData($result->storeData."/".$data['file']);
+        //    } else {
+                $this->sendThroughData($data);
+         //   }
         } elseif ($send) {
             $this->sendData();
         } else {
@@ -334,11 +338,11 @@ class App {
         print $this->output;
     }
 
-    function sendThroughData($file) {
-	header ('Access-Control-Allow-Origin: *');
+    function sendThroughData($data) {
+	    header ('Access-Control-Allow-Origin: *');
         foreach ($this->headerSet as $h) {
             header($h);
         }
-        passthru("/bin/cat $file");
+        print $data['contents'];
     }
 }

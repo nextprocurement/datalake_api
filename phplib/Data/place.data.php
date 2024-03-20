@@ -100,15 +100,15 @@ function getRawDocuments($params) {
     $files = getDownloadedDocuments(['id' => $ids[0]]);
     if (count($ids) > 1) {
         $tmpFile = $params['id'];
-        file_put_contents($tmpFile, getGSFile($GLOBALS['docsGS'], $params['id']));
+        $fileContents = getGSFile($GLOBALS['docsGS'], $params['id']);
     } else {
         $filesData = [];
         foreach ($files as $file) {
             $filesData[$file['filename']] = getGSFile($GLOBALS['docsGS'], $file['filename']);
         }
-        $tarFile = '/tmp/'.$params['id'].'_files.tar';
+        $tmpFile = '/tmp/'.$params['id'].'_files.tar';
         // Create a new TAR file
-        $tar = new PharData($tarFile);
+        $tar = new PharData($tmpFile);
         // Add each file to the TAR archive
         foreach ($filesData as $filename => $fileContents) {
             $tar->addFromString($filename, $fileContents);
@@ -117,6 +117,8 @@ function getRawDocuments($params) {
             // Compress the TAR file using GZ compression
             $tar->compress(Phar::GZ);
         }
+        $fileContents = file_get_contents($tmpFile);
+        //unlink ($tmpFile);
     }
-    return [RAW, ['file' => $tmpFile]];
+    return ['file' => $tmpFile, 'contents' => $fileContents];
 }
