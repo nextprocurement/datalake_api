@@ -25,4 +25,5 @@ $cols=[];
 foreach ($collections as $col) {
     $cols[$col->getName()] = $dbConn->selectCollection($MDB_database, $col->getName());
 }
-
+// GridFS handlers
+$docsGS = $db->selectGridFSBucket();

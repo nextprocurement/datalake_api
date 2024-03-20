@@ -17,9 +17,10 @@ function printGSFile($col, $fn, $mime = '', $sendFn = False) {
 
 function getGSFile($col, $fn) {
     $file = $col->findOne(['filename' => $fn]);
-    if (!$file->file['_id']) {
+    if (!$file['_id']) {
         return '';
     } else {
+        exit;
         return $file->getBytes();
     }
 }

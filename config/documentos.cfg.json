@@ -1,0 +1,28 @@
+{
+    "class_name": "NextpDocuments",
+    "baseXMLTag" : "",
+    "defaultOp" : "getData",
+    "addDefault" : false,
+    "storeData" : "",
+
+    "templateFieldDefaults" : {
+        "search" : {
+            "_id" : "Store:Id"
+        }
+    },
+    "templateAllFields" : {
+        "_id" : "Store:Id"
+    },
+
+    "templateLinks" : {
+        "_id" : "<a href=\"Store/##_id##.html\">##_id##</a>"
+    },
+
+    "templateArrayLinks" : {
+        "foreing key_id" : "Store:Field"
+    },
+
+    "classTemplate" : "file",
+
+    "textQueryOn":{"filename":1}
+}

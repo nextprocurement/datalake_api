@@ -39,8 +39,8 @@ class App {
 
     function __construct() {
         $this->errorData[NOSTORE]['msg'] = str_replace("##cols##", join(", ",array_keys($GLOBALS['cols'])),$this->errorData[NOSTORE]['msg']);
-	$this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);
-	$this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
+	    $this->URI = preg_replace('/\?.*/','',$_SERVER['REQUEST_URI']);
+	    $this->baseURL = pathinfo($_SERVER['PHP_SELF'], PATHINFO_DIRNAME);
         // Format from HTTP
         if (isset($_SERVER['HTTP_ACCEPT'])) {
             switch ($_SERVER['HTTP_ACCEPT']) {
@@ -60,45 +60,45 @@ class App {
         $ext = pathinfo($this->URI, PATHINFO_EXTENSION);
         $this->orig_ext=$ext;
         if (!preg_match('/\/files\//', $this->URI) and preg_match('/(gz|json|xml|html|htm|tsv)/', $ext)) { // Hack to avoid get dotted ids (Enzyme) as extensions
-	    $this->URI = str_replace('.'.$ext,'',$this->URI);
+	        $this->URI = str_replace('.'.$ext,'',$this->URI);
         } else {
-	    $ext = '';
+	        $ext = '';
         }
         // Escape colon after prefixes on ids that look like ports :NN
         $this->URI = str_replace(":","__", $this->URI);
-	if ($this->baseURL == '/') {
+	    if ($this->baseURL == '/') {
 	        $this->pathList = explode('/', parse_url($this->URI, PHP_URL_PATH));
         } else {
         	$this->pathList = explode('/', str_replace($this->baseURL, '', parse_url($this->URI, PHP_URL_PATH)));
-	}
+	    }
         array_shift($this->pathList);
         if (!$this->pathList[0]) {
 //            redirect($GLOBALS['baseURL']."/home.html");
-              redirect($GLOBALS['APIDocsURL']);
+            redirect($GLOBALS['APIDocsURL']);
             exit;
         }
         if (preg_match('/home/', $this->pathList[0]) and isset($GLOBALS['homeURL']))  {
-	    redirect($GLOBALS['homeURL']);
+	        redirect($GLOBALS['homeURL']);
             exit;
         }
         if (preg_match('/about/', $this->pathList[0]) and isset($GLOBALS['aboutURL'])) {
-	    redirect($GLOBALS['aboutURL']);
+	        redirect($GLOBALS['aboutURL']);
             exit;
         }
         if (preg_match('/(home|about)/', $this->pathList[0])) {
             print parseTemplate(
-                    [
-                        'baseURL' => $GLOBALS['baseURL'],
-                        'title' => $GLOBALS['baseTitle'],
-                        'pageContents' => parseTemplate(
-                                ['baseURL' => $GLOBALS['baseURL']], getTemplate($this->pathList[0].".templ.htm")
-                        )
-                    ],  getTemplate($GLOBALS['htmlStdPage']));
+                [
+                    'baseURL' => $GLOBALS['baseURL'],
+                    'title' => $GLOBALS['baseTitle'],
+                    'pageContents' => parseTemplate(
+                        ['baseURL' => $GLOBALS['baseURL']], getTemplate($this->pathList[0].".templ.htm")
+                    )
+                ],  getTemplate($GLOBALS['htmlStdPage'])
+            );
             exit;
         }
         if ($this->pathList[0] == 'help') {
             return $this->help();
-            exit;
         }
 
         // Capture QUERY_STRING parameters
@@ -118,7 +118,7 @@ class App {
         }
         //
         $this->currentPath = $this->pathList;
-        // honor .fasta extension as /sequence
+// honor .fasta extension as /sequence
 //        if (($this->params->fmt == 'fasta') and (!$this->currentPath[2])) {
 //            $this->currentPath[2] = 'sequence';
 //        }
@@ -137,7 +137,6 @@ class App {
 
     function setDataStore($dataStore) {
         $this->dataStoreId = $dataStore;
-
         if (!class_exists($dataStore)) {
             $this->sendError([$dataStore, NOSTORE]);
         }
@@ -215,26 +214,26 @@ class App {
                 case 'tsv':
                     if (!isset($this->params->noheaders)) {
                         $dataTab = parseTemplate(
-                            ['query' => urlencode($_SERVER['QUERY_STRING'])], 
+                            ['query' => urlencode($_SERVER['QUERY_STRING'])],
                             $result->template->headerTempl
                         );
                     }
                     foreach ($data as $d) {
                         $dataTab .= parseTemplate(
-                            $result->prepDataOutput($d), 
+                            $result->prepDataOutput($d),
                             $result->template->dataTempl
                         );
                     }
                     $dataTab .= parseTemplate(
-                        [], 
+                        [],
                         $result->template->footerTempl
                     );
                     $this->output = $dataTab;
                     break;
                 case 'json':
                     $dataJson = parseTemplate(
-                        ['query' => $_SERVER['QUERY_STRING']], 
-                        '{"searchQuery": "##query##", "searchResults":['                        
+                        ['query' => $_SERVER['QUERY_STRING']],
+                        '{"searchQuery": "##query##", "searchResults":['
                     );
                     foreach ($data as $d) {
                         if (isset($this->params->compact)) {

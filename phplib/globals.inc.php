@@ -45,3 +45,5 @@ $PLACEIdPrefixes = [
     "outsiders" =>"https://contrataciondelestado.es/sindicacion/PlataformasAgregadasSinMenores/",
     "minors" => "https://contrataciondelestado.es/sindicacion/datosAbiertosMenores/"
 ];
+$documentsPrefix = "downloadedDocuments";
+$documentsBCKPrefix = "downloadedDocuments_backup";

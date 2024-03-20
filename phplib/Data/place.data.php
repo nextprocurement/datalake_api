@@ -41,7 +41,7 @@ function extendPlaceData($data, $store, $params) {
         }
     }
     $data = fixDateFields($data, $dateFields);
-
+    $data['documentos'] = getDownloadedDocuments($params);
     foreach ($CPVFields as $cpvF) {
         foreach ($data[$cpvF] as $cpv) {
             $cpv_text = getOneDocument('cpv', "".$cpv);
@@ -84,4 +84,28 @@ function getFinalAtom($data, $store) {
 function getSummaryData($store, $params) {
     $data = getOneDocument($store, 'summary_data');
     return $data;
+}
+
+function getDownloadedDocuments($params) {
+
+    $fileList = $GLOBALS['cols'][$GLOBALS['documentsPrefix'].'.files']->find(
+        ['filename' => ['$regex' => '^'.$params['id']]]
+    )->toArray();
+    return $fileList;
+}
+
+function getRawDocuments($params) {
+    $ids = explode('_', $params['id']);
+    $files = getDownloadedDocuments(['id' => $ids[0]]);
+    if (count($ids) > 1) {
+        return getGSFile($GLOBALS['cols'][$GLOBALS['documentsPrefix'].'.files'], $params['id']);
+    } else {
+        $filesData = [];
+        foreach ($files as $file) {
+            // $filesData[$file['filename']] = new MongoGridFSFile($GLOBALS['docsGS'], $file)->getBytes();
+        }
+        print_r($filesData);
+        exit;
+    }
+
 }

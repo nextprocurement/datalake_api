@@ -4,24 +4,15 @@
  * Skeleton for new data type store classes
  */
 
-class place extends DataStore {
+class documentos extends DataStore {
 
-    const StoreDescription = 'PLACE';
+    const StoreDescription = 'DOCUMENTOS';
 
     function getData($params, $checkId=true) {
-        if (preg_match('/^ntp/', $params->id)) {
-	        $data = parent::getData($params);
-        } else {
-            $data = getDataFromPlaceId($this->id, (array)$params);
-        }
-
-        $data = extendPlaceData($data, $this->id, (array)$params);
+         $data = getRawDocuments((array)$params);
 
         if ($this->error) {
             return '';
-        }
-        if (!isset($params->fmt)) {
-            $params->fmt='json';
         }
         // Specific code
         if (preg_match('/htm/',$params->fmt)) {
@@ -34,11 +25,6 @@ class place extends DataStore {
          if (isset($params->extended) and $params->extended) {
             // get denormalized data
 	    }
-        // move from flat format (with agregated fields) to json tree
-        if (isset($params->tree)) {
-            $data = makeJsonTree($data, $sep="/");
-        }
-
         return $data;
     }
 
@@ -46,7 +32,5 @@ class place extends DataStore {
          return [STRUCT, getSummaryData($store, $params)];
     }
 
-    // function documentos($params) {
-    //     return [STRUCT, getDownloadedDocuments((array)$params)];
-    // }
 }
+
