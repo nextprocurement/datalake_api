@@ -93,25 +93,27 @@ function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[
     if (!$params['query'] and $noEmptyQuery) {
         return false;
     }
-    $resultsCursor = $GLOBALS['cols'][$dataStore]->find(
-		['$text'=>
-			[
-				'$search'=>addslashes($params['query']),
-				'$language' => $params['language']
-			]
-		],
-		[
-            'projection'=> $projection,
-			'sort'=>['score'=>['$meta'=>'textScore']],
-			'allowDiskUse' => True,
-			'maxTimeMS' => 0,
-			'allowPartialResults' => True,
-			'noCursorTimeout' => True
-		]
-        );
-        if ($toArray) {
-            return $resultsCursor->toArray();
-        }
+    $query = ['$text'=>
+        [
+        '$search'=>addslashes($params['query']),
+        '$language' => $params['language']
+        ]
+    ];
+    $options = [
+    'projection'=> $projection,
+    'sort'=>['score'=>['$meta'=>'textScore']],
+    'allowDiskUse' => True,
+    'maxTimeMS' => 0,
+    'allowPartialResults' => True,
+    'noCursorTimeout' => True
+    ];
+    if ($params['limit']) {
+        $options['limit'] = intval($params['limit']);
+    }
+    $resultsCursor = $GLOBALS['cols'][$dataStore]->find($query, $options);
+    if ($toArray) {
+        return $resultsCursor->toArray();
+    }
 	return $resultsCursor;
 }
 // MongoDB wrappers
