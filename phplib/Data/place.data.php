@@ -96,16 +96,27 @@ function getDownloadedDocuments($params) {
 
 function getRawDocuments($params) {
     $ids = explode('_', $params['id']);
+
     $files = getDownloadedDocuments(['id' => $ids[0]]);
     if (count($ids) > 1) {
-        return getGSFile($GLOBALS['cols'][$GLOBALS['documentsPrefix'].'.files'], $params['id']);
+        $tmpFile = $params['id'];
+        file_put_contents($tmpFile, getGSFile($GLOBALS['docsGS'], $params['id']));
     } else {
         $filesData = [];
         foreach ($files as $file) {
-            // $filesData[$file['filename']] = new MongoGridFSFile($GLOBALS['docsGS'], $file)->getBytes();
+            $filesData[$file['filename']] = getGSFile($GLOBALS['docsGS'], $file['filename']);
         }
-        print_r($filesData);
-        exit;
+        $tarFile = '/tmp/'.$params['id'].'_files.tar';
+        // Create a new TAR file
+        $tar = new PharData($tarFile);
+        // Add each file to the TAR archive
+        foreach ($filesData as $filename => $fileContents) {
+            $tar->addFromString($filename, $fileContents);
+        }
+        if ($params->fmt == 'gzip') {
+            // Compress the TAR file using GZ compression
+            $tar->compress(Phar::GZ);
+        }
     }
-
+    return [RAW, ['file' => $tmpFile]];
 }

@@ -15,14 +15,12 @@ function printGSFile($col, $fn, $mime = '', $sendFn = False) {
     return 0;
 }
 
-function getGSFile($col, $fn) {
-    $file = $col->findOne(['filename' => $fn]);
-    if (!$file['_id']) {
+function getGSFile($gfs, $fn) {
+    $stream = $gfs->openDownloadStreamByName($fn);
+    if (!$stream) {
         return '';
-    } else {
-        exit;
-        return $file->getBytes();
     }
+    return stream_get_contents($stream);
 }
 
 function getUpdateDate ($col, $stampfield='stamp') {
