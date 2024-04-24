@@ -14,10 +14,11 @@ class place_menores extends DataStore {
         } else {
             $data = getDataFromPlaceId($this->id, (array)$params);
         }
-        $data = extendPlaceData($data, $this->id, (array)$params);
-        if ($this->error) {
-            return '';
+        if (!$data['_id']) {
+            $this->setError($this->id, IDNOTFOUND);
+            return;
         }
+        $data = extendPlaceData($data, $this->id, (array)$params);
         if (!isset($params->fmt)) {
             $params->fmt='json';
         }

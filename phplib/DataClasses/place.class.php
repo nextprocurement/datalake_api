@@ -10,16 +10,17 @@ class place extends DataStore {
 
     function getData($params, $checkId=true) {
         if (preg_match('/^ntp/', $params->id)) {
-	        $data = parent::getData($params);
+	        $data = parent::getData($params, $checkId);
         } else {
             $data = getDataFromPlaceId($this->id, (array)$params);
+        }
+        if (!$data['_id']) {
+            $this->setError($this->id, IDNOTFOUND);
+            return;
         }
 
         $data = extendPlaceData($data, $this->id, (array)$params);
 
-        if ($this->error) {
-            return '';
-        }
         if (!isset($params->fmt)) {
             $params->fmt='json';
         }
