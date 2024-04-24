@@ -100,7 +100,7 @@ function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[
     }
     $query = ['$text'=>
         [
-        '$search'=>addslashes($params['query']),
+        '$search'=>$params['query'],
         '$language' => $params['language']
         ]
     ];
