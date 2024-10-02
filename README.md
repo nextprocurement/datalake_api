@@ -1,7 +1,7 @@
 # Generic REST API v.0.3 configured for NextProcurement Data Lake
 
 ### Introduction
-RESTful API to access NextpProcurement data Store. 
+RESTful API to access NextProcurement data Store. 
 
 ### Dependencies
 
