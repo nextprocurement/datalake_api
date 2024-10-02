@@ -1,13 +1,12 @@
-# ELIXIR's openEBench REST API v.0.3
+# Generic REST API v.0.3 configured for NextProcurement Data Lake
 
 ### Introduction
-RESTful API to access ELIXIR Benchmarking data Store. Include HTML support allowing 
-web based browsing. HTML templates adapted to Elixir look.
+RESTful API to access NextpProcurement data Store. 
 
 ### Dependencies
 
 * Web server (Apache 2.2)
-* PHP 5.4 (libxml 2.8, json 1.2.1, mongoDB 1.6.12, zlib 1.2.1.1)
+* PHP >5.4 (libxml 2.8, json 1.2.1, mongoDB 1.6.12, zlib 1.2.1.1)
 * MongoDB PHP Driver 1.2.5
 * Bootstrap, JQuery
 
@@ -21,6 +20,6 @@ web based browsing. HTML templates adapted to Elixir look.
 
 
 ### Admin
-* Gelpi@ub.edu
+* gelpi@ub.edu
 
 ###License
