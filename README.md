@@ -22,4 +22,5 @@ RESTful API to access NextpProcurement data Store.
 ### Admin
 * gelpi@ub.edu
 
-###License
+### License
+Apache2
