@@ -1,6 +1,6 @@
 {
-    "class_name": "adjudicatarios",
-    "baseXMLTag" : "ADJUDICATARIOS",
+    "class_name": "entities",
+    "baseXMLTag" : "ENTITIES",
     "defaultOp" : "entry",
     "addDefault" : true,
     "storeData" : "",

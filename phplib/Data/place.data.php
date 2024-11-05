@@ -87,7 +87,6 @@ function getSummaryData($store, $params) {
 }
 
 function getDownloadedDocuments($params) {
-
     $fileList = $GLOBALS['cols'][$GLOBALS['documentsPrefix'].'.files']->find(
         ['filename' => ['$regex' => '^'.$params['id']]]
     )->toArray();

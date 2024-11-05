@@ -4,9 +4,9 @@
  * Skeleton for new data type store classes
  */
 
-class adjudicatarios extends DataStore {
+class entities extends DataStore {
 
-    const StoreDescription = 'Adjudicatarios de contratos';
+    const StoreDescription = 'Entidades participantes';
 
     function getData($params, $checkId=true) {
         $data = parent::getData($params);
