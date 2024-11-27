@@ -205,7 +205,8 @@ abstract class DataStore {
                     $params->fields = join (",",array_keys($this->templateFieldDefaults['search']));
                     $this->template->setListFields($this->templateFieldDefaults['search'], $this->templateLinks);
                 } else {
-                    $this->template->setListFields($this->templateAllFields, $this->templateLinks);
+                    $params->fields = join (",",array_keys($this->templateCustomFields[$params->fields]));
+                    $this->template->setListFields($this->templateCustomFields[$params->fields], $this->templateLinks);
                 }
                 break;
         }

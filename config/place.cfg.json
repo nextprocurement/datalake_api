@@ -23,7 +23,16 @@
         "Adjudicatario/Nombre_del_Adjudicatario": "Adjudicatario",
         "Entidad_Adjudicadora/Nombre": "Contratante"
     },
-
+    "templateCustomFields": {
+        "nextp_enriched" : {
+            "_id": "Id",
+            "id": "place_id",
+            "nextp_enriched/topics": "nextp_topics",
+            "nextp_enriched/companies": "nextp_companies",
+            "nextp_enriched/extracted_metadata": "nextp_extracted_metadata",
+            "nextp_enriched/predicted_cpv": "nextp_predicted_cpv"
+        }
+    },
     "templateLinks": {
         "_id": "<a href=\"Store/##_id##.html\">##_id##</a>"
     },
