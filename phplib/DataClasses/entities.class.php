@@ -9,6 +9,7 @@ class entities extends DataStore {
     const StoreDescription = 'Entidades participantes';
 
     function getData($params, $checkId=true) {
+	$params->id = strtoupper($params->id);
         $data = parent::getData($params);
         $data = extendAdjData($data, array($params));
         if ($this->error) {
