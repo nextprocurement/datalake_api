@@ -26,6 +26,7 @@ use function array_key_exists;
 use function is_array;
 use function is_integer;
 use function is_object;
+use function MongoDB\is_document;
 use function MongoDB\is_first_key_operator;
 use function MongoDB\is_pipeline;
 
@@ -40,8 +41,7 @@ class FindOneAndUpdate implements Executable, Explainable
     public const RETURN_DOCUMENT_BEFORE = 1;
     public const RETURN_DOCUMENT_AFTER = 2;
 
-    /** @var FindAndModify */
-    private $findAndModify;
+    private FindAndModify $findAndModify;
 
     /**
      * Constructs a findAndModify command for updating a document.
@@ -53,6 +53,9 @@ class FindOneAndUpdate implements Executable, Explainable
      *
      *  * bypassDocumentValidation (boolean): If true, allows the write to
      *    circumvent document level validation.
+     *
+     *  * codec (MongoDB\Codec\DocumentCodec): Codec used to decode documents
+     *    from BSON to PHP objects.
      *
      *  * collation (document): Collation specification.
      *
@@ -105,8 +108,8 @@ class FindOneAndUpdate implements Executable, Explainable
      */
     public function __construct(string $databaseName, string $collectionName, $filter, $update, array $options = [])
     {
-        if (! is_array($filter) && ! is_object($filter)) {
-            throw InvalidArgumentException::invalidType('$filter', $filter, 'array or object');
+        if (! is_document($filter)) {
+            throw InvalidArgumentException::expectedDocumentType('$filter', $filter);
         }
 
         if (! is_array($update) && ! is_object($update)) {
@@ -117,8 +120,8 @@ class FindOneAndUpdate implements Executable, Explainable
             throw new InvalidArgumentException('Expected update operator(s) or non-empty pipeline for $update');
         }
 
-        if (isset($options['projection']) && ! is_array($options['projection']) && ! is_object($options['projection'])) {
-            throw InvalidArgumentException::invalidType('"projection" option', $options['projection'], 'array or object');
+        if (isset($options['projection']) && ! is_document($options['projection'])) {
+            throw InvalidArgumentException::expectedDocumentType('"projection" option', $options['projection']);
         }
 
         if (array_key_exists('returnDocument', $options) && ! is_integer($options['returnDocument'])) {
@@ -146,7 +149,7 @@ class FindOneAndUpdate implements Executable, Explainable
         $this->findAndModify = new FindAndModify(
             $databaseName,
             $collectionName,
-            ['query' => $filter, 'update' => $update] + $options
+            ['query' => $filter, 'update' => $update] + $options,
         );
     }
 

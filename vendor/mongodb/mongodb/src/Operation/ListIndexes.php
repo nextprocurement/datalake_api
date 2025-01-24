@@ -18,6 +18,7 @@
 namespace MongoDB\Operation;
 
 use EmptyIterator;
+use Iterator;
 use MongoDB\Driver\Command;
 use MongoDB\Driver\Exception\CommandException;
 use MongoDB\Driver\Exception\RuntimeException as DriverRuntimeException;
@@ -25,7 +26,7 @@ use MongoDB\Driver\Server;
 use MongoDB\Driver\Session;
 use MongoDB\Exception\InvalidArgumentException;
 use MongoDB\Model\CachingIterator;
-use MongoDB\Model\IndexInfoIterator;
+use MongoDB\Model\IndexInfo;
 use MongoDB\Model\IndexInfoIteratorIterator;
 
 use function is_integer;
@@ -41,14 +42,11 @@ class ListIndexes implements Executable
     private const ERROR_CODE_DATABASE_NOT_FOUND = 60;
     private const ERROR_CODE_NAMESPACE_NOT_FOUND = 26;
 
-    /** @var string */
-    private $databaseName;
+    private string $databaseName;
 
-    /** @var string */
-    private $collectionName;
+    private string $collectionName;
 
-    /** @var array */
-    private $options;
+    private array $options;
 
     /**
      * Constructs a listIndexes command.
@@ -88,7 +86,7 @@ class ListIndexes implements Executable
      * Execute the operation.
      *
      * @see Executable::execute()
-     * @return IndexInfoIterator
+     * @return Iterator<int, IndexInfo>
      * @throws DriverRuntimeException for other driver errors (e.g. connection errors)
      */
     public function execute(Server $server)
@@ -147,6 +145,9 @@ class ListIndexes implements Executable
 
         $cursor->setTypeMap(['root' => 'array', 'document' => 'array']);
 
-        return new IndexInfoIteratorIterator(new CachingIterator($cursor), $this->databaseName . '.' . $this->collectionName);
+        /** @var CachingIterator<int, array> $iterator */
+        $iterator = new CachingIterator($cursor);
+
+        return new IndexInfoIteratorIterator($iterator, $this->databaseName . '.' . $this->collectionName);
     }
 }

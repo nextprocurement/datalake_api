@@ -29,6 +29,22 @@ use function sprintf;
 
 class InvalidArgumentException extends DriverInvalidArgumentException implements Exception
 {
+    public static function cannotCombineCodecAndTypeMap(): self
+    {
+        return new self('Cannot provide both "codec" and "typeMap" options');
+    }
+
+    /**
+     * Thrown when an argument or option is expected to be a document.
+     *
+     * @param string $name  Name of the argument or option
+     * @param mixed  $value Actual value (used to derive the type)
+     */
+    public static function expectedDocumentType(string $name, $value): self
+    {
+        return new self(sprintf('Expected %s to have type "document" (array or object) but found "%s"', $name, get_debug_type($value)));
+    }
+
     /**
      * Thrown when an argument or option has an invalid type.
      *
@@ -43,7 +59,7 @@ class InvalidArgumentException extends DriverInvalidArgumentException implements
             $expectedType = self::expectedTypesToString($expectedType);
         }
 
-        return new static(sprintf('Expected %s to have type "%s" but found "%s"', $name, $expectedType, get_debug_type($value)));
+        return new self(sprintf('Expected %s to have type "%s" but found "%s"', $name, $expectedType, get_debug_type($value)));
     }
 
     /** @param list<string> $types */

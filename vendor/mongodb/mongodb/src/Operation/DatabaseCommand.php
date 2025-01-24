@@ -25,7 +25,7 @@ use MongoDB\Driver\Session;
 use MongoDB\Exception\InvalidArgumentException;
 
 use function is_array;
-use function is_object;
+use function MongoDB\is_document;
 
 /**
  * Operation for executing a database command.
@@ -34,14 +34,11 @@ use function is_object;
  */
 class DatabaseCommand implements Executable
 {
-    /** @var string */
-    private $databaseName;
+    private string $databaseName;
 
-    /** @var Command */
-    private $command;
+    private Command $command;
 
-    /** @var array */
-    private $options;
+    private array $options;
 
     /**
      * Constructs a command.
@@ -66,8 +63,8 @@ class DatabaseCommand implements Executable
      */
     public function __construct(string $databaseName, $command, array $options = [])
     {
-        if (! is_array($command) && ! is_object($command)) {
-            throw InvalidArgumentException::invalidType('$command', $command, 'array or object');
+        if (! is_document($command)) {
+            throw InvalidArgumentException::expectedDocumentType('$command', $command);
         }
 
         if (isset($options['readPreference']) && ! $options['readPreference'] instanceof ReadPreference) {

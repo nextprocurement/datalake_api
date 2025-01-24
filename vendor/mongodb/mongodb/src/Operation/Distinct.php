@@ -32,6 +32,7 @@ use function is_array;
 use function is_integer;
 use function is_object;
 use function MongoDB\create_field_path_type_map;
+use function MongoDB\is_document;
 
 /**
  * Operation for the distinct command.
@@ -41,20 +42,16 @@ use function MongoDB\create_field_path_type_map;
  */
 class Distinct implements Executable, Explainable
 {
-    /** @var string */
-    private $databaseName;
+    private string $databaseName;
 
-    /** @var string */
-    private $collectionName;
+    private string $collectionName;
 
-    /** @var string */
-    private $fieldName;
+    private string $fieldName;
 
     /** @var array|object */
     private $filter;
 
-    /** @var array */
-    private $options;
+    private array $options;
 
     /**
      * Constructs a distinct command.
@@ -87,12 +84,12 @@ class Distinct implements Executable, Explainable
      */
     public function __construct(string $databaseName, string $collectionName, string $fieldName, $filter = [], array $options = [])
     {
-        if (! is_array($filter) && ! is_object($filter)) {
-            throw InvalidArgumentException::invalidType('$filter', $filter, 'array or object');
+        if (! is_document($filter)) {
+            throw InvalidArgumentException::expectedDocumentType('$filter', $filter);
         }
 
-        if (isset($options['collation']) && ! is_array($options['collation']) && ! is_object($options['collation'])) {
-            throw InvalidArgumentException::invalidType('"collation" option', $options['collation'], 'array or object');
+        if (isset($options['collation']) && ! is_document($options['collation'])) {
+            throw InvalidArgumentException::expectedDocumentType('"collation" option', $options['collation']);
         }
 
         if (isset($options['maxTimeMS']) && ! is_integer($options['maxTimeMS'])) {
@@ -185,7 +182,7 @@ class Distinct implements Executable, Explainable
             'key' => $this->fieldName,
         ];
 
-        if (! empty($this->filter)) {
+        if ($this->filter !== []) {
             $cmd['query'] = (object) $this->filter;
         }
 

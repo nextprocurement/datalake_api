@@ -31,6 +31,7 @@ use MongoDB\Exception\InvalidArgumentException;
 use MongoDB\Exception\RuntimeException;
 use MongoDB\Operation\ListCollections;
 use MongoDB\Operation\WithTransaction;
+use Psr\Log\LoggerInterface;
 use ReflectionClass;
 use ReflectionException;
 
@@ -42,9 +43,30 @@ use function get_object_vars;
 use function is_array;
 use function is_object;
 use function is_string;
-use function MongoDB\BSON\fromPHP;
-use function MongoDB\BSON\toPHP;
+use function str_ends_with;
 use function substr;
+
+/**
+ * Registers a PSR-3 logger to receive log messages from the driver/library.
+ *
+ * Calling this method again with a logger that has already been added will have
+ * no effect.
+ */
+function add_logger(LoggerInterface $logger): void
+{
+    PsrLogAdapter::addLogger($logger);
+}
+
+/**
+ * Unregisters a PSR-3 logger.
+ *
+ * Calling this method with a logger that has not been added will have no
+ * effect.
+ */
+function remove_logger(LoggerInterface $logger): void
+{
+    PsrLogAdapter::removeLogger($logger);
+}
 
 /**
  * Check whether all servers support executing a write stage on a secondary.
@@ -87,11 +109,11 @@ function all_servers_support_write_stage_on_secondary(array $servers): bool
  */
 function apply_type_map_to_document($document, array $typeMap)
 {
-    if (! is_array($document) && ! is_object($document)) {
-        throw InvalidArgumentException::invalidType('$document', $document, 'array or object');
+    if (! is_document($document)) {
+        throw InvalidArgumentException::expectedDocumentType('$document', $document);
     }
 
-    return toPHP(fromPHP($document), $typeMap);
+    return Document::fromPHP($document)->toPHP($typeMap);
 }
 
 /**
@@ -133,7 +155,7 @@ function document_to_array($document): array
     }
 
     if (! is_array($document)) {
-        throw InvalidArgumentException::invalidType('$document', $document, 'array or object');
+        throw InvalidArgumentException::expectedDocumentType('$document', $document);
     }
 
     return $document;
@@ -187,6 +209,20 @@ function get_encrypted_fields_from_server(string $databaseName, string $collecti
 }
 
 /**
+ * Returns whether a given value is a valid document.
+ *
+ * This method returns true for any array or object, but specifically excludes
+ * BSON PackedArray instances
+ *
+ * @internal
+ * @param mixed $document
+ */
+function is_document($document): bool
+{
+    return is_array($document) || (is_object($document) && ! $document instanceof PackedArray);
+}
+
+/**
  * Return whether the first key in the document starts with a "$" character.
  *
  * This is used for validating aggregation pipeline stages and differentiating
@@ -200,6 +236,10 @@ function get_encrypted_fields_from_server(string $databaseName, string $collecti
  */
 function is_first_key_operator($document): bool
 {
+    if ($document instanceof PackedArray) {
+        return false;
+    }
+
     $document = document_to_array($document);
 
     $firstKey = array_key_first($document);
@@ -266,7 +306,7 @@ function is_pipeline($pipeline, bool $allowEmpty = false): bool
     }
 
     foreach ($pipeline as $stage) {
-        if (! is_array($stage) && ! is_object($stage)) {
+        if (! is_document($stage)) {
             return false;
         }
 
@@ -456,7 +496,7 @@ function create_field_path_type_map(array $typeMap, string $fieldPath): array
     /* Special case if we want to convert an array, in which case we need to
      * ensure that the field containing the array is exposed as an array,
      * instead of the type given in the type map's array key. */
-    if (substr($fieldPath, -2, 2) === '.$') {
+    if (str_ends_with($fieldPath, '.$')) {
         $typeMap['fieldPaths'][substr($fieldPath, 0, -2)] = 'array';
     }
 
@@ -503,11 +543,11 @@ function with_transaction(Session $session, callable $callback, array $transacti
  */
 function extract_session_from_options(array $options): ?Session
 {
-    if (! isset($options['session']) || ! $options['session'] instanceof Session) {
-        return null;
+    if (isset($options['session']) && $options['session'] instanceof Session) {
+        return $options['session'];
     }
 
-    return $options['session'];
+    return null;
 }
 
 /**
@@ -517,16 +557,19 @@ function extract_session_from_options(array $options): ?Session
  */
 function extract_read_preference_from_options(array $options): ?ReadPreference
 {
-    if (! isset($options['readPreference']) || ! $options['readPreference'] instanceof ReadPreference) {
-        return null;
+    if (isset($options['readPreference']) && $options['readPreference'] instanceof ReadPreference) {
+        return $options['readPreference'];
     }
 
-    return $options['readPreference'];
+    return null;
 }
 
 /**
- * Performs server selection, respecting the readPreference and session options
- * (if given)
+ * Performs server selection, respecting the readPreference and session options.
+ *
+ * The pinned server for an active transaction takes priority, followed by an
+ * operation-level read preference, followed by an active transaction's read
+ * preference, followed by a primary read preference.
  *
  * @internal
  */
@@ -534,16 +577,23 @@ function select_server(Manager $manager, array $options): Server
 {
     $session = extract_session_from_options($options);
     $server = $session instanceof Session ? $session->getServer() : null;
+
+    // Pinned server for an active transaction takes priority
     if ($server !== null) {
         return $server;
     }
 
+    // Operation read preference takes priority
     $readPreference = extract_read_preference_from_options($options);
-    if (! $readPreference instanceof ReadPreference) {
-        // TODO: PHPLIB-476: Read transaction read preference once PHPC-1439 is implemented
-        $readPreference = new ReadPreference(ReadPreference::PRIMARY);
+
+    // Read preference for an active transaction takes priority
+    if ($readPreference === null && $session instanceof Session && $session->isInTransaction()) {
+        /* Session::getTransactionOptions() should always return an array if the
+         * session is in a transaction, but we can be defensive. */
+        $readPreference = extract_read_preference_from_options($session->getTransactionOptions() ?? []);
     }
 
+    // Manager::selectServer() defaults to a primary read preference
     return $manager->selectServer($readPreference);
 }
 
@@ -560,7 +610,11 @@ function select_server_for_aggregate_write_stage(Manager $manager, array &$optio
     $readPreference = extract_read_preference_from_options($options);
 
     /* If there is either no read preference or a primary read preference, there
-     * is no special server selection logic to apply. */
+     * is no special server selection logic to apply.
+     *
+     * Note: an alternative read preference could still be inherited from an
+     * active transaction's options, but we can rely on libmongoc to raise a
+     * "read preference in a transaction must be primary" error if necessary. */
     if ($readPreference === null || $readPreference->getModeString() === ReadPreference::PRIMARY) {
         return select_server($manager, $options);
     }
@@ -593,4 +647,19 @@ function select_server_for_aggregate_write_stage(Manager $manager, array &$optio
     assert($server instanceof Server);
 
     return $server;
+}
+
+/**
+ * Performs server selection for a write operation.
+ *
+ * The pinned server for an active transaction takes priority, followed by an
+ * operation-level read preference, followed by a primary read preference. This
+ * is similar to select_server() except that it ignores a read preference from
+ * an active transaction's options.
+ *
+ * @internal
+ */
+function select_server_for_write(Manager $manager, array $options): Server
+{
+    return select_server($manager, $options + ['readPreference' => new ReadPreference(ReadPreference::PRIMARY)]);
 }
