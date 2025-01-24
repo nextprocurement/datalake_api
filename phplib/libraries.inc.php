@@ -10,3 +10,5 @@ require_once "$phplib/encoding.inc.php";
 require_once "$phplib/templates.inc.php";
 //
 require_once "$phplib/genericData.inc.php";
+//
+require_once "$phplib/eTranslate.inc.php";

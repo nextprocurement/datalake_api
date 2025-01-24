@@ -7,13 +7,17 @@
 
     "templateFieldDefaults" : {
         "search" : {
-            "_id" : "cif/nif"
+            "_id" : "cif/nif",
+            "Nombre": "Nombre"
         }
     },
     "templateAllFields" : {
         "_id" : "cif/nif",
-        "Nombre": "Nombre"
-    },
+        "Nombre": "Nombre",
+        "ID": "ID",
+        "IDSchemeName": "IDSchemeName",
+        "Tipo_de_Administracion": "Tipo_de_Administracion"
+},
 
     "Comment": "HTML templates",
 

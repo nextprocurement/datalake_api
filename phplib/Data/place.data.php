@@ -48,6 +48,29 @@ function extendPlaceData($data, $store, $params) {
             $data['Definicion_CPV'][] = $cpv_text;
         }
     }
+    #eTranslation
+    if ($params['etranslate']) {
+        print_r(strpos(',', strtoupper($params['etranslate'])));
+        if (strpos($params['etranslate'], ',') !== false) {
+            $targetLangs = explode(',', strtoupper($params['etranslate']));
+        }
+        else {
+            $targetLangs = [strtoupper($params['etranslate'])];
+        }
+        
+        foreach ($targetLangs as $target) {
+            $idRequest = sendRequest('ES', [$target], $data['Datos_Generales_del_Expediente/Objeto_del_Contrato']);
+            if ($idRequest > 0) {
+                $etranslate_data = json_decode(setListenSocket(), true);
+                $translatedText = $etranslate_data['translated-text'];
+                $target = $etranslate_data['target-language'];
+                $data['eTranslation/'.$target.'/'.$GLOBALS['eTRANSLATE_LABELS'][$target]['Objeto_del_Contrato']] = $translatedText;
+            
+            } else {
+                error_log("Error sending eTranslation request: " . $idRequest);
+            }
+        }
+    }
     return $data;
 }
 
