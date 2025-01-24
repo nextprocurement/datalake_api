@@ -73,7 +73,6 @@ function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projectio
         'sort' => $sortA,
         'allowDiskUse' => True,
         'maxTimeMS' => 0,
-        'allowPartialResults' => True,
         'noCursorTimeout' => True
     ];
 
@@ -109,7 +108,6 @@ function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[
     'sort'=>['score'=>['$meta'=>'textScore']],
     'allowDiskUse' => True,
     'maxTimeMS' => 0,
-    'allowPartialResults' => True,
     'noCursorTimeout' => True
     ];
     if ($params['limit']) {
