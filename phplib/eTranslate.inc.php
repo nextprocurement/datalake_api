@@ -53,28 +53,25 @@ function sendRequest($sourceLanguage, $targetLanguages, $textToTranslate){
     return $idRequest;
 }
 
-function setListenSocket(){
+function setListenSocket($idRequest){
     set_time_limit($GLOBALS['eTRANSLATE_SOCK_TIMEOUT']);
     ob_implicit_flush(true);
 
     $sock = create_socket();
 
-    if (socket_bind($sock, '127.0.0.1', $GLOBALS['eTRANSLATE_SOCK_PORT']) === false) {
+    $socketPath = "/tmp/eTrans".$idRequest.".sock";
+
+    error_log("Socket path server: ".$socketPath);
+
+    $bind = socket_bind($sock, $socketPath);
+    if ($bind === false) {
         error_log("socket_bind() failed: reason: " . socket_strerror(socket_last_error($sock)));
         return false;
     }
 
-    if (socket_listen($sock, 5) === false) {
-        error_log("socket_listen() failed: reason: " . socket_strerror(socket_last_error($sock)));
-        return false;
-    }
     $data = [];
     do {
-        if (($msgsock = socket_accept($sock)) === false) {
-            error_log ("socket_accept() failed: reason: " . socket_strerror(socket_last_error($sock)));
-            break;
-        }
-        $json = socket_read($msgsock, 1024);
+        socket_recvfrom($sock, $json, 1024, 0, $socketPath);
         if ($json === false) {
             error_log("socket_read() failed: reason: " . socket_strerror(socket_last_error($msgsock)));
             socket_close($msgsock);
@@ -84,7 +81,7 @@ function setListenSocket(){
         if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
             error_log('JSON decoding error: ' . json_last_error_msg());
         }
-        socket_close($msgsock);
+        
         socket_close($sock);
         break;
     }
@@ -94,13 +91,16 @@ function setListenSocket(){
 }
 
 function create_socket() {
-    if (($sock = socket_create(AF_INET, SOCK_STREAM, SOL_TCP)) === false) {
+    $sock = socket_create(AF_UNIX, SOCK_DGRAM, 0);
+    if ($sock === false) {
         echo "socket_create() failed: reason: " . socket_strerror(socket_last_error()) . "\n";
     }
     return $sock;
 }
-function processCallBack($json){
+function processCallBack($idRequest, $json){
     $sock = create_socket();
-    socket_connect($sock, '127.0.0.1', $GLOBALS['eTRANSLATE_SOCK_PORT']);
+    $socketPath = "/tmp/eTrans".$idRequest.".sock";
+    error_log("Socket path client: ".$socketPath);
+    socket_connect($sock, $socketPath);
     socket_write($sock, $json, strlen($json));
 }

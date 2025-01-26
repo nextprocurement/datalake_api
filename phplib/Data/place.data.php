@@ -57,22 +57,30 @@ function extendPlaceData($data, $store, $params) {
         else {
             $targetLangs = [strtoupper($params['etranslate'])];
         }
-        
-        foreach ($targetLangs as $target) {
-            $idRequest = sendRequest('ES', [$target], $data['Datos_Generales_del_Expediente/Objeto_del_Contrato']);
-            if ($idRequest > 0) {
-                $etranslate_data = json_decode(setListenSocket(), true);
-                $translatedText = $etranslate_data['translated-text'];
-                $target = $etranslate_data['target-language'];
-                $data['eTranslation/'.$target.'/'.$GLOBALS['eTRANSLATE_LABELS'][$target]['Objeto_del_Contrato']] = $translatedText;
-            
-            } else {
-                error_log("Error sending eTranslation request: " . $idRequest);
+
+        foreach ($GLOBALS['eTRANSLATE_FIELDS'] as $field) {
+            foreach ($targetLangs as $target) {       
+                $GLOBALS['eTRANSLATE_LABELS'][$target][$field] = geteTranslation($target, $field);
+                $data['eTranslation/'.$target.'/'.$GLOBALS['eTRANSLATE_LABELS'][$target][$field]] = geteTranslation($target, $data[$field]);
             }
         }
     }
     return $data;
 }
+
+function geteTranslation($targetLanguage, $text) {
+    $idRequest = sendRequest('ES', [$targetLanguage], $text);
+    if ($idRequest > 0) {
+        $etranslate_data = json_decode(setListenSocket($idRequest), true);
+        $translatedText = $etranslate_data['translated-text'];
+        $target = $etranslate_data['target-language'];
+        return $translatedText;
+    } else {
+        error_log("Error sending eTranslation request: " . $idRequest);
+        return false;
+    }
+}
+
 
 function getPlaceVersions($data, $store) {
     $versions = findInDataStore(
