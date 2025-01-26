@@ -53,7 +53,7 @@ function sendRequest($sourceLanguage, $targetLanguages, $textToTranslate){
     return $idRequest;
 }
 
-function setListenSocket($idRequest){
+function setListenSocket($idRequest, $numRequests) {
     set_time_limit($GLOBALS['eTRANSLATE_SOCK_TIMEOUT']);
     ob_implicit_flush(true);
 
@@ -70,6 +70,7 @@ function setListenSocket($idRequest){
     }
 
     $data = [];
+    $requests = 0;
     do {
         socket_recvfrom($sock, $json, 1024, 0, $socketPath);
         if ($json === false) {
@@ -77,13 +78,15 @@ function setListenSocket($idRequest){
             socket_close($msgsock);
             break;
         }
-        $data = json_decode($json, true);
+        $data[] = json_decode($json, true);
         if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
             error_log('JSON decoding error: ' . json_last_error_msg());
         }
-        
-        socket_close($sock);
-        break;
+        $requests++;
+        if ($requests == $numRequests) {
+            socket_close($sock);
+            break;
+        }
     }
     while (true);
 

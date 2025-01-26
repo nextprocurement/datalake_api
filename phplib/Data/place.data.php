@@ -59,26 +59,34 @@ function extendPlaceData($data, $store, $params) {
         }
 
         foreach ($GLOBALS['eTRANSLATE_FIELDS'] as $field) {
-            foreach ($targetLangs as $target) {       
-                $GLOBALS['eTRANSLATE_LABELS'][$target][$field] = geteTranslation($target, $field);
-                $data['eTranslation/'.$target.'/'.$GLOBALS['eTRANSLATE_LABELS'][$target][$field]] = geteTranslation($target, $data[$field]);
+            if (!$GLOBALS['eTRANSLATE_LABELS'][$target][$field]) {
+                $etranslate_fields = geteTranslation($targetLangs, $field);
+                foreach ($targetLangs as $target) {
+                    $GLOBALS['eTRANSLATE_LABELS'][$target][$field] = $etranslate_fields[$target];
+                }
+            }
+            $etranslate_data = geteTranslation($targetLangs, $data[$field]);
+            foreach ($targetLangs as $target) {
+                $data['eTranslation/'.$target.'/'.$GLOBALS['eTRANSLATE_LABELS'][$target][$field]] = $etranslate_data[$target];
             }
         }
     }
     return $data;
 }
 
-function geteTranslation($targetLanguage, $text) {
-    $idRequest = sendRequest('ES', [$targetLanguage], $text);
+function geteTranslation($targetLanguages, $text) {
+    $idRequest = sendRequest('ES', $targetLanguages, $text);
+    $numRequests = count($targetLanguages);
     if ($idRequest > 0) {
-        $etranslate_data = json_decode(setListenSocket($idRequest), true);
-        $translatedText = $etranslate_data['translated-text'];
-        $target = $etranslate_data['target-language'];
-        return $translatedText;
-    } else {
-        error_log("Error sending eTranslation request: " . $idRequest);
-        return false;
-    }
+        $etranslate_responses = setListenSocket($idRequest, $numRequests);
+        foreach ($etranslate_responses as $response) {
+            $decoded_response = json_decode($response, true);
+            $etranslate_data[$decoded_response['target-language']] = $decoded_response['translated-text'];
+        }
+        return $etranslate_data;
+    } 
+    error_log("Error sending eTranslation request: " . $idRequest);
+    return false;
 }
 
 
