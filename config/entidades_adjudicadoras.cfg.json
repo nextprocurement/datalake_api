@@ -38,5 +38,6 @@
         "_id":1,
         "Nombre":1
     },
-    "noEmptyQuery":true
+    "noEmptyQuery":true,
+    "searchStream":false
 }

@@ -71,9 +71,7 @@ function keyWordSearch($dataStore, $params, $toArray=True, $sortA=[], $projectio
     $options = [
         'projection' => $projection,
         'sort' => $sortA,
-        'allowDiskUse' => True,
-        'maxTimeMS' => 0,
-        'noCursorTimeout' => True
+        'allowDiskUse' => True
     ];
 
     if ($params['limit']) {
@@ -106,9 +104,7 @@ function textSearch($dataStore, $params, $toArray=True, $sortA=[], $projection=[
     $options = [
     'projection'=> $projection,
     'sort'=>['score'=>['$meta'=>'textScore']],
-    'allowDiskUse' => True,
-    'maxTimeMS' => 0,
-    'noCursorTimeout' => True
+    'allowDiskUse' => True
     ];
     if ($params['limit']) {
         $options['limit'] = intval($params['limit']);
