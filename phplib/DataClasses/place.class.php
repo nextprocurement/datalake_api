@@ -50,4 +50,14 @@ class place extends DataStore {
     // function documentos($params) {
     //     return [STRUCT, getDownloadedDocuments((array)$params)];
     // }
+    function search($params) {
+        $search_result = parent::search($params);
+        $filtered_result = [0,'PLACE'=>[]];
+        foreach ($search_result[1]['PLACE'] as $doc) {
+            if (isset($params->ntp2) or (!isset($param->ntp2) and !preg_match('/^ntp2/', $doc['_id']))) {
+                $filtered_result[1]['PLACE'][] = $doc;
+            } 
+        }
+        return $filtered_result;
+    }
 }

@@ -1,0 +1,42 @@
+{
+    "class_name": "entidades_adjudicadoras",
+    "baseXMLTag" : "ENTIiDADES_ADJUDICADORAS",
+    "defaultOp" : "entry",
+    "addDefault" : true,
+    "storeData" : "",
+
+    "templateFieldDefaults" : {
+        "search" : {
+            "_id" : "cif/nif",
+            "Nombre": "Nombre",
+            "ID": "Identificador"
+        }
+    },
+    "templateAllFields" : {
+        "_id" : "cif/nif",
+        "Nombre": "Nombre",
+        "ID": "ID",
+        "IDSchemeName": "IDSchemeName",
+        "Tipo_de_Administracion": "Tipo_de_Administracion"
+},
+
+    "Comment": "HTML templates",
+
+    "templateLinks" : {
+        "Comment": "template for HTML links",
+        "_id" : "<a href=\"Store/##_id##.html\">##_id##</a>"
+    },
+
+    "templateArrayLinks" : {
+        "Comment": "Links in array fields  ( expansion of foering keys)",
+        "foreing key_id" : "Store:Field"
+    },
+
+    "classTemplate" : "file",
+
+    "textQueryOn": {
+        "_id":1,
+        "Nombre":1
+    },
+    "noEmptyQuery":true
+}
