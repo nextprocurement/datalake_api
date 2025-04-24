@@ -1,0 +1,113 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "_id": { "type": "string" },
+    "Criterio_de_Adjudicacion/Descripcion": { "type": "string" },
+    "Datos_Generales_del_Expediente/Clasificacion_CPV": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string" },
+          "text": { "type": "string" }
+        },
+        "required": ["value", "text"]
+      }
+    },
+    "Datos_Generales_del_Expediente/Numero_de_Expediente": { "type": "string" },
+    "Datos_Generales_del_Expediente/Objeto_del_Contrato": {
+      "type": "object",
+      "properties": {
+        "@CODE": { "type": "string" },
+        "#text": { "type": "string" }
+      },
+      "required": ["@CODE", "#text"]
+    },
+    "Datos_Generales_del_Expediente/Pliego_de_Clausulas_Administrativas/Codigo": { "type": "string" },
+    "Datos_Generales_del_Expediente/Pliego_de_Clausulas_Administrativas/Texto": { "type": "string" },
+    "Datos_Generales_del_Expediente/Tipo_de_Contrato": {
+      "type": "object",
+      "properties": {
+        "@CODE": { "type": "string" },
+        "#text": { "type": "string" }
+      },
+      "required": ["@CODE", "#text"]
+    },
+    "Datos_Generales_del_Expediente/Valor_estimado_del_contrato": { "type": "string" },
+    "Entidad_Adjudicadora/Actividad": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string" },
+          "value": { "type": "string" }
+        },
+        "required": ["text", "value"]
+      }
+    },
+    "Entidad_Adjudicadora/Calle": { "type": "string" },
+    "Entidad_Adjudicadora/Codigo_Postal": { "type": "string" },
+    "Entidad_Adjudicadora/Correo_Electronico": { "type": "string", "format": "email" },
+    "Entidad_Adjudicadora/ID": { "type": ["string", "null"] },
+    "Entidad_Adjudicadora/Nombre": { "type": "string" },
+    "Entidad_Adjudicadora/Nombre_para_contacto": { "type": ["string", "null"] },
+    "Entidad_Adjudicadora/Pais": {
+      "type": "object",
+      "properties": {
+        "@VALUE": { "type": "string" }
+      },
+      "required": ["@VALUE"]
+    },
+    "Entidad_Adjudicadora/Poblacion": { "type": "string" },
+    "Entidad_Adjudicadora/Sitio_Web": { "type": "string", "format": "uri" },
+    "Entidad_Adjudicadora/Telefax": { "type": "string" },
+    "Entidad_Adjudicadora/Telefono": { "type": "string" },
+    "Entidad_Adjudicadora/Tipo_de_Administracion": { "type": ["string", "null"] },
+    "Entidad_Adjudicadora/URL_perfil_de_contratante": { "type": ["string", "null"], "format": "uri" },
+    "Entidad_Adjudicadora/Ubicacion_organica": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string" },
+          "text": { "type": "string" }
+        },
+        "required": ["value", "text"]
+      }
+    },
+    "Entidad_Adjudicadora/Ubicacion_organica/Nombre": {
+      "type": "object",
+      "properties": {
+        "@CODE": { "type": "string" }
+      },
+      "required": ["@CODE"]
+    },
+    "Lugar_de_ejecucion/Pais": {
+      "type": "object",
+      "properties": {
+        "@VALUE": { "type": "string" }
+      },
+      "required": ["@VALUE"]
+    },
+    "Plazo_de_Presentacion_de_Solicitudes/Fecha": { "type": ["string", "null"], "format": "date" },
+    "Proceso_de_licitacion/Descripcion": { "type": "string" },
+    "Proceso_de_licitacion/Tramitacion": { "type": "string" },
+    "Publicaciones_Oficiales/Fecha_de_Envio_de_Anuncio_al_Diario_Oficial": { "type": "string", "format": "date" },
+    "Publicaciones_Oficiales/Fecha_de_Publicacion": { "type": "string", "format": "date" },
+    "Ted_form_id": { "type": "string" },
+    "Ted_reception_id": { "type": "string" },
+    "Ted_year": { "type": "string" },
+    "id": { "type": "string" }
+  },
+  "required": [
+    "_id",
+    "Datos_Generales_del_Expediente/Numero_de_Expediente",
+    "Entidad_Adjudicadora/Nombre",
+    "Entidad_Adjudicadora/Pais",
+    "Lugar_de_ejecucion/Pais",
+    "Proceso_de_licitacion/Descripcion",
+    "Ted_form_id",
+    "id"
+  ]
+}

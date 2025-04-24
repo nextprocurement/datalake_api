@@ -1,0 +1,187 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+      "_id": { "type": "string" },
+      "Ted_form_id": { "type": "string" },
+      "Ted_reception_id": { "type": "string" },
+      "Ted_year": { "type": "string" },
+      "id": { "type": "string" },
+      "Criterio_de_Adjudicacion": {
+        "type": "object",
+        "properties": {
+          "Descripcion": { "type": "string" }
+        },
+        "required": ["Descripcion"]
+      },
+      "Datos_Generales_del_Expediente": {
+        "type": "object",
+        "properties": {
+          "Clasificacion_CPV": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": { "type": "string" },
+                "text": { "type": "string" }
+              },
+              "required": ["value", "text"]
+            }
+          },
+          "Numero_de_Expediente": { "type": "string" },
+          "Objeto_del_Contrato": {
+            "type": "object",
+            "properties": {
+              "@CODE": { "type": "string" },
+              "#text": { "type": "string" }
+            },
+            "required": ["@CODE", "#text"]
+          },
+          "Pliego_de_Clausulas_Administrativas": {
+            "type": "object",
+            "properties": {
+              "Codigo": { "type": "string" },
+              "Texto": { "type": "string" }
+            },
+            "required": ["Codigo", "Texto"]
+          },
+          "Tipo_de_Contrato": {
+            "type": "object",
+            "properties": {
+              "@CODE": { "type": "string" },
+              "#text": { "type": "string" }
+            },
+            "required": ["@CODE", "#text"]
+          },
+          "Valor_estimado_del_contrato": { "type": "string" }
+        },
+        "required": [
+          "Clasificacion_CPV",
+          "Numero_de_Expediente",
+          "Objeto_del_Contrato",
+          "Pliego_de_Clausulas_Administrativas",
+          "Tipo_de_Contrato",
+          "Valor_estimado_del_contrato"
+        ]
+      },
+      "Entidad_Adjudicadora": {
+        "type": "object",
+        "properties": {
+          "Actividad": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": { "type": "string" },
+                "value": { "type": "string" }
+              },
+              "required": ["text", "value"]
+            }
+          },
+          "Calle": { "type": "string" },
+          "Codigo_Postal": { "type": "string" },
+          "Correo_Electronico": { "type": "string", "format": "email" },
+          "ID": { "type": ["string", "null"] },
+          "Nombre": { "type": "string" },
+          "Nombre_para_contacto": { "type": ["string", "null"] },
+          "Pais": {
+            "type": "object",
+            "properties": {
+              "@VALUE": { "type": "string" }
+            },
+            "required": ["@VALUE"]
+          },
+          "Poblacion": { "type": "string" },
+          "Sitio_Web": { "type": "string", "format": "uri" },
+          "Telefax": { "type": "string" },
+          "Telefono": { "type": "string" },
+          "Tipo_de_Administracion": { "type": ["string", "null"] },
+          "URL_perfil_de_contratante": { "type": ["string", "null"], "format": "uri" },
+          "Ubicacion_organica": {
+            "type": "object",
+            "properties": {
+              "0": {
+                "type": "object",
+                "properties": {
+                  "value": { "type": "string" },
+                  "text": { "type": "string" }
+                },
+                "required": ["value", "text"]
+              },
+              "Nombre": {
+                "type": "object",
+                "properties": {
+                  "@CODE": { "type": "string" }
+                },
+                "required": ["@CODE"]
+              }
+            },
+            "required": ["0", "Nombre"]
+          }
+        },
+        "required": [
+          "Actividad",
+          "Calle",
+          "Codigo_Postal",
+          "Correo_Electronico",
+          "Nombre",
+          "Pais",
+          "Poblacion",
+          "Sitio_Web",
+          "Telefax",
+          "Telefono",
+          "Ubicacion_organica"
+        ]
+      },
+      "Lugar_de_ejecucion": {
+        "type": "object",
+        "properties": {
+          "Pais": {
+            "type": "object",
+            "properties": {
+              "@VALUE": { "type": "string" }
+            },
+            "required": ["@VALUE"]
+          }
+        },
+        "required": ["Pais"]
+      },
+      "Plazo_de_Presentacion_de_Solicitudes": {
+        "type": "object",
+        "properties": {
+          "Fecha": { "type": ["string", "null"], "format": "date" }
+        },
+        "required": ["Fecha"]
+      },
+      "Proceso_de_licitacion": {
+        "type": "object",
+        "properties": {
+          "Descripcion": { "type": "string" },
+          "Tramitacion": { "type": "string" }
+        },
+        "required": ["Descripcion", "Tramitacion"]
+      },
+      "Publicaciones_Oficiales": {
+        "type": "object",
+        "properties": {
+          "Fecha_de_Envio_de_Anuncio_al_Diario_Oficial": { "type": "string", "format": "date" },
+          "Fecha_de_Publicacion": { "type": "string", "format": "date" }
+        },
+        "required": ["Fecha_de_Envio_de_Anuncio_al_Diario_Oficial", "Fecha_de_Publicacion"]
+      }
+    },
+    "required": [
+      "_id",
+      "Ted_form_id",
+      "Ted_reception_id",
+      "Ted_year",
+      "id",
+      "Criterio_de_Adjudicacion",
+      "Datos_Generales_del_Expediente",
+      "Entidad_Adjudicadora",
+      "Lugar_de_ejecucion",
+      "Plazo_de_Presentacion_de_Solicitudes",
+      "Proceso_de_licitacion",
+      "Publicaciones_Oficiales"
+    ]
+  }

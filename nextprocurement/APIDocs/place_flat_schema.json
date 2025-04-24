@@ -1,0 +1,166 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "_id": { "type": "string" },
+    "id": { "type": "string", "format": "uri" },
+    "data_model": { "type": "string" },
+    "summary": { "type": "string" },
+    "title": { "type": "string" },
+    "Datos_Generales_del_Expediente/Numero_de_Expediente": { "type": "string" },
+    "Entidad_Adjudicadora/Nombre": { "type": "string" },
+    "Entidad_Adjudicadora/Ubicacion_organica/Nombre": { "type": "string" },
+    "Datos_Generales_del_Expediente/Objeto_del_Contrato": { "type": "string" },
+    "Datos_Generales_del_Expediente/Tipo_de_Contrato": { "type": "integer" },
+    "Datos_Generales_del_Expediente/Valor_Estimado_del_Contrato": { "type": "number" },
+    "Datos_Generales_del_Expediente/Presupuesto_Base_sin_Impuestos": { "type": "number" },
+    "Datos_Generales_del_Expediente/Clasificacion_CPV": { "type": "string" },
+    "Lugar_de_ejecucion/Codigo_de_Subentidad_Territorial": { "type": "string" },
+    "Datos_Generales_del_Expediente/Plazo_de_Ejecucion/Comienzo": { "type": "string" },
+    "Datos_Generales_del_Expediente/Plazo_de_Ejecucion/Fin": { "type": "string" },
+    "Proceso_de_licitacion/Tipo_de_procedimiento": { "type": "integer" },
+    "Publicaciones_Oficiales/Tipo_de_Anuncio": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "Publicaciones_Oficiales/Medio_de_Publicacion": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "Publicaciones_Oficiales/Fecha_de_Publicacion": {
+      "type": "array",
+      "items": { "type": "string", "format": "date" }
+    },
+    "Plazo_de_Presentacion_de_Oferta/Fecha": { "type": "string", "format": "date" },
+    "Plazo_de_Presentacion_de_Oferta/Hora": { "type": "string", "format": "time" },
+    "Plazo_de_Presentacion_de_Oferta/Plazo_de_Presentacion_de_Oferta": {
+      "type": "object",
+      "properties": {
+        "$date": {
+          "type": "object",
+          "properties": {
+            "$numberLong": { "type": "string" }
+          },
+          "required": ["$numberLong"]
+        }
+      }
+    },
+    "Resultado_del_procedimiento/Resultado": { "type": "string" },
+    "Resultado_del_procedimiento/Ofertas_Recibidas": { "type": "string" },
+    "Adjudicatario/Identificador": { "type": "string" },
+    "Adjudicatario/IDschemeName": { "type": "string" },
+    "Adjudicatario/Nombre_del_Adjudicatario": { "type": "string" },
+    "Importes_de_Adjudicacion/Importe_Total_Ofertado_sin_Impuestos": { "type": "string" },
+    "Datos_Generales_del_Expediente/Pliego_de_Clausulas_Administrativas/Archivo": { "type": "string" },
+    "Datos_Generales_del_Expediente/Pliego_de_Clausulas_Administrativas/URI": { "type": "string" },
+    "Datos_Generales_del_Expediente/Pliego_de_Prescripciones_Tecnicas/Archivo": { "type": "string" },
+    "Datos_Generales_del_Expediente/Pliego_de_Prescripciones_Tecnicas/URI": { "type": "string" },
+    "Datos_Generales_del_Expediente/Plazo_de_Ejecucion/Duracion": { "type": "integer" },
+    "Entidad_Adjudicadora/URL_perfil_de_contratante": { "type": "string", "format": "uri" },
+    "Resultado_del_procedimiento/Lote": { "type": "string" },
+    "Entidad_Adjudicadora/ID": { "type": "string" },
+    "Entidad_Adjudicadora/IDschemeName": { "type": "string" },
+    "Plazo_de_Presentacion_de_Solicitudes/Fecha": { "type": "string" },
+    "Plazo_de_Presentacion_de_Solicitudes/Hora": { "type": "string" },
+    "updated": {
+      "type": "array",
+      "items": { "type": "string", "format": "date-time" }
+    },
+    "Datos_Generales_del_Expediente/Estado": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "deleted_on": { "type": "string" },
+    "patch_data": { "type": "array" },
+    "link": { "type": "string", "format": "uri" },
+    "nextp_enriched/extracted_metadata": {
+      "type": "object",
+      "properties": {
+        "procurement_id": { "type": "string" },
+        "doc_name": { "type": "string" },
+        "criterios_adjudicacion": { "type": "string" },
+        "criterios_solvencia": { "type": "string" },
+        "condiciones_especiales": { "type": "string" }
+      }
+    },
+    "nextp_enriched/predicted_cpv": {
+      "type": "object",
+      "properties": {
+        "procurement_id_x": { "type": "string" },
+        "objective": { "type": "string" },
+        "cpv_code": { "type": "string" }
+      }
+    },
+    "nextp_enriched/translated_object": { "type": "string" },
+    "indice_unico": { "type": "string" },
+    "Proceso_de_Licitacion/Tipo_de_Tramitacion": { "type": "integer" },
+    "Datos_Generales_del_Expediente_del_Lote/ID_del_Lote": { "type": "string" },
+    "Datos_Generales_del_Expediente_del_Lote/Objeto_del_Lote": { "type": "string" },
+    "Datos_Generales_del_Expediente_del_Lote/Presupuesto_Base_sin_Impuestos": { "type": "number" },
+    "Datos_Generales_del_Expediente_del_Lote/Clasificacion_CPV": { "type": "string" },
+    "origen": { "type": "string" },
+    "link_old": { "type": "string", "format": "uri" },
+    "Proceso_de_licitacion/Tipo_de_Tramitacion": { "type": "integer" },
+    "Datos_Generales_del_Expediente/Plazo_de_Ejecucion/Duracion_gc": { "type": "integer" },
+    "Importes_de_Adjudicacion/Importe_Total_Ofertado_sin_Impuestos_gc": { "type": "string" },
+    "Proceso_de_licitacion/Tipo_de_procedimiento_gc": { "type": "string" },
+    "versions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_id": { "type": "string" },
+          "updated": {
+            "type": ["array", "null"],
+            "items": { "type": "string", "format": "date-time" }
+          }
+        },
+        "required": ["_id"]
+      }
+    },
+    "documentos": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "object",
+            "properties": {
+              "$oid": { "type": "string" }
+            },
+            "required": ["$oid"]
+          },
+          "filename": { "type": "string" },
+          "md5": { "type": "string" },
+          "chunkSize": { "type": "integer" },
+          "length": { "type": "integer" },
+          "uploadDate": {
+            "type": "object",
+            "properties": {
+              "$date": {
+                "type": "object",
+                "properties": {
+                  "$numberLong": { "type": "string" }
+                },
+                "required": ["$numberLong"]
+              }
+            },
+            "required": ["$date"]
+          },
+          "place_filename": { "type": "string" },
+          "duplicate": { "type": "boolean" }
+        },
+        "required": ["_id", "filename", "md5", "chunkSize", "length", "uploadDate", "place_filename", "duplicate"]
+      }
+    }
+  },
+  "required": [
+    "_id",
+    "id",
+    "data_model",
+    "summary",
+    "title",
+    "versions",
+    "documentos"
+  ]
+}

@@ -10,7 +10,7 @@
       "name": "Apache 2.0",
       "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "1.0.0"
+    "version": "1.0.5"
   },
   "servers": [
     {
@@ -34,7 +34,7 @@
         "tags": [
           "public"
         ],
-        "summary": "searches companies inventory",
+        "summary": "search curated companies inventory",
         "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
         "operationId": "searchCompanies",
         "parameters": [
@@ -75,7 +75,7 @@
         "tags": [
           "public"
         ],
-        "summary": "extract company information",
+        "summary": "extract curated company information",
         "description": "Company information",
         "operationId": "getCompany",
         "parameters": [
@@ -98,6 +98,85 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CompanyItem"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Unknown ID"
+          }
+        }
+      }
+    },
+    "/entities": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "search entities (both betters and awarding entities) inventory",
+        "description": "By passing in the appropriate options, you can search for\navailable inventory in the system\n",
+        "operationId": "searchEntities",
+        "parameters": [
+          {
+            "name": "query",
+            "in": "query",
+            "description": "pass an optional search string for looking up inventory",
+            "required": false,
+            "style": "form",
+            "explode": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "search results matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EntityList"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "bad input parameter"
+          }
+        }
+      }
+    },
+    "/entities/{id}": {
+      "get": {
+        "tags": [
+          "public"
+        ],
+        "summary": "extract entity information",
+        "description": "Entity information",
+        "operationId": "getEntity",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Entity ID (NIF/CIF)",
+            "required": true,
+            "style": "simple",
+            "explode": false,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Entity matching criteria",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EntityItem"
                 }
               }
             }
@@ -582,6 +661,67 @@
           }
         }
       },
+      "EntityList": {
+        "type": "object",
+        "properties": {
+          "ENTITIES": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CompanyList_ENTITIES"
+            }
+          }
+        }
+      },
+      "EntityItem": {
+        "required": [
+          "NIF",
+          "Name",
+          "_id"
+        ],
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "description": "Primary key"
+          },
+          "NIF": {
+            "type": "string",
+            "description": "Identifiers (NIF/CIF)"
+          },
+          "FullName": {
+            "type": "string",
+            "description": "Full company name"
+          },
+          "Name": {
+            "type": "string",
+            "description": "Short company name"
+          },
+          "Province": {
+            "type": "string",
+            "description": "Province (for Spain based companies)"
+          },
+          "NIFType": {
+            "type": "string",
+            "description": "Type of identifier (CIF/NIF)"
+          },
+          "CompanyType": {
+            "type": "string",
+            "description": "Type of company (SL, SA, ...)"
+          },
+          "CompanyDescription": {
+            "type": "string",
+            "description": "Company description and activities"
+          },
+          "id_tender": {
+            "type": "array",
+            "description": "List of tenders",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+
       "cpvList": {
         "type": "object",
         "properties": {
